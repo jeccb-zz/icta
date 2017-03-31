@@ -6,9 +6,10 @@ import { Provider } from 'react-redux';
 import App from './containers/App';
 import ideaApp from './reducers';
 
-const createStoreWithMiddleware = compose(applyMiddleware(thunkMiddleware)(createStore));
-
-const store = createStoreWithMiddleware(ideaApp);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(ideaApp,  composeEnhancers(
+  applyMiddleware(thunkMiddleware)
+));
 
 render(
   <div>
