@@ -7,7 +7,13 @@ use Mix.Config
 
 # General application configuration
 config :icta,
-  ecto_repos: [Icta.Repo]
+  ecto_repos: [Icta.Repo],
+  google: %{
+    client_id: System.get_env("ICTA_GOOGLE_CLIENT_ID"),
+    client_secret: System.get_env("ICTA_GOOGLE_CLIENT_SECRET"),
+    api_key: System.get_env("ICTA_GOOGLE_API_KEY"),
+    redirect_uri: (System.get_env("ICTA_GOOGLE_REDIRECT_URI") || "http://localhost:4000/auth/google/callback")
+  }
 
 # Configures the endpoint
 config :icta, Icta.Endpoint,

@@ -19,8 +19,10 @@ defmodule Icta.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Icta do
-  #   pipe_through :api
-  # end
+  scope "/auth", Icta do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :index
+    get "/:provider/callback", AuthController, :callback
+  end
 end
