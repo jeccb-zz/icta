@@ -1,18 +1,37 @@
 defmodule Icta.AuthController do
   use Icta.Web, :controller
 
+  alias Icta.User
+  alias Icta.Repo
+
   def index(conn, %{"provider" => provider}) do
     redirect conn, external: authorize_url!(provider)
   end
 
   def callback(conn, %{"provider" => provider, "code" => code}) do
     client = get_token!(provider, code)
-    user = get_user!(provider, client)
+    user_body = get_user!(provider, client)
 
-    conn
-    |> put_session(:current_user, user)
-    |> put_session(:access_token, client.token.access_token)
-    |> redirect(to: "/")
+    IO.puts(inspect user_body)
+
+    result =
+      case Repo.get_by(User, uid: user_body["id"]) do
+        nil -> %User{}
+        user -> user
+      end
+      |> User.changeset_from_google(user_body)
+      |> Repo.insert_or_update
+
+    case result do
+      {:ok, struct} ->
+        conn
+        |> put_session(:current_user, struct)
+        |> put_session(:access_token, client.token.access_token)
+        |> redirect(to: "/")
+      {:error, changeset} ->
+        conn
+        |> redirect(to: "/error")
+    end
   end
 
   defp authorize_url!("google") do

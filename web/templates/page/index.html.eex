@@ -1,5 +1,5 @@
 <div class="jumbotron">
-  <h2>SUP! <%= @current_user["name"]["givenName"] %></h2>
+  <h2>SUP! <%= @current_user.name %></h2>
 </div>
 
 <div id="root"></div>
