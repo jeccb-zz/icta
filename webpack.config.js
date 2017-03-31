@@ -28,6 +28,7 @@ module.exports = {
   },
 
   resolve: {
+    extensions: ['.js', '.jsx'],
     alias: {
       phoenix: __dirname + '/deps/phoenix/web/static/js/phoenix.js'
     }
