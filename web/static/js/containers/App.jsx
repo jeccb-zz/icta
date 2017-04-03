@@ -1,20 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { fetchIdeas } from '../actions';
 import { connect } from 'react-redux';
+import IdeasListContainer from './IdeasListContainer';
 
-class App extends Component {
-  componentDidMount() {
-    let { dispatch } = this.props;
-    console.log("SUP");
-
-    dispatch(fetchIdeas());
-  }
-
-  render() {
-    return (
-      <div>Hello World :)</div>
-    )
-  }
-}
+const App = () => (
+  <IdeasListContainer/>
+)
 
 export default connect()(App);

@@ -1,5 +1,4 @@
-import { combineReducers } from 'redux';
-import { FETCH_IDEAS_REQUEST, FETCH_IDEAS_SUCCESS, FETCH_IDEAS_FAILURE, ADD_IDEA_SUCCESS } from './actions';
+import { FETCH_IDEAS_REQUEST, FETCH_IDEAS_SUCCESS, FETCH_IDEAS_FAILURE, ADD_IDEA_SUCCESS } from '../actions/ideas';
 
 const ideas = (state = [], action) => {
   switch(action.type) {
@@ -18,8 +17,6 @@ const ideas = (state = [], action) => {
     default:
       return state;
   }
-
 }
-const ideaApp = combineReducers({ideas});
 
-export default ideaApp;
+export default ideas;
