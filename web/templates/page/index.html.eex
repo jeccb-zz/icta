@@ -1,5 +1,3 @@
-<div class="jumbotron">
-  <h2>SUP! <%= @current_user.name %></h2>
-</div>
+<h2>Welcome <%= @current_user.name %></h2>
 
 <div id="root"></div>

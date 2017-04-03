@@ -13,9 +13,9 @@ const IdeasList = ({ideas, addIdea}) => {
   return (
     <div>
       <input type="text" ref={(node) => { input = node }} />
-      <button onClick={onClick} />
+      <button onClick={onClick} >Add Idea</button>
       <ul className="ideasList">
-        { ideas.map((idea) => (<IdeasListItem idea={idea} />)) }
+        { ideas.map((idea) => (<IdeasListItem key={idea.id} idea={idea} />)) }
       </ul>
     </div>
   );
