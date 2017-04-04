@@ -12,8 +12,6 @@ defmodule Icta.AuthController do
     client = get_token!(provider, code)
     user_body = get_user!(provider, client)
 
-    IO.puts(inspect user_body)
-
     result =
       case Repo.get_by(User, uid: user_body["id"]) do
         nil -> %User{}
@@ -23,12 +21,16 @@ defmodule Icta.AuthController do
       |> Repo.insert_or_update
 
     case result do
-      {:ok, struct} ->
+      {:ok, user} ->
+        token = Phoenix.Token.sign(conn, "user socket", user.id)
+        IO.puts("Token: #{token}")
+
         conn
-        |> put_session(:current_user, struct)
+        |> put_session(:current_user, user)
         |> put_session(:access_token, client.token.access_token)
+        |> put_session(:user_token, token)
         |> redirect(to: "/")
-      {:error, changeset} ->
+      {:error, _} ->
         conn
         |> redirect(to: "/error")
     end
