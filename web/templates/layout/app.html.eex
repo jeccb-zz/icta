@@ -9,13 +9,14 @@
 
     <title>Hello Icta!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+
+    <script src="https://use.fontawesome.com/d1dd1632cc.js"></script>
   </head>
 
   <body>
-    <div class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <%= render @view_module, "navbar.html", assigns %>
 
+    <div class="container">
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>

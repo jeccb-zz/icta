@@ -12,11 +12,12 @@ const IdeasList = ({ideas, addIdea}) => {
 
   return (
     <div>
+      <h1> Ideas </h1>
       <input type="text" ref={(node) => { input = node }} />
       <button onClick={onClick} >Add Idea</button>
-      <ul className="ideasList">
+      <div className="ideasList list-group">
         { ideas.map((idea) => (<IdeasListItem key={idea.id} idea={idea} />)) }
-      </ul>
+      </div>
     </div>
   );
 }
