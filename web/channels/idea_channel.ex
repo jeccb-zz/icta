@@ -6,28 +6,16 @@ defmodule Icta.IdeaChannel do
   alias Icta.Vote
 
   def join("ideas", _params, socket) do
-    query = from i in Idea,
-      left_join: v_up in Vote, on: i.id == v_up.idea_id and v_up.vote == true,
-      left_join: v_down in Vote, on: i.id == v_down.idea_id and v_down.vote == false,
-      select: %{id: i.id, title: i.title, body: i.body,
-                up: count(v_up.id, :distinct), down: count(v_down.id, :distinct)},
-      group_by: [i.id, i.title, i.body]
-
-    ideas = Repo.all(query)
-
-    IO.puts inspect ideas
-
-    {:ok, %{ ideas: ideas }, socket }
+    {:ok, %{ ideas: Idea.all_with_votes }, socket }
   end
 
   def handle_in("new:idea", params, socket) do
-    result = %Idea{}
+    result = socket.assigns[:current_user]
+             |> build_assoc(:ideas)
              |> Idea.changeset(params)
              |> Repo.insert
 
-    case result do
-      {:ok, idea} ->
-        broadcast! socket, "new:idea", %{
+    case result do {:ok, idea} -> broadcast! socket, "new:idea", %{
           id: idea.id,
           title: idea.title,
           body: idea.body,
@@ -42,22 +30,14 @@ defmodule Icta.IdeaChannel do
   end
 
   def handle_in("new:vote", params, socket) do
-    result = %Vote{}
+    result = socket.assigns[:current_user]
+             |> build_assoc(:votes)
              |> Vote.changeset(params)
              |> Repo.insert
 
     case result do
       {:ok, vote} ->
-        query = from i in Idea, where: i.id == ^vote.idea_id,
-          left_join: v_up in Vote, on: i.id == v_up.idea_id and v_up.vote == true,
-          left_join: v_down in Vote, on: i.id == v_down.idea_id and v_down.vote == false,
-          select: %{id: i.id, title: i.title, body: i.body,
-                    up: count(v_up.id, :distinct), down: count(v_down.id, :distinct)},
-          group_by: [i.id, i.title, i.body]
-
-        [idea | _] = Repo.all(query)
-
-        broadcast! socket, "new:vote", idea
+        broadcast! socket, "new:vote", Idea.one_with_votes(vote.idea_id)
       {:error, error} ->
         IO.puts("ERROR! #{inspect error}")
     end

@@ -4,6 +4,8 @@ defmodule Icta.User do
   schema "users" do
     field :uid, :string
     field :name, :string
+    has_many :votes, Icta.Vote
+    has_many :ideas, Icta.Idea
 
     timestamps()
   end
