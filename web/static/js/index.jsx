@@ -6,11 +6,14 @@ import { createBrowserHistory } from 'history';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 
-import { Router, Route } from 'react-router';
-
-import { syncHistoryWithStore } from 'react-router-redux';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 
 import IdeasListContainer from './containers/IdeasListContainer';
+import NewIdeaContainer from './containers/NewIdeaContainer';
 import rootReducer from './reducers/index';
 
 
@@ -20,12 +23,15 @@ const store = createStore(rootReducer, composeEnhancers(
   applyMiddleware(thunkMiddleware)
 ));
 
-const history = syncHistoryWithStore(createBrowserHistory(), store);
+const history = createBrowserHistory();
 
 render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={IdeasListContainer} />
+      <div>
+        <Route exact path="/" component={IdeasListContainer} />
+        <Route path="/new_idea" component={NewIdeaContainer} />
+      </div>
     </Router>
   </Provider>,
   document.getElementById('root')

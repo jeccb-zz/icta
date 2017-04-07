@@ -21,7 +21,7 @@ const fetchIdeasRequest = () => ({ type: FETCH_IDEAS_REQUEST });
 const fetchIdeasSuccess = ideas => ({ type: FETCH_IDEAS_SUCCESS, ideas });
 const fetchIdeasFailure = error => ({ type: FETCH_IDEAS_FAILURE, ideas });
 
-const addIdeaRequest = title => ({ type: ADD_IDEA_REQUEST, title });
+const addIdeaRequest = title => ({ type: ADD_IDEA_REQUEST, title, body });
 const addIdeaSuccess = idea => ({ type: ADD_IDEA_SUCCESS, idea });
 const addIdeaFailure = (title, error) => ({ type: ADD_IDEA_FAILURE, title, error });
 
@@ -63,18 +63,18 @@ export const fetchIdeas = () => (
   }
 );
 
-export const addIdea = (title) => (
+export const addIdea = (title, body) => (
   dispatch => {
-    dispatch(addIdeaRequest(title));
+    console.log("HELLO!")
+    dispatch(addIdeaRequest(title, body));
 
-    const payload = { title, body: 'Shine' }
+    const payload = { title:title, body: body }
 
     channel.push('new:idea', payload)
       .receive('ok', response => {
-        console.log('created idea', response);
+        dispatch(addIdeaSuccess(response));
       })
       .receive('error', error => {
-        console.error('idea not created: ', error);
         dispatch(addIdeaFailure(title, error));
       });
   }
