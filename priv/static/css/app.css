@@ -11,3 +11,7 @@
 .breadcrumb {
   padding: 8px 15px 8px 0;
 }
+
+.list-group-item .fa-arrow-up.active, .list-group-item .fa-arrow-down.active {
+  color: #FF0000;
+}

@@ -6,7 +6,7 @@ defmodule Icta.IdeaChannel do
   alias Icta.Vote
 
   def join("ideas", _params, socket) do
-    {:ok, %{ ideas: Idea.all_with_votes }, socket }
+    {:ok, %{ ideas: Idea.all_with_votes(socket.assigns[:current_user]) }, socket }
   end
 
   def handle_in("new:idea", params, socket) do
@@ -30,14 +30,21 @@ defmodule Icta.IdeaChannel do
   end
 
   def handle_in("new:vote", params, socket) do
-    result = socket.assigns[:current_user]
-             |> build_assoc(:votes)
-             |> Vote.changeset(params)
-             |> Repo.insert
+    result =
+      case Repo.one(from vote in Vote,
+                    preload: [:user, :idea],
+                    where: vote.user_id == ^socket.assigns[:current_user].id and
+                           vote.idea_id == ^params["idea_id"]) do
+        nil -> socket.assigns[:current_user]
+               |> build_assoc(:votes)
+        vote -> vote
+      end
+      |> Vote.changeset(params)
+      |> Repo.insert_or_update
 
     case result do
       {:ok, vote} ->
-        broadcast! socket, "new:vote", Idea.one_with_votes(vote.idea_id)
+        broadcast! socket, "new:vote", Idea.one_with_votes(vote.idea_id, socket.assigns[:current_user])
       {:error, error} ->
         IO.puts("ERROR! #{inspect error}")
     end
