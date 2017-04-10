@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
 import IdeasListItem from './IdeasListItem';
 import { connect } from 'react-redux';
-import { addIdea } from '../actions/ideas'
 import { Link } from 'react-router-dom'
 
-const IdeasList = ({ideas, addIdea}) => (
+const IdeasList = ({ideas}) => (
   <div>
 
     <ol className="breadcrumb">
@@ -15,7 +14,7 @@ const IdeasList = ({ideas, addIdea}) => (
 
     <div className="row">
       <div className="col-xs-8">
-        <Link to="/new_idea" className="btn btn-primary btn-lg">Add Idea</Link>
+        <Link to="/ideas/new" className="btn btn-primary btn-lg">Add Idea</Link>
       </div>
     </div>
 
@@ -33,10 +32,4 @@ const mapStateToProps = state => ({
   ideas: state.ideas,
 })
 
-const mapDispatchToProps = dispatch => ({
-  addIdea: () => {
-    dispatch(push('/new_idea'));
-  },
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(IdeasList);
+export default connect(mapStateToProps)(IdeasList);

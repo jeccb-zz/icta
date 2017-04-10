@@ -1,29 +1,8 @@
-import React, { Component, PropTypes } from 'react';
-import { fetchIdeas } from '../actions/ideas';
-import { connect } from 'react-redux';
+import React, { PropTypes } from 'react';
 import IdeasList from '../components/IdeasList';
 
-class IdeasListContainer extends Component {
-  componentDidMount() {
-    let { getIdeas } = this.props;
-    getIdeas();
-  }
+const IdeasListContainer = () => (
+  <IdeasList />
+)
 
-  render() {
-    return (
-      <IdeasList />
-    )
-  }
-}
-
-const mapDispatchToProps = dispatch => ({
-  getIdeas: () => {
-    dispatch(fetchIdeas());
-  },
-});
-
-IdeasListContainer.propTypes = {
-  getIdeas: React.PropTypes.func.isRequired,
-}
-
-export default connect(null, mapDispatchToProps)(IdeasListContainer);
+export default IdeasListContainer;
