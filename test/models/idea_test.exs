@@ -1,10 +1,12 @@
 defmodule Icta.IdeaTest do
   use Icta.ModelCase
 
+  import Icta.Factory
+
   alias Icta.Idea
 
-  @valid_attrs %{body: "some content", title: "some content"}
-  @invalid_attrs %{}
+  @valid_attrs %{title: "Create a Idea repository", body: "Create it!", user_id: 1}
+  @invalid_attrs %{title: "Create a Idea repository", body: "Create it!"}
 
   test "changeset with valid attributes" do
     changeset = Idea.changeset(%Idea{}, @valid_attrs)
@@ -14,5 +16,36 @@ defmodule Icta.IdeaTest do
   test "changeset with invalid attributes" do
     changeset = Idea.changeset(%Idea{}, @invalid_attrs)
     refute changeset.valid?
+  end
+
+  test "all_with_votes should return all ideas" do
+    user = insert(:user)
+    insert_pair(:idea, %{user: user})
+
+    ideas = Idea.all_with_votes(user)
+    assert length(ideas) == 2
+  end
+
+  test "one_with_votes should return the first idea matched" do
+    user = insert(:user)
+    [idea | _] = insert_pair(:idea, %{user: user})
+
+    # Assert two ideas are present
+    ideas = Idea.all_with_votes(user)
+    assert length(ideas) == 2
+
+    idea_return = Idea.one_with_votes(idea.id, user)
+    assert idea_return.id == idea.id
+  end
+
+  test "all_with_votes should return the correct vote count for the idea" do
+    user = insert(:user)
+    idea = insert(:idea, %{user: user})
+    insert_list(5, :vote, %{idea: idea})
+    insert_list(2, :vote, %{idea: idea, vote: false})
+
+    idea_return = Idea.one_with_votes(idea.id, user)
+    assert idea_return.up == 5
+    assert idea_return.down == 2
   end
 end

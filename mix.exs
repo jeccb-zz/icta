@@ -30,7 +30,8 @@ defmodule Icta.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:oauth2, "~> 0.9"},
+    [{:ex_machina, "~> 2.0", only: :test},
+     {:oauth2, "~> 0.9"},
      {:phoenix, "~> 1.2.1"},
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.0"},
