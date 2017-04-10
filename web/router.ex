@@ -13,16 +13,16 @@ defmodule Icta.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", Icta do
-    pipe_through :browser # Use the default browser stack
-
-    get "/*path", PageController, :index
-  end
-
   scope "/auth", Icta do
     pipe_through :browser
 
     get "/:provider", AuthController, :index
     get "/:provider/callback", AuthController, :callback
+  end
+
+  scope "/", Icta do
+    pipe_through :browser # Use the default browser stack
+
+    get "/*path", PageController, :index
   end
 end
