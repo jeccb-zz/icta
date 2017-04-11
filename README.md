@@ -2,9 +2,9 @@
 
 Icta is an idea repository. The idea behind it is quite simple: To have a central place where everybody can add ideas and vote on them.
 
-## Development: 
+## Development
 
-### Dependencies:
+### Dependencies
 
  * Elixir 1.4.2
  * Node 7.3.0
@@ -37,7 +37,12 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
     ICTA_GOOGLE_API_KEY
 ```
 
+### Tests
+
+run `mix tests` :)
+
 ### Contributing
 
-Check `CODE_OF_CONDUCT.md` 
-License: `MIT`
+Check [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+ 
+Icta is available under the [MIT](LICENSE.md) license.
