@@ -5,7 +5,7 @@ const ShowIdea = ({idea}) => (
     <h1>{idea.title}</h1>
     <p>by <strong>{idea.author}</strong></p>
     <p>{idea.body}</p>
-    <</p>/div>
+  </div>
 );
 
 export default ShowIdea;

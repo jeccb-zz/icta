@@ -9,7 +9,7 @@ defmodule Icta.IdeaChannel do
     {:ok, %{ }, socket }
   end
 
-  def handle_in("idea:get_all", params, socket) do
+  def handle_in("idea:get_all", _, socket) do
     {:reply, {:ok, %{ ideas: Idea.all_with_votes(socket.assigns[:current_user]) }}, socket }
   end
 

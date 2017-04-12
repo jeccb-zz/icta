@@ -38,7 +38,7 @@ export const vote = (ideaId, vote) => (
 
     const payload = { idea_id: ideaId, vote }
 
-    channel.push('new:vote', payload)
+    channel.push('vote:new', payload)
       .receive('ok', response => {
         console.log('created idea', response);
       })

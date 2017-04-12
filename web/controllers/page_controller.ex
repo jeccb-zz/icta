@@ -9,7 +9,7 @@ defmodule Icta.PageController do
       conn
       |> assign(:current_user, current_user)
       |> assign(:user_token, token)
-      |> render "index.html"
+      |> render("index.html")
     else
       redirect conn, to: auth_path(conn, :index, "google")
     end
