@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { addIdea } from '../actions/ideas'
 import NewIdea from '../components/NewIdea';
 
-const NewIdeaContainer = ({onAddIdea, loading}) => (
-  <NewIdea onAddIdea={onAddIdea} loading={loading}/>
+const NewIdeaContainer = ({onAddIdea, loading, history}) => (
+  <NewIdea onAddIdea={onAddIdea(history)} loading={loading}/>
 );
 
 const mapDispatchToProps = dispatch => ({
-  onAddIdea: (title, body) => {
-    dispatch(addIdea(title, body));
+  onAddIdea: (history) => (title, body) => {
+    dispatch(addIdea(title, body, history));
   }
 });
 

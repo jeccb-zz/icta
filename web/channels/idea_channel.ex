@@ -32,11 +32,11 @@ defmodule Icta.IdeaChannel do
           up: 0,
           down: 0
         }
+        {:reply, :ok, socket }
       {:error, error} ->
         IO.puts("ERROR! #{inspect error}")
+        {:reply, {:error, error }, socket }
     end
-
-    {:noreply, socket}
   end
 
   def handle_in("vote:new", params, socket) do

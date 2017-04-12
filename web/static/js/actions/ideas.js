@@ -96,7 +96,7 @@ export const fetchIdeas = () => (
   }
 );
 
-export const addIdea = (title, body) => (
+export const addIdea = (title, body, history) => (
   dispatch => {
     dispatch(addIdeaRequest(title, body));
 
@@ -105,6 +105,7 @@ export const addIdea = (title, body) => (
     channel.push('idea:new', payload)
       .receive('ok', response => {
         dispatch(addIdeaSuccess(response));
+        history.push('/');
       })
       .receive('error', error => {
         dispatch(addIdeaFailure(title, error));

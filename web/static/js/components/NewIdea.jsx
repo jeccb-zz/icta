@@ -13,6 +13,7 @@ const NewIdea = ({onAddIdea, loading}) => {
     if (!title.value.trim()){
       return;
     }
+
     onAddIdea(title.value, body.value);
   };
 
