@@ -7,7 +7,7 @@ ENV MIX_ENV prod
 COPY . /icta
 WORKDIR /icta
 
-RUN mix local.hex --force && mix deps.get --force && mix compile
+RUN mix local.hex --force && mix local.rebar --force &&  mix deps.get --force && mix compile
 RUN npm install  && node_modules/webpack/bin/webpack.js
 
 RUN mix phoenix.digest

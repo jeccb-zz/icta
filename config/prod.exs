@@ -15,7 +15,7 @@ config :icta, Icta.Endpoint,
   http: [port: System.get_env("ICTA_PORT")],
   url: [host: System.get_env("ICTA_HOST"), port: System.get_env("ICTA_PORT")],
   secret_key_base: System.get_env("ICTA_SECRET_KEY"),
-  cache_static_manifest: "priv/static/manifest.json",
+  cache_static_manifest: "priv/static/manifest.json"
 
 # Do not print debug messages in production
 config :logger, level: :info
@@ -63,8 +63,3 @@ config :icta, Icta.Repo,
 # start per endpoint:
 #
 #     config :icta, Icta.Endpoint, server: true
-#
-
-# Finally import the config/prod.secret.exs
-# which should be versioned separately.
-import_config "prod.secret.exs"
