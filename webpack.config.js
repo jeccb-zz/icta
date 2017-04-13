@@ -5,8 +5,13 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var env = process.env.MIX_ENV || 'dev';
 var isProduction = (env === 'prod');
 
+// helpers for writing path names
+// e.g. join("web/static") => "/full/disk/path/to/hello/web/static"
+function join(dest) { return path.resolve(__dirname, dest); }
+function web(dest) { return join("web/static/" + dest); }
+
 var plugins = [
-  new ExtractTextPlugin('app.css')
+  new ExtractTextPlugin('css/app.css')
 ];
 
 // This is necessary to get the sass @import's working
@@ -20,15 +25,18 @@ if (isProduction) {
 }
 
 module.exports = {
-  entry: path.resolve('./web/static/js/index.jsx'),
+  entry: [
+    web('js/index.jsx'),
+    web('css/style.scss')
+  ],
 
   output: {
-    path: path.resolve('./priv/static/js'),
-    filename: 'app.js'
+    path: join('priv/static'),
+    filename: 'js/app.js'
   },
 
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.scss', '.css'],
     alias: {
       phoenix: __dirname + '/deps/phoenix/web/static/js/phoenix.js'
     }
@@ -47,11 +55,10 @@ module.exports = {
             {
               test: /\.scss$/,
               loader: ExtractTextPlugin.extract({
-                fallback: 'style',
-                use: 'css' + '!sass?outputStyle=expanded&' + stylePathResolves
+                fallback: 'style-loader',
+                use: 'css-loader!sass-loader?' + stylePathResolves
               })
             }
-
         ]
   },
 
