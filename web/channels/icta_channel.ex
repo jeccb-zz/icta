@@ -5,7 +5,7 @@ defmodule Icta.IdeaChannel do
   alias Icta.Idea
   alias Icta.Vote
 
-  def join("ideas", _params, socket) do
+  def join("icta", _params, socket) do
     {:ok, %{ }, socket }
   end
 
@@ -60,5 +60,9 @@ defmodule Icta.IdeaChannel do
     end
 
     {:noreply, socket}
+  end
+
+  def handle_in("user:get", _, socket) do
+    {:reply, {:ok, %{ user: %{ name: socket.assigns[:current_user].name }}}, socket}
   end
 end

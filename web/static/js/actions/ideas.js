@@ -1,7 +1,7 @@
 import { configureChannel } from '../channel';
 
 let socket = configureChannel();
-let channel = socket.channel('ideas', {});
+let channel = socket.channel('icta', {});
 
 export const FETCH_IDEAS_REQUEST = 'FETCH_IDEAS_REQUEST';
 export const FETCH_IDEAS_SUCCESS = 'FETCH_IDEAS_SUCCESS';
@@ -15,6 +15,14 @@ export const VOTE_FAILURE = 'VOTE_FAILURE';
 export const SHOW_IDEA_SUCCESS = 'SHOW_IDEA_SUCCESS';
 export const SHOW_IDEA_REQUEST = 'SHOW_IDEA_REQUEST';
 export const SHOW_IDEA_FAILURE = 'SHOW_IDEA_FAILURE';
+
+export const USER_INFO_REQUEST = 'USER_INFO_REQUEST';
+export const USER_INFO_SUCCESS = 'USER_INFO_SUCCESS';
+export const USER_INFO_FAILURE = 'USER_INFO_FAILURE';
+
+const userInfoRequest = () => ({ type: USER_INFO_REQUEST });
+const userInfoSuccess = (user) => ({ type: USER_INFO_SUCCESS, user });
+const userInfoFailure = (error) => ({ type: USER_INFO_FAILURE, error });
 
 const voteRequest = () => ({ type: VOTE_REQUEST });
 const voteSuccess = (idea) => ({ type: VOTE_SUCCESS, idea });
@@ -31,6 +39,20 @@ const addIdeaFailure = (title, error) => ({ type: ADD_IDEA_FAILURE, title, error
 const showIdeaRequest = () => ({ type: SHOW_IDEA_REQUEST });
 const showIdeaSuccess = (idea) => ({ type: SHOW_IDEA_SUCCESS, idea });
 const showIdeaFailure = (error) => ({ type: SHOW_IDEA_FAILURE, error });
+
+export const getUser = () => (
+  dispatch => {
+    dispatch(userInfoRequest());
+
+    channel.push('user:get', {})
+      .receive('ok', response => {
+        dispatch(userInfoSuccess(response.user));
+      })
+      .receive('error', error => {
+        dispatch(userInfoFailure(error));
+      });
+  }
+);
 
 export const vote = (ideaId, vote) => (
   dispatch => {

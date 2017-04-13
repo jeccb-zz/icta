@@ -1,4 +1,4 @@
-defmodule Icta.IdeaSocket do
+defmodule Icta.IctaSocket do
   use Phoenix.Socket
 
   alias Icta.Repo
@@ -9,7 +9,7 @@ defmodule Icta.IdeaSocket do
   ## Channels
   # channel "room:*", Icta.RoomChannel
 
-  channel "ideas", Icta.IdeaChannel
+  channel "icta", Icta.IdeaChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

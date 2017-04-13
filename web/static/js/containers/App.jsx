@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { fetchIdeas } from '../actions/ideas';
+import { fetchIdeas, getUser } from '../actions/ideas';
 import { connect } from 'react-redux';
 import { createBrowserHistory } from 'history';
 

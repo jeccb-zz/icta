@@ -1,7 +1,7 @@
 defmodule Icta.Endpoint do
   use Phoenix.Endpoint, otp_app: :icta
 
-  socket "/socket", Icta.IdeaSocket
+  socket "/socket", Icta.IctaSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
