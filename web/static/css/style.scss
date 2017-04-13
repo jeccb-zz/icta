@@ -11,3 +11,37 @@ $navbar-height: 100px;
 .list-group-item .fa-arrow-up.active, .list-group-item .fa-arrow-down.active {
   color: #FF0000;
 }
+
+.navbar-inverse {
+  background-color: #4378bd;
+  border-color: #4378bd;
+}
+
+.navbar-brand {
+  background-image: url('../images/ictawhite.png');
+  background-size: 103px 35px;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 160px;
+}
+
+.navbar-nav > li {
+  padding: 0 15px;
+}
+
+.navbar-nav > li:hover {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#999999+0,3c6dad+95,3c6dad+95,3c6dad+97,1d5caa+97,1d5caa+100&0+0,1+100 */
+  background: -moz-linear-gradient(top, rgba(153,153,153,0) 0%, rgba(60,109,173,0.95) 95%, rgba(29,92,170,0.97) 95%, rgba(29,92,170,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(153,153,153,0) 0%,rgba(60,109,173,0.95) 95%,rgba(29,92,170,0.97) 95%,rgba(29,92,170,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(153,153,153,0) 0%,rgba(60,109,173,0.95) 95%,rgba(29,92,170,0.97) 95%,rgba(29,92,170,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', endColorstr='#1d5caa',GradientType=0 ); /* IE6-9 */
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #ffffff;
+  font-size: 14pt;
+}
+
+.navbar-inverse .navbar-text {
+  color: #ffffff;
+}

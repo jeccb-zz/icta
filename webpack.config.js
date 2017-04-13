@@ -58,7 +58,12 @@ module.exports = {
                 fallback: 'style-loader',
                 use: 'css-loader!sass-loader?' + stylePathResolves
               })
+            },
+            {
+              test: /\.png$/,
+              loader: 'url-loader'
             }
+
         ]
   },
 

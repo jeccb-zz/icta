@@ -7,9 +7,18 @@ const Header = ({userName}) => (
     <div className="container-fluid">
       <div className="navbar-header">
         <a className="navbar-brand" href="#">
-          <Link to="/">Icta</Link>
+          <Link to="/"></Link>
         </a>
       </div>
+
+      <ul className="nav navbar-nav">
+        <li>
+          <Link to="/">List</Link>
+        </li>
+        <li>
+          <Link to="/ideas/new">New</Link>
+        </li>
+      </ul>
 
       <ul className="nav navbar-nav navbar-right">
         <li><p className="navbar-text">Welcome {userName}</p></li>
