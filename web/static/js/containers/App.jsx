@@ -25,7 +25,7 @@ class App extends Component {
         <Router history={history}>
           <div>
             <Header />
-            <div class="container">
+            <div className="container-fluid">
               <main role="main">
                 <Route exact path="/" component={IdeasListContainer} />
                 <Route path="/ideas/new" component={NewIdeaContainer} />
