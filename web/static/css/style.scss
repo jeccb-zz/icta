@@ -8,8 +8,19 @@ $navbar-height: 100px;
   padding: 8px 15px 8px 0;
 }
 
-.list-group-item .fa-arrow-up.active, .list-group-item .fa-arrow-down.active {
-  color: #FF0000;
+
+.list-group-item {
+  .vote-count {
+    color: #d7d7d7;
+  }
+
+  .fa-caret-up, .fa-caret-down {
+    color: #d3d3d3;
+
+    &.active{
+      color: #4378bd;
+    }
+  }
 }
 
 .navbar-inverse {
@@ -18,8 +29,8 @@ $navbar-height: 100px;
 }
 
 .navbar-brand {
-  background-image: url('../images/ictawhite.png');
-  background-size: 103px 35px;
+  background-image: url('../images/ictawhitelower.png');
+  background-size: 65%;
   background-repeat: no-repeat;
   background-position: center;
   width: 160px;

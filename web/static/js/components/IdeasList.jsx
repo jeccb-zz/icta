@@ -5,9 +5,6 @@ import { Link } from 'react-router-dom'
 
 const IdeasList = ({ideas}) => (
   <div>
-
-    <div className="page-header"><h1> Ideas </h1></div>
-
     <div className="row">
       <div className="col-xs-12">
         <div className="ideasList list-group">
