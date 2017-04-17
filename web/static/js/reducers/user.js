@@ -1,6 +1,6 @@
-import { USER_INFO_SUCCESS, USER_INFO_FAILURE, USER_INFO_REQUEST,  } from '../actions/ideas';
+import { USER_INFO_SUCCESS, USER_INFO_FAILURE, USER_INFO_REQUEST } from '../actions/ideas';
 
-const user = (state = { name: '' }, action) => {
+const user = (state = { name: null, id: null }, action) => {
   switch(action.type) {
     case USER_INFO_REQUEST:
       return { ...state, loading: true };

@@ -17,6 +17,15 @@ defmodule Icta.IdeaChannel do
     {:reply, {:ok, %{ idea: Idea.one_with_votes(params["idea_id"], socket.assigns[:current_user]) }}, socket }
   end
 
+  def handle_in("idea:delete", params, socket) do
+    idea = Repo.get_by!(Idea, %{
+                   user_id: socket.assigns[:current_user].id,
+                   id: params["idea_id"] })
+    case Repo.delete(idea) do
+      {:ok, _}        -> {:reply, {:ok, %{}}, socket }
+      {:error, error} -> {:reply, {:error, error}, socket }
+    end
+  end
 
   def handle_in("idea:new", params, socket) do
     result = socket.assigns[:current_user]
@@ -24,7 +33,8 @@ defmodule Icta.IdeaChannel do
              |> Idea.changeset(params)
              |> Repo.insert
 
-    case result do {:ok, idea} -> broadcast! socket, "idea:new", %{
+    case result do
+      {:ok, idea} -> broadcast! socket, "idea:new", %{
           id: idea.id,
           title: idea.title,
           body: idea.body,
@@ -63,6 +73,9 @@ defmodule Icta.IdeaChannel do
   end
 
   def handle_in("user:get", _, socket) do
-    {:reply, {:ok, %{ user: %{ name: socket.assigns[:current_user].name }}}, socket}
+    {:reply, {:ok, %{ user: %{
+      name: socket.assigns[:current_user].name,
+      id: socket.assigns[:current_user].id
+    }}}, socket}
   end
 end

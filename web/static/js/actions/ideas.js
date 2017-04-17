@@ -6,15 +6,22 @@ let channel = socket.channel('icta', {});
 export const FETCH_IDEAS_REQUEST = 'FETCH_IDEAS_REQUEST';
 export const FETCH_IDEAS_SUCCESS = 'FETCH_IDEAS_SUCCESS';
 export const FETCH_IDEAS_FAILURE = 'FETCH_IDEAS_FAILURE';
+
 export const ADD_IDEA_REQUEST = 'ADD_IDEA_REQUEST';
 export const ADD_IDEA_SUCCESS = 'ADD_IDEA_SUCCESS';
 export const ADD_IDEA_FAILURE = 'ADD_IDEA_FAILURE';
+
 export const VOTE_REQUEST = 'VOTE_REQUEST';
 export const VOTE_SUCCESS = 'VOTE_SUCCESS';
 export const VOTE_FAILURE = 'VOTE_FAILURE';
+
 export const SHOW_IDEA_SUCCESS = 'SHOW_IDEA_SUCCESS';
 export const SHOW_IDEA_REQUEST = 'SHOW_IDEA_REQUEST';
 export const SHOW_IDEA_FAILURE = 'SHOW_IDEA_FAILURE';
+
+export const DELETE_IDEA_SUCCESS = 'DELETE_IDEA_SUCCESS';
+export const DELETE_IDEA_REQUEST = 'DELETE_IDEA_REQUEST';
+export const DELETE_IDEA_FAILURE = 'DELETE_IDEA_FAILURE';
 
 export const USER_INFO_REQUEST = 'USER_INFO_REQUEST';
 export const USER_INFO_SUCCESS = 'USER_INFO_SUCCESS';
@@ -40,6 +47,10 @@ const showIdeaRequest = () => ({ type: SHOW_IDEA_REQUEST });
 const showIdeaSuccess = (idea) => ({ type: SHOW_IDEA_SUCCESS, idea });
 const showIdeaFailure = (error) => ({ type: SHOW_IDEA_FAILURE, error });
 
+const deleteIdeaRequest = () => ({ type: DELETE_IDEA_REQUEST });
+const deleteIdeaSuccess = (ideaId) => ({ type: DELETE_IDEA_SUCCESS, ideaId });
+const deleteIdeaFailure = (error) => ({ type: DELETE_IDEA_FAILURE, error });
+
 export const getUser = () => (
   dispatch => {
     dispatch(userInfoRequest());
@@ -50,6 +61,22 @@ export const getUser = () => (
       })
       .receive('error', error => {
         dispatch(userInfoFailure(error));
+      });
+  }
+);
+
+export const deleteIdea = (ideaId) => (
+  dispatch => {
+    dispatch(deleteIdeaRequest());
+
+    const payload = { idea_id: ideaId };
+
+    channel.push('idea:delete', payload)
+      .receive('ok', response => {
+        dispatch(deleteIdeaSuccess(ideaId));
+      })
+      .receive('error', error => {
+        dispatch(deleteIdeaFailure(error));
       });
   }
 );

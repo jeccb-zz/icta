@@ -16,9 +16,24 @@ $navbar-height: 100px;
 
   .fa-caret-up, .fa-caret-down {
     color: #d3d3d3;
+    cursor: pointer;
 
-    &.active{
+    &.active {
       color: #4378bd;
+    }
+  }
+
+  .idea-actions {
+    line-height: 75px;
+
+    i {
+      transition: color 0.5s ease;
+      color: #d3d3d3;
+      cursor: pointer;
+    }
+
+    i:hover {
+      color: black;
     }
   }
 }
