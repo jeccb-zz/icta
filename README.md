@@ -45,6 +45,8 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
     ICTA_GOOGLE_API_KEY
 ```
 
+you may also set `ICTA_GOOGLE_ALLOWED_DOMAIN` if you are using your company google provider, that way only people using the google email with a certain domain will be allowed to log-in.
+
 ### Tests
 
 run `mix tests` :)

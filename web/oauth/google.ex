@@ -14,7 +14,7 @@ defmodule Google do
   end
 
   def authorize_url! do
-    OAuth2.Client.authorize_url!(client(), scope: "profile")
+    OAuth2.Client.authorize_url!(client(), scope: "profile", hd: Application.get_env(:icta, :google)[:allowed_domain])
   end
 
   def get_token!(params \\ [], headers \\ [], opts \\ []) do

@@ -12,7 +12,8 @@ config :icta,
     client_id: System.get_env("ICTA_GOOGLE_CLIENT_ID"),
     client_secret: System.get_env("ICTA_GOOGLE_CLIENT_SECRET"),
     api_key: System.get_env("ICTA_GOOGLE_API_KEY"),
-    redirect_uri: (System.get_env("ICTA_GOOGLE_REDIRECT_URI") || "http://localhost:4000/auth/google/callback")
+    redirect_uri: (System.get_env("ICTA_GOOGLE_REDIRECT_URI") || "http://localhost:4000/auth/google/callback"),
+    allowed_domain: System.get_env("ICTA_GOOGLE_ALLOWED_DOMAIN")
   }
 
 # Configures the endpoint
