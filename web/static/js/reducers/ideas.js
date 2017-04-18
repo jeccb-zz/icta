@@ -1,5 +1,5 @@
 import { FETCH_IDEAS_REQUEST, FETCH_IDEAS_SUCCESS, FETCH_IDEAS_FAILURE,
-  ADD_IDEA_SUCCESS, VOTE_SUCCESS, DELETE_IDEA_SUCCESS } from '../actions/ideas';
+  ADD_IDEA_SUCCESS, VOTE_SUCCESS, DELETE_IDEA_SUCCESS, NEW_IDEA_RECEIVED } from '../actions/ideas';
 
 const sortIdeas = (ideas) => (ideas.sort((a, b) => ( (b.up - b.down) - (a.up - a.down))));
 
@@ -13,6 +13,8 @@ const ideas = (state = [], action) => {
       console.error("Error retrieving ideas")
       return state;
     case ADD_IDEA_SUCCESS:
+      return state;
+    case NEW_IDEA_RECEIVED:
       return sortIdeas([
         ...state,
         action.idea,

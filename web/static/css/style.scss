@@ -3,6 +3,8 @@ $bootstrap-sass-asset-helper: true;
 $navbar-height: 100px;
 
 @import "bootstrap-sass/assets/stylesheets/_bootstrap";
+@import "simplemde/src/css/simplemde";
+@import "codemirror";
 
 .breadcrumb {
   padding: 8px 15px 8px 0;

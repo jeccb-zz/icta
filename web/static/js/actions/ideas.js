@@ -27,6 +27,8 @@ export const USER_INFO_REQUEST = 'USER_INFO_REQUEST';
 export const USER_INFO_SUCCESS = 'USER_INFO_SUCCESS';
 export const USER_INFO_FAILURE = 'USER_INFO_FAILURE';
 
+export const NEW_IDEA_RECEIVED = 'NEW_IDEA_RECEIVED';
+
 const userInfoRequest = () => ({ type: USER_INFO_REQUEST });
 const userInfoSuccess = (user) => ({ type: USER_INFO_SUCCESS, user });
 const userInfoFailure = (error) => ({ type: USER_INFO_FAILURE, error });
@@ -40,7 +42,7 @@ const fetchIdeasSuccess = ideas => ({ type: FETCH_IDEAS_SUCCESS, ideas });
 const fetchIdeasFailure = error => ({ type: FETCH_IDEAS_FAILURE, ideas });
 
 const addIdeaRequest = title => ({ type: ADD_IDEA_REQUEST, title, body });
-const addIdeaSuccess = idea => ({ type: ADD_IDEA_SUCCESS, idea });
+const addIdeaSuccess = idea => ({ type: ADD_IDEA_SUCCESS });
 const addIdeaFailure = (title, error) => ({ type: ADD_IDEA_FAILURE, title, error });
 
 const showIdeaRequest = () => ({ type: SHOW_IDEA_REQUEST });
@@ -50,6 +52,8 @@ const showIdeaFailure = (error) => ({ type: SHOW_IDEA_FAILURE, error });
 const deleteIdeaRequest = () => ({ type: DELETE_IDEA_REQUEST });
 const deleteIdeaSuccess = (ideaId) => ({ type: DELETE_IDEA_SUCCESS, ideaId });
 const deleteIdeaFailure = (error) => ({ type: DELETE_IDEA_FAILURE, error });
+
+const newIdeaReceived = idea => ({ type: NEW_IDEA_RECEIVED, idea });
 
 export const getUser = () => (
   dispatch => {
@@ -136,7 +140,7 @@ export const fetchIdeas = () => (
       });
 
     channel.on('idea:new', msg => {
-      dispatch(addIdeaSuccess(msg));
+      dispatch(newIdeaReceived(msg));
     });
 
     channel.on('vote:new', msg => {

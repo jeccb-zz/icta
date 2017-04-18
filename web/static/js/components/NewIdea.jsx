@@ -1,47 +1,56 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import SimpleMDE from 'simplemde';
 
-const NewIdea = ({onAddIdea, loading}) => {
-  let title;
-  let body;
+class NewIdea extends React.Component {
 
-  const onSubmit = e => {
+  constructor(props) {
+    super(props);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    console.log("MOUNTED!");
+    var simplemde = new SimpleMDE({ forceSync: true });
+  }
+
+  onSubmit(e) {
     e.preventDefault();
-    console.log(title.value.trim() ? true : false);
-    console.log(body.value.trim());
     if (!title.value.trim()){
       return;
     }
 
-    onAddIdea(title.value, body.value);
-  };
+    this.props.onAddIdea(title.value, body.value);
+  }
 
-  return (
-    <div>
+  render() {
 
-      <ol className="breadcrumb">
-        <li><Link to="/">List</Link></li>
-        <li className="active">New Idea</li>
-      </ol>
+    return (
+      <div>
+        <ol className="breadcrumb">
+          <li><Link to="/">List</Link></li>
+          <li className="active">New Idea</li>
+        </ol>
 
-      <div className="page-header">
-        <h1> New Idea </h1>
+        <div className="page-header">
+          <h1> New Idea </h1>
+        </div>
+
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <label htmlFor="title">Title</label>
+            <input ref={node => { this.title = node }} type="text" className="form-control" id="title" placeholder="Title"/>
+          </div>
+          <div className="">
+            <label htmlFor="body">Body</label>
+            <textarea ref={node => { this.body = node }}  id="body" rows="4"></textarea>
+          </div>
+          <button type="submit" className="btn btn-primary">Add Idea</button>
+        </form>
       </div>
-
-      <form onSubmit={onSubmit}>
-        <div className="form-group">
-          <label htmlFor="title">Title</label>
-          <input ref={node => { title = node }} type="text" className="form-control" id="title" placeholder="Title"/>
-        </div>
-        <div className="form-group">
-          <label htmlFor="body">Body</label>
-          <textarea ref={node => { body = node }}className="form-control" id="body" ></textarea>
-        </div>
-        <button type="submit" className="btn btn-primary">Add Idea</button>
-      </form>
-    </div>
-  )
+    )
+  }
 }
 
 

@@ -25,6 +25,7 @@
     "redux-devtools": "^3.3.2",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.3",
+    "simplemde": "^1.11.2",
     "style-loader": "^0.16.1",
     "webpack": "^2.3.2"
   },
