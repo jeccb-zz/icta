@@ -28,15 +28,6 @@ class NewIdea extends React.Component {
 
     return (
       <div>
-        <ol className="breadcrumb">
-          <li><Link to="/">List</Link></li>
-          <li className="active">New Idea</li>
-        </ol>
-
-        <div className="page-header">
-          <h1> New Idea </h1>
-        </div>
-
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label htmlFor="title">Title</label>
