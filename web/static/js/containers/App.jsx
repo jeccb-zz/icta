@@ -13,7 +13,7 @@ import Header from '../components/Header';
 const history = createBrowserHistory();
 
 class App extends Component {
-  componentDidMount() {
+  componentWillMount() {
     let { getIdeas, getUser } = this.props;
     getIdeas();
     getUser();

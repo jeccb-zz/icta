@@ -3,19 +3,22 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ShowIdea from '../components/ShowIdea';
 
-const ShowIdeaContainer = ({idea}) => (
+const ShowIdeaContainer = ({idea, ideaId}) => {
+  return (
   <div>
     <ol className="breadcrumb">
       <li><Link to="/">List</Link></li>
       <li className="active">Show Idea</li>
     </ol>
 
-    <ShowIdea idea={idea} />
+    <ShowIdea idea={idea} id={ideaId} />
   </div>
-);
+  );
+}
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   idea: state.currentIdea,
+  ideaId: ownProps.match.params.id,
 });
 
 export default connect(mapStateToProps)(ShowIdeaContainer);
