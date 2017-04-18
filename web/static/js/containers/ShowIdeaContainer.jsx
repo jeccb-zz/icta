@@ -2,18 +2,15 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ShowIdea from '../components/ShowIdea';
+import { showIdea } from '../actions/ideas';
 
-const ShowIdeaContainer = ({idea, ideaId}) => {
-  return (
-  <div>
-    <ol className="breadcrumb">
-      <li><Link to="/">List</Link></li>
-      <li className="active">Show Idea</li>
-    </ol>
-
-    <ShowIdea idea={idea} id={ideaId} />
-  </div>
-  );
+const ShowIdeaContainer = ({idea, showIdea, ideaId, history}) => {
+  if (!idea) {
+    showIdea(ideaId, history);
+    return null;
+  } else {
+    return (<ShowIdea idea={idea} />);
+  }
 }
 
 const mapStateToProps = (state, ownProps) => ({
@@ -21,4 +18,10 @@ const mapStateToProps = (state, ownProps) => ({
   ideaId: ownProps.match.params.id,
 });
 
-export default connect(mapStateToProps)(ShowIdeaContainer);
+const mapDispatchToProps = (dispatch) => ({
+  showIdea: (ideaId, history) => {
+    dispatch(showIdea(ideaId, history));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShowIdeaContainer);

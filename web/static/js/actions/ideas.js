@@ -111,7 +111,7 @@ export const showIdea = (ideaId, history) => (
     channel.push('idea:get', payload)
       .receive('ok', response => {
         dispatch(showIdeaSuccess(response.idea));
-        history.push(`ideas/show/${ideaId}`);
+        history.push(`/ideas/show/${ideaId}`);
       })
       .receive('error', error => {
         dispatch(showIdeaFailure(error));
