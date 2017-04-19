@@ -34,9 +34,11 @@ defmodule Icta.Idea do
       left_join: v_up in Icta.Vote, on: i.id == v_up.idea_id and v_up.vote == true,
       left_join: v_down in Icta.Vote, on: i.id == v_down.idea_id and v_down.vote == false,
       left_join: my_vote in Icta.Vote, on: i.id == my_vote.idea_id and my_vote.user_id == ^user.id,
+      left_join: comments in Icta.Comment, on: i.id == comments.idea_id,
       inner_join: user in Icta.User, on: i.user_id == user.id,
       select: %{id: i.id, title: i.title, body: i.body, author: %{ name: user.name, id: user.id},
-        up: count(v_up.id, :distinct), down: count(v_down.id, :distinct), my_vote: my_vote.vote},
+        up: count(v_up.id, :distinct), down: count(v_down.id, :distinct), my_vote: my_vote.vote,
+        comments_count: count(comments.id)},
       group_by: [i.id, i.title, i.body, user.name, user.id, my_vote.vote]
   end
 

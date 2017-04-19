@@ -38,6 +38,22 @@ $navbar-height: 100px;
       color: black;
     }
   }
+
+  .idea-comments-count {
+    line-height: 65px;
+    transition: color 0.5s ease;
+    color: #d3d3d3;
+    cursor: pointer;
+
+    &:hover {
+      color: black;
+    }
+
+    span {
+      font-size: 25px;
+      padding-left: 10px;
+    }
+  }
 }
 
 .navbar-inverse {

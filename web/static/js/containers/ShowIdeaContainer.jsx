@@ -5,7 +5,7 @@ import ShowIdea from '../components/ShowIdea';
 import { showIdea, addComment } from '../actions/ideas';
 
 const ShowIdeaContainer = ({idea, showIdea, onAddComment, ideaId}) => {
-  if (!idea) {
+  if (!idea || idea.id != ideaId) {
     showIdea(ideaId);
     return null;
   } else {

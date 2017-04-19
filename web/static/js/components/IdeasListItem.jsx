@@ -22,8 +22,11 @@ const IdeasListItem = withRouter(({idea, deleteIdea, voteUp, voteDown, ideaClick
         </div>
       </div>
     </div>
-    <div className="col-xs-2 idea-actions">
+    <div className="col-xs-1 idea-actions">
       { userId === idea.author.id ? <i onClick={() => {deleteIdea(idea.id)}} className="fa fa-trash fa-2x"></i> : '' }
+    </div>
+    <div className="col-xs-1 idea-comments-count" onClick={() => {ideaClick(idea, history)}}>
+      <i className="fa fa-comments-o fa-2x"></i> <span>{idea.comments_count}</span>
     </div>
   </div>
 ));

@@ -47,7 +47,8 @@ defmodule Icta.IdeaChannel do
             name: socket.assigns[:current_user].name,
           },
           up: 0,
-          down: 0
+          down: 0,
+          comments_count: 0
         }
         {:reply, :ok, socket }
       {:error, error} ->
