@@ -37,7 +37,7 @@ const mapDispatchToProps = dispatch => ({
   voteDown: (ideaId) => { dispatch(vote(ideaId, false)); },
   deleteIdea: (ideaId) => { dispatch(deleteIdea(ideaId)); },
   ideaClick: (idea, history) => {
-    dispatch(showIdea(idea.id, history));
+    history.push(`/ideas/show/${idea.id}`);
   },
 });
 
