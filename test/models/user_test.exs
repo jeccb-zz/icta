@@ -22,10 +22,14 @@ defmodule Icta.UserTest do
       "name" => %{
         "givenName" => "Jota",
         "familyName" => "Polenta Frita"
+      },
+      "image" => %{
+        "url" => "http://google.com"
       }
     })
 
     assert changeset.changes.uid == "12312312312"
     assert changeset.changes.name == "Jota Polenta Frita"
+    assert changeset.changes.image_url == "http://google.com"
   end
 end

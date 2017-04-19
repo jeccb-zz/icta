@@ -94,7 +94,8 @@ defmodule Icta.IdeaChannel do
   def handle_in("user:get", _, socket) do
     {:reply, {:ok, %{ user: %{
       name: socket.assigns[:current_user].name,
-      id: socket.assigns[:current_user].id
+      id: socket.assigns[:current_user].id,
+      image_url: socket.assigns[:current_user].image_url
     }}}, socket}
   end
 end
