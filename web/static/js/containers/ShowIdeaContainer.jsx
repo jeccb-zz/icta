@@ -2,14 +2,14 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ShowIdea from '../components/ShowIdea';
-import { showIdea } from '../actions/ideas';
+import { showIdea, addComment } from '../actions/ideas';
 
-const ShowIdeaContainer = ({idea, showIdea, ideaId, history}) => {
+const ShowIdeaContainer = ({idea, showIdea, onAddComment, ideaId}) => {
   if (!idea) {
-    showIdea(ideaId, history);
+    showIdea(ideaId);
     return null;
   } else {
-    return (<ShowIdea idea={idea} />);
+    return (<ShowIdea idea={idea} onAddComment={(body) => onAddComment(idea.id, body)}/>);
   }
 }
 
@@ -19,9 +19,12 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  showIdea: (ideaId, history) => {
-    dispatch(showIdea(ideaId, history));
-  }
+  showIdea: (ideaId) => {
+    dispatch(showIdea(ideaId));
+  },
+  onAddComment: (ideaId, body) => {
+    dispatch(addComment(ideaId, body));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowIdeaContainer);

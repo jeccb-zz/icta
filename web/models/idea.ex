@@ -5,6 +5,7 @@ defmodule Icta.Idea do
     field :title, :string
     field :body, :string
     belongs_to :user, Icta.User
+    has_many :comments, Icta.Comment
 
     timestamps()
   end

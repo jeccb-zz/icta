@@ -27,6 +27,10 @@ export const USER_INFO_REQUEST = 'USER_INFO_REQUEST';
 export const USER_INFO_SUCCESS = 'USER_INFO_SUCCESS';
 export const USER_INFO_FAILURE = 'USER_INFO_FAILURE';
 
+export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
+export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
+export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
+
 export const NEW_IDEA_RECEIVED = 'NEW_IDEA_RECEIVED';
 
 const userInfoRequest = () => ({ type: USER_INFO_REQUEST });
@@ -48,6 +52,10 @@ const addIdeaFailure = (title, error) => ({ type: ADD_IDEA_FAILURE, title, error
 const showIdeaRequest = () => ({ type: SHOW_IDEA_REQUEST });
 const showIdeaSuccess = (idea) => ({ type: SHOW_IDEA_SUCCESS, idea });
 const showIdeaFailure = (error) => ({ type: SHOW_IDEA_FAILURE, error });
+
+const addCommentRequest = () => ({ type: ADD_COMMENT_REQUEST });
+const addCommentSuccess = () => ({ type: ADD_COMMENT_SUCCESS });
+const addCommentFailure = (error) => ({ type: ADD_COMMENT_FAILURE, error });
 
 const deleteIdeaRequest = () => ({ type: DELETE_IDEA_REQUEST });
 const deleteIdeaSuccess = (ideaId) => ({ type: DELETE_IDEA_SUCCESS, ideaId });
@@ -102,7 +110,24 @@ export const vote = (ideaId, vote) => (
   }
 );
 
-export const showIdea = (ideaId, history) => (
+export const addComment = (ideaId, body) => (
+  dispatch => {
+    dispatch(addCommentRequest());
+
+    const payload = { idea_id: ideaId, body: body };
+
+    channel.push('idea:comment:new', payload)
+      .receive('ok', response => {
+        dispatch(addCommentSuccess());
+        dispatch(showIdea(ideaId));
+      })
+      .receive('error', error => {
+        dispatch(addCommentFailure(error));
+      })
+  }
+);
+
+export const showIdea = (ideaId) => (
   dispatch => {
     dispatch(showIdeaRequest());
 
@@ -110,8 +135,10 @@ export const showIdea = (ideaId, history) => (
 
     channel.push('idea:get', payload)
       .receive('ok', response => {
-        dispatch(showIdeaSuccess(response.idea));
-        history.push(`/ideas/show/${ideaId}`);
+
+        const comments = [ ...response.comments ]
+        const idea = { ...response.idea, comments };
+        dispatch(showIdeaSuccess(idea));
       })
       .receive('error', error => {
         dispatch(showIdeaFailure(error));

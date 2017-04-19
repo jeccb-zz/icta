@@ -3,6 +3,7 @@ defmodule Icta.IdeaChannel do
 
   alias Icta.Repo
   alias Icta.Idea
+  alias Icta.Comment
   alias Icta.Vote
 
   def join("icta", _params, socket) do
@@ -14,7 +15,10 @@ defmodule Icta.IdeaChannel do
   end
 
   def handle_in("idea:get", params, socket) do
-    {:reply, {:ok, %{ idea: Idea.one_with_votes(params["idea_id"], socket.assigns[:current_user]) }}, socket }
+    {:reply, {:ok, %{
+      idea: Idea.one_with_votes(params["idea_id"], socket.assigns[:current_user]) ,
+      comments: Comment.all_comments_for_idea(params["idea_id"])
+    }}, socket }
   end
 
   def handle_in("idea:delete", params, socket) do
@@ -49,6 +53,18 @@ defmodule Icta.IdeaChannel do
       {:error, error} ->
         IO.puts("ERROR! #{inspect error}")
         {:reply, {:error, error }, socket }
+    end
+  end
+
+  def handle_in("idea:comment:new", params, socket) do
+    result = socket.assigns[:current_user]
+             |> build_assoc(:comments)
+             |> Comment.changeset(params)
+             |> Repo.insert
+
+    case result do
+      {:ok, _} -> {:reply, :ok, socket }
+      {:error, error} -> {:reply, {:error, error }, socket }
     end
   end
 

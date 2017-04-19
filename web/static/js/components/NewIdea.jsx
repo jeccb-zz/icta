@@ -11,7 +11,6 @@ class NewIdea extends React.Component {
   }
 
   componentDidMount() {
-    console.log("MOUNTED!");
     var simplemde = new SimpleMDE({ forceSync: true });
   }
 

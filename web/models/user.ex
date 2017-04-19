@@ -6,6 +6,7 @@ defmodule Icta.User do
     field :name, :string
     has_many :votes, Icta.Vote
     has_many :ideas, Icta.Idea
+    has_many :comments, Icta.Comment
 
     timestamps()
   end
