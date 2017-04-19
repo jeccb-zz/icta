@@ -21,7 +21,7 @@ defmodule Icta.Comment do
   def all_comments_for_idea(idea_id) do
     Icta.Repo.all from c in Icta.Comment,
       left_join: user in Icta.User, on: c.user_id == user.id,
-      select: %{id: c.id, body: c.body, created_at: c.inserted_at, author: %{ name: user.name }},
+      select: %{id: c.id, body: c.body, created_at: c.inserted_at, author: %{ name: user.name, image_url: user.image_url }},
       where: c.idea_id == ^idea_id
   end
 end
