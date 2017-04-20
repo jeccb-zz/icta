@@ -18,7 +18,7 @@ const IdeasListItem = withRouter(({idea, deleteIdea, voteUp, voteDown, ideaClick
       </div>
       <div className="row">
         <div className="col-xs-12">
-          By <strong>{idea.author.name}</strong>
+          <img className="small-profile-image" src={idea.author.image_url} /> <strong>{idea.author.name}</strong>
         </div>
       </div>
     </div>

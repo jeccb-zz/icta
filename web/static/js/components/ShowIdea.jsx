@@ -6,7 +6,9 @@ import NewComment from './NewComment';
 const ShowIdea = ({idea, onAddComment}) => (
     <div>
       <h1>{idea.title}</h1>
-      <p>by <strong>{idea.author.name}</strong></p>
+      <p>
+        <img className="small-profile-image" src={idea.author.image_url} /> <strong>{idea.author.name}</strong>
+      </p>
       <ReactMarkdown source={idea.body} />
       <hr/>
       <NewComment onAddComment={onAddComment} />

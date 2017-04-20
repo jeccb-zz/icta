@@ -45,6 +45,7 @@ defmodule Icta.IdeaChannel do
           author: %{
             id: socket.assigns[:current_user].id,
             name: socket.assigns[:current_user].name,
+            image_url: socket.assigns[:current_user].image_url
           },
           up: 0,
           down: 0,
