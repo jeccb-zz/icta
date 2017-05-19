@@ -10,7 +10,6 @@ $navbar-height: 100px;
   padding: 8px 15px 8px 0;
 }
 
-
 .list-group-item {
   .vote-count {
     color: #d7d7d7;
@@ -23,6 +22,10 @@ $navbar-height: 100px;
     &.active {
       color: #4378bd;
     }
+  }
+
+  h4, .author {
+    cursor: pointer;
   }
 
   .idea-actions {
@@ -52,6 +55,20 @@ $navbar-height: 100px;
     span {
       font-size: 25px;
       padding-left: 10px;
+    }
+  }
+}
+
+.well {
+  h1, h2, h3, h4 {
+    margin: 0;
+  }
+}
+
+.panel {
+  .panel-heading {
+    h1, h2, h3, h4 {
+      margin: 0;
     }
   }
 }
@@ -102,7 +119,7 @@ $navbar-height: 100px;
 }
 
 .comment-user-image {
-  margin: 0 5px;
+  margin-right: 10px;
 }
 
 .small-profile-image {

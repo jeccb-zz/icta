@@ -14,13 +14,12 @@ const NewComment = ({onAddComment}) => {
   };
 
   return (
-    <div className="new-comment">
-      <h2> Comments </h2>
+    <div>
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <textarea ref={node => { body = node }} className="form-control" id="body" ></textarea>
         </div>
-        <div className="form-group">
+        <div className="form-group text-right">
           <button type="submit" className="btn btn-primary">Add Comment</button>
         </div>
       </form>
