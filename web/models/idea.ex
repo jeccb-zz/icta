@@ -5,7 +5,8 @@ defmodule Icta.Idea do
     field :title, :string
     field :body, :string
     belongs_to :user, Icta.User
-    has_many :comments, Icta.Comment
+    has_many :comments, Icta.Comment, on_delete: :delete_all
+    has_many :votes, Icta.Vote, on_delete: :delete_all
 
     timestamps()
   end
