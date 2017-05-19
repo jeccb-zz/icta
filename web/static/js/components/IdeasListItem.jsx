@@ -7,13 +7,18 @@ const IdeasListItem = withRouter(({idea, deleteIdea, voteUp, voteDown, ideaClick
   <li className="list-group-item">
     <div className="row">
       <div className="col-xs-1 text-center">
-        <a onClick={() => {voteUp(idea.id)}}>
-          <i className={`fa fa-caret-up fa-2x ${idea.my_vote === true ? 'active' : ''}`}></i>
-        </a><br />
-        <span className="vote-count">{idea.up - idea.down}</span><br />
-        <a onClick={() => {voteDown(idea.id)}}>
-          <i className={`fa fa-caret-down fa-2x ${idea.my_vote === false ? 'active' : ''}`}></i>
-        </a>
+        <div className="thumbs">
+          <a onClick={() => {voteUp(idea.id)}}>
+            <i className={`fa fa-thumbs-up fa-2x ${idea.my_vote === true ? 'active' : ''}`}></i>
+          </a><br />
+          <span className="vote-count">{idea.up}</span><br />
+        </div>
+        <div className="thumbs">
+          <a onClick={() => {voteDown(idea.id)}}>
+            <i className={`fa fa-thumbs-down fa-2x ${idea.my_vote === false ? 'active' : ''}`}></i>
+          </a><br />
+          <span className="vote-count">{idea.down}</span><br />
+        </div>
       </div>
       <div className="col-xs-9" onClick={() => {ideaClick(idea, history)}}>
         <h4>{idea.title}</h4>

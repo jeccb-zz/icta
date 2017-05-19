@@ -11,11 +11,16 @@ $navbar-height: 100px;
 }
 
 .list-group-item {
+  .thumbs {
+    float: left;
+    margin: 13px 11px;
+  }
+
   .vote-count {
     color: #d7d7d7;
   }
 
-  .fa-caret-up, .fa-caret-down {
+  .fa-thumbs-up, .fa-thumbs-down {
     color: #d3d3d3;
     cursor: pointer;
 
