@@ -10,14 +10,9 @@ const Header = ({userName, userImage}) => (
       </div>
 
       <ul className="nav navbar-nav">
-        <li>
-          <Link to="/">List</Link>
-        </li>
-        <li>
-          <Link to="/ideas/new">New</Link>
-        </li>
+        <li><Link to="/">List</Link></li>
+        <li><Link to="/ideas/new">New</Link></li>
       </ul>
-
 
       <ul className="nav navbar-nav navbar-right">
         <li><p className="navbar-text">Welcome {userName}</p></li>
