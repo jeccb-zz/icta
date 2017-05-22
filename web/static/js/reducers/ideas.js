@@ -1,7 +1,9 @@
 import { FETCH_IDEAS_REQUEST, FETCH_IDEAS_SUCCESS, FETCH_IDEAS_FAILURE,
-  ADD_IDEA_SUCCESS, VOTE_SUCCESS, DELETE_IDEA_SUCCESS, NEW_IDEA_RECEIVED } from '../actions/ideas';
+  ADD_IDEA_SUCCESS, VOTE_SUCCESS, DELETE_IDEA_SUCCESS, NEW_IDEA_RECEIVED, CHANGE_MY_VOTE } from '../actions/ideas';
 
 const sortIdeas = (ideas) => (ideas.sort((a, b) => ( (b.up - b.down) - (a.up - a.down))));
+
+const replaceIdea = (ideas, newIdea, index) => (ideas.slice(0, index).concat([newIdea]).concat(ideas.slice(index+1)));
 
 const ideas = (state = [], action) => {
   switch(action.type) {
@@ -19,10 +21,17 @@ const ideas = (state = [], action) => {
         ...state,
         action.idea,
       ]);
+    case CHANGE_MY_VOTE:
+      const idx = state.map(i => i.id).indexOf(action.ideaId);
+      const dupIdea = { ...state[idx], my_vote: action.myVote }
+
+      return replaceIdea(state, dupIdea, idx)
     case VOTE_SUCCESS:
       const index = state.map(i => i.id).indexOf(action.idea.id);
+      const newIdea = { ...state[index], up: action.idea.up, down: action.idea.down }
+
       return sortIdeas(
-        state.slice(0, index).concat([action.idea]).concat(state.slice(index+1)),
+        replaceIdea(state, newIdea, index)
       );
     case DELETE_IDEA_SUCCESS:
       return state.filter((i) => i.id != action.ideaId);

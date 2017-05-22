@@ -11,6 +11,10 @@ $navbar-height: 100px;
 }
 
 .list-group-item {
+  .thumbs-group {
+    max-width: 140px;
+  }
+
   .thumbs {
     float: left;
     margin: 13px 11px;
@@ -35,6 +39,7 @@ $navbar-height: 100px;
 
   .idea-actions {
     line-height: 75px;
+    float: right;
 
     i {
       transition: color 0.5s ease;

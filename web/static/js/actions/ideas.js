@@ -32,6 +32,7 @@ export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 
 export const NEW_IDEA_RECEIVED = 'NEW_IDEA_RECEIVED';
+export const CHANGE_MY_VOTE = 'CHANGE_MY_VOTE';
 
 const userInfoRequest = () => ({ type: USER_INFO_REQUEST });
 const userInfoSuccess = (user) => ({ type: USER_INFO_SUCCESS, user });
@@ -62,6 +63,8 @@ const deleteIdeaSuccess = (ideaId) => ({ type: DELETE_IDEA_SUCCESS, ideaId });
 const deleteIdeaFailure = (error) => ({ type: DELETE_IDEA_FAILURE, error });
 
 const newIdeaReceived = idea => ({ type: NEW_IDEA_RECEIVED, idea });
+
+const changeMyVote = (ideaId, myVote) => ({ type: CHANGE_MY_VOTE, ideaId, myVote });
 
 export const getUser = () => (
   dispatch => {
@@ -101,10 +104,9 @@ export const vote = (ideaId, vote) => (
 
     channel.push('vote:new', payload)
       .receive('ok', response => {
-        console.log('created idea', response);
+        dispatch(changeMyVote(ideaId, vote));
       })
       .receive('error', error => {
-        console.error('idea not created: ', error);
         dispatch(addIdeaFailure(title, error));
       });
   }

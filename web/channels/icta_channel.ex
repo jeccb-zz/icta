@@ -86,11 +86,12 @@ defmodule Icta.IdeaChannel do
     case result do
       {:ok, vote} ->
         broadcast! socket, "vote:new", Idea.one_with_votes(vote.idea_id, socket.assigns[:current_user])
+        {:reply, :ok, socket}
       {:error, error} ->
         IO.puts("ERROR! #{inspect error}")
+        {:reply, {:error, error }, socket }
     end
 
-    {:noreply, socket}
   end
 
   def handle_in("user:get", _, socket) do

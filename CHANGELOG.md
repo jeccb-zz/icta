@@ -1,5 +1,6 @@
 # Next Version
 
+- Fix problem where new votes where changing visually the current user vote
 - Add extra layer of checks on the login, so db resets are possible
 
 # 0.0.2
