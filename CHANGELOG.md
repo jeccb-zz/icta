@@ -1,5 +1,7 @@
 # Next Version
 
+- Add extra layer of checks on the login, so db resets are possible
+
 # 0.0.2
 
 - Layout improvements on the comments box
