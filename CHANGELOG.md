@@ -1,5 +1,9 @@
 # Next Version
 
+# 1.0.1
+
+- Fix problem preventing new users to be created
+
 # 1.0.0
 
 - Fix problem where new votes where changing visually the current user vote
