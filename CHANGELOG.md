@@ -1,5 +1,7 @@
 # Next Version
 
+- Fix owner change feature
+
 # 2.0.0
 
 - I18n

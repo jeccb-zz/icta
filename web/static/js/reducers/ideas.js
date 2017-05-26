@@ -22,7 +22,13 @@ const ideas = (state = [], action) => {
       ]);
     case EDIT_IDEA_RECEIVED:
       const editedIndex = state.map(i => i.id).indexOf(action.idea.id);
-      const editedIdea = { ...state[editedIndex], title: action.idea.title, body: action.idea.body, status: action.idea.status }
+      const editedIdea = {
+        ...state[editedIndex],
+        title: action.idea.title,
+        body: action.idea.body,
+        status: action.idea.status,
+        owner: action.idea.owner
+      };
 
       return sortIdeas(
         replaceIdea(state, editedIdea, editedIndex)

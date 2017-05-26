@@ -50,13 +50,6 @@ class EditIdea extends React.Component {
     const idea = this.props.idea;
     const allUsers = this.props.allUsers;
 
-    const UsersSelect = () => (
-      <select value={idea.owner.id} onChange={this.handleFieldChange('owner_id')} className="form-control">
-        <option key='' value=''>Nenhum</option>
-        { allUsers.map((u) => (<option key={u.id} value={u.id}> {u.name}</option>)) }
-      </select>
-    );
-
     return (
       <div className="col-sm-12">
         <form onSubmit={this.onSubmit}>
@@ -72,7 +65,12 @@ class EditIdea extends React.Component {
           </div>
           <div className="form-group">
             <label htmlFor="owner"><Translate value='idea.owner' /></label>
-            { allUsers === 'loading' ? 'Loading' : <UsersSelect /> }
+            { allUsers === 'loading' ? 'Loading' :
+                <select defaultValue={idea.owner.id} onChange={this.handleFieldChange('owner_id')} className="form-control">
+                  <option key="" value="">Nenhum</option>
+                  { allUsers.map((u) => (<option key={u.id} value={u.id}> {u.name}</option>)) }
+                </select>
+            }
           </div>
           <div className="form-group">
             <label htmlFor="status"><Translate value='idea.status' /></label>
