@@ -6,6 +6,7 @@ defmodule Icta.Idea do
     field :body, :string
     field :status, :string
     belongs_to :user, Icta.User
+    belongs_to :owner, Icta.User
     has_many :comments, Icta.Comment, on_delete: :delete_all
     has_many :votes, Icta.Vote, on_delete: :delete_all
 
@@ -17,7 +18,7 @@ defmodule Icta.Idea do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title, :body, :user_id, :status])
+    |> cast(params, [:title, :body, :user_id, :owner_id, :status])
     |> validate_required([:title, :user_id])
     |> validate_inclusion(:status, ["new", "planned", "in_progress", "done"])
   end
@@ -38,11 +39,13 @@ defmodule Icta.Idea do
       left_join: v_down in Icta.Vote, on: i.id == v_down.idea_id and v_down.vote == false,
       left_join: my_vote in Icta.Vote, on: i.id == my_vote.idea_id and my_vote.user_id == ^user.id,
       left_join: comments in Icta.Comment, on: i.id == comments.idea_id,
+      left_join: owner in Icta.User, on: i.owner_id == owner.id,
       inner_join: user in Icta.User, on: i.user_id == user.id,
       select: %{id: i.id, title: i.title, body: i.body, author: %{ name: user.name, id: user.id,
-        image_url: user.image_url }, up: count(v_up.id, :distinct), down: count(v_down.id, :distinct),
-        my_vote: my_vote.vote, comments_count: count(comments.id, :distinct), status: i.status},
-      group_by: [i.id, i.title, i.body, i.status, user.name, user.id, my_vote.vote]
+        image_url: user.image_url }, owner: %{ name: owner.name, id: owner.id, image_url: owner.image_url },
+        up: count(v_up.id, :distinct), down: count(v_down.id, :distinct), my_vote: my_vote.vote,
+        comments_count: count(comments.id, :distinct), status: i.status},
+      group_by: [i.id, i.title, i.body, i.status, user.name, user.id, owner.id, my_vote.vote]
   end
 
 end

@@ -9,9 +9,14 @@ const ShowIdea = ({idea, onAddComment, currentUser}) => (
   <div className="show-idea">
     <div className="row">
       <div className="col-xs-9">
+        { idea.owner.id ? <p className="text-right"> <strong><Translate value="idea.owner" />:</strong>&nbsp;
+          <img className="small-profile-image" src={idea.owner.image_url} />
+          &nbsp; <strong>{idea.owner.name}</strong>
+        </p> : '' }
       </div>
       <div className="col-xs-3">
         <p className="text-right">
+          <strong><Translate value="idea.author" />:</strong>&nbsp;
           <img className="small-profile-image" src={idea.author.image_url} />
           &nbsp; <strong>{idea.author.name}</strong>
         </p>
@@ -30,7 +35,7 @@ const ShowIdea = ({idea, onAddComment, currentUser}) => (
               </h4>
             </div>
             <div className="col-xs-2 text-right">
-              { idea.author.id == currentUser.id ?
+              { idea.author.id == currentUser.id || idea.owner.id == currentUser.id ?
                   <Link className="btn btn-primary" to={`/ideas/edit/${idea.id}`}><i className="fa fa-pencil"></i> Editar</Link>
                   : ''
               }

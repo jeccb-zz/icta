@@ -5,6 +5,7 @@ defmodule Icta.IdeaChannel do
   alias Icta.Idea
   alias Icta.Comment
   alias Icta.Vote
+  alias Icta.User
 
   def join("icta", _params, socket) do
     {:ok, %{ }, socket }
@@ -102,10 +103,16 @@ defmodule Icta.IdeaChannel do
     }}}, socket}
   end
 
+  def handle_in("user:get_all", _, socket) do
+    users = Repo.all(from usr in User,
+                     select: %{id: usr.id, name: usr.name, image_url: usr.image_url})
+    {:reply, { :ok, %{ users: users } }, socket }
+  end
+
   def handle_in("idea:edit", params, socket) do
-    idea = Repo.get_by!(Idea, %{
-                   user_id: socket.assigns[:current_user].id,
-                   id: params["idea_id"] })
+    idea = Repo.one(from idea in Idea,
+                    where: (idea.id == ^params["idea_id"]) and (idea.user_id == ^socket.assigns[:current_user].id or
+                            idea.owner_id == ^socket.assigns[:current_user].id))
     idea = Idea.changeset(idea, params["attributes"])
     case Repo.update(idea) do
       {:ok, _} ->

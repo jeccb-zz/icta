@@ -5,6 +5,7 @@
 - Allow the creator to update the idea
 - Add the status field
 - Filter by text
+- Add owner to the idea
 
 # 1.0.1
 

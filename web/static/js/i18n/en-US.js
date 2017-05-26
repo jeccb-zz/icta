@@ -19,6 +19,8 @@ export default {
     title: 'Title',
     body: 'Body',
     new: 'Create idea',
+    author: 'Author',
+    owner: 'Owner',
   },
   notifications: {
     new_idea_success: {

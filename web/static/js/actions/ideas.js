@@ -42,6 +42,8 @@ export const EDIT_IDEA_RECEIVED = 'EDIT_IDEA_RECEIVED';
 export const CHANGE_MY_VOTE = 'CHANGE_MY_VOTE';
 export const CHANGE_FILTER_TEXT = 'CHANGE_FILTER_TEXT';
 
+export const ALL_USERS_RECEIVED = 'ALL_USERS_RECEIVED';
+
 const userInfoRequest = () => ({ type: USER_INFO_REQUEST });
 const userInfoSuccess = (user) => ({ type: USER_INFO_SUCCESS, user });
 const userInfoFailure = (error) => ({ type: USER_INFO_FAILURE, error });
@@ -79,7 +81,18 @@ const editIdeaReceived = idea => ({ type: EDIT_IDEA_RECEIVED, idea });
 
 const changeMyVote = (ideaId, myVote) => ({ type: CHANGE_MY_VOTE, ideaId, myVote });
 
+const allUsersReceived = (users) => ({ type: ALL_USERS_RECEIVED, users });
+
 export const changeFilterText = (filter) => ({ type: CHANGE_FILTER_TEXT, filter });
+
+export const getAllUsers = () => (
+  dispatch => {
+    channel.push('user:get_all', {})
+      .receive('ok', response => {
+        dispatch(allUsersReceived(response.users));
+      })
+  }
+);
 
 export const getUser = () => (
   dispatch => {

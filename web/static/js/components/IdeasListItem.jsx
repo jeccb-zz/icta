@@ -29,11 +29,27 @@ const IdeasListItem = withRouter(({idea, deleteIdea, voteUp, voteDown, ideaClick
             </div>
           </div>
           <div className="col-xs-7 col-md-7 col-lg-8 idea-text" onClick={() => {ideaClick(idea, history)}}>
-            <h4>{idea.title} </h4>
-            <p className="author">
-              <img className="small-profile-image" src={idea.author.image_url} />
-              &nbsp; <strong>{idea.author.name}</strong>
-            </p>
+            <div className="row">
+              <div className="col-xs-12">
+                <h4>{idea.title} </h4>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-xs-6">
+                <p className="author">
+                  <strong> <Translate value="idea.author" />: </strong>
+                  <img className="small-profile-image" src={idea.author.image_url} />
+                  &nbsp; <strong>{idea.author.name}</strong>
+                </p>
+              </div>
+              <div className="col-xs-6">
+                { idea.owner.id ? <p className="author">
+                  <strong> <Translate value="idea.owner" />: </strong>
+                  <img className="small-profile-image" src={idea.owner.image_url} />
+                  &nbsp; <strong>{idea.owner.name}</strong>
+                </p> : '' }
+              </div>
+            </div>
           </div>
         </div>
       </div>

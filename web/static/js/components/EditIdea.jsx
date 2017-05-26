@@ -16,6 +16,7 @@ class EditIdea extends React.Component {
 
     this.onSubmit = this.onSubmit.bind(this);
     this.handleFieldChange = this.handleFieldChange.bind(this);
+    this.props.getAllUsers();
   }
 
   componentDidMount() {
@@ -47,6 +48,14 @@ class EditIdea extends React.Component {
 
   render() {
     const idea = this.props.idea;
+    const allUsers = this.props.allUsers;
+
+    const UsersSelect = () => (
+      <select value={idea.owner.id} onChange={this.handleFieldChange('owner_id')} className="form-control">
+        <option key='' value=''>Nenhum</option>
+        { allUsers.map((u) => (<option key={u.id} value={u.id}> {u.name}</option>)) }
+      </select>
+    );
 
     return (
       <div className="col-sm-12">
@@ -60,6 +69,10 @@ class EditIdea extends React.Component {
               placeholder={I18n.t('idea.title')}
               onChange={this.handleFieldChange('title')}
             />
+          </div>
+          <div className="form-group">
+            <label htmlFor="owner"><Translate value='idea.owner' /></label>
+            { allUsers === 'loading' ? 'Loading' : <UsersSelect /> }
           </div>
           <div className="form-group">
             <label htmlFor="status"><Translate value='idea.status' /></label>
