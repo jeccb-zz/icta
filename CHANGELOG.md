@@ -1,6 +1,9 @@
 # Next Version
 
+# 2.0.1
+
 - Fix owner change feature
+- Order by user name
 
 # 2.0.0
 

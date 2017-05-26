@@ -105,7 +105,8 @@ defmodule Icta.IdeaChannel do
 
   def handle_in("user:get_all", _, socket) do
     users = Repo.all(from usr in User,
-                     select: %{id: usr.id, name: usr.name, image_url: usr.image_url})
+                     select: %{id: usr.id, name: usr.name, image_url: usr.image_url},
+                     order_by: usr.name)
     {:reply, { :ok, %{ users: users } }, socket }
   end
 
