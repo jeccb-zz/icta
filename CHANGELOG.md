@@ -1,5 +1,7 @@
 # Next Version
 
+# 2.0.0
+
 - I18n
 - Feedback when creating idea
 - Allow the creator to update the idea
