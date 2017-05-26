@@ -40,6 +40,7 @@ export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 export const NEW_IDEA_RECEIVED = 'NEW_IDEA_RECEIVED';
 export const EDIT_IDEA_RECEIVED = 'EDIT_IDEA_RECEIVED';
 export const CHANGE_MY_VOTE = 'CHANGE_MY_VOTE';
+export const CHANGE_FILTER_TEXT = 'CHANGE_FILTER_TEXT';
 
 const userInfoRequest = () => ({ type: USER_INFO_REQUEST });
 const userInfoSuccess = (user) => ({ type: USER_INFO_SUCCESS, user });
@@ -77,6 +78,8 @@ const newIdeaReceived = idea => ({ type: NEW_IDEA_RECEIVED, idea });
 const editIdeaReceived = idea => ({ type: EDIT_IDEA_RECEIVED, idea });
 
 const changeMyVote = (ideaId, myVote) => ({ type: CHANGE_MY_VOTE, ideaId, myVote });
+
+export const changeFilterText = (filter) => ({ type: CHANGE_FILTER_TEXT, filter });
 
 export const getUser = () => (
   dispatch => {

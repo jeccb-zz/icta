@@ -4,6 +4,7 @@
 - Feedback when creating idea
 - Allow the creator to update the idea
 - Add the status field
+- Filter by text
 
 # 1.0.1
 

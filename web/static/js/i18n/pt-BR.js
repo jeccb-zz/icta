@@ -31,4 +31,5 @@ export default {
     },
   },
   datetime: 'DD/MM/YYYY [as] HH:mm',
+  filter: 'Filtro',
 }

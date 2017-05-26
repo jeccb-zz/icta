@@ -1,6 +1,5 @@
-import React, { PropTypes } from 'react';
 import IdeasListItem from './IdeasListItem';
-import { connect } from 'react-redux';
+import React from 'react';
 
 const IdeasList = ({ideas}) => (
   <div className="col-sm-12">
@@ -10,8 +9,4 @@ const IdeasList = ({ideas}) => (
   </div>
 );
 
-const mapStateToProps = state => ({
-  ideas: state.ideas,
-})
-
-export default connect(mapStateToProps)(IdeasList);
+export default IdeasList;
