@@ -1,8 +1,8 @@
-import { SHOW_IDEA_SUCCESS } from '../actions/ideas';
+import { FETCH_IDEA_SUCCESS } from '../actions/ideas';
 
 const currentIdea = (state = null, action) =>{
   switch(action.type) {
-    case SHOW_IDEA_SUCCESS:
+    case FETCH_IDEA_SUCCESS:
       return { ...action.idea };
     default:
       return state

@@ -101,4 +101,17 @@ defmodule Icta.IdeaChannel do
       image_url: socket.assigns[:current_user].image_url
     }}}, socket}
   end
+
+  def handle_in("idea:edit", params, socket) do
+    idea = Repo.get_by!(Idea, %{
+                   user_id: socket.assigns[:current_user].id,
+                   id: params["idea_id"] })
+    idea = Idea.changeset(idea, params["attributes"])
+    case Repo.update(idea) do
+      {:ok, _} ->
+        broadcast! socket, "idea:edit", Idea.one_with_votes(params["idea_id"], socket.assigns[:current_user])
+        {:reply, :ok, socket }
+      {:error, error} -> {:reply, {:error, error}, socket }
+    end
+  end
 end

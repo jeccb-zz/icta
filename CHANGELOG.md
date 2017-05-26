@@ -2,6 +2,8 @@
 
 - I18n
 - Feedback when creating idea
+- Allow the creator to update the idea
+- Add the status field
 
 # 1.0.1
 

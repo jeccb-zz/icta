@@ -13,11 +13,26 @@ $navbar-height: 100px;
 .list-group-item {
   .thumbs-group {
     max-width: 140px;
+    float: left;
   }
 
   .thumbs {
     float: left;
     margin: 13px 11px;
+
+    &:last-of-type {
+      margin-right: 30px;
+    }
+  }
+
+  .status-badge {
+    text-align: center;
+    padding-top: 15px;
+
+  }
+
+  .idea-info {
+    float: left;
   }
 
   .vote-count {
@@ -138,3 +153,35 @@ $navbar-height: 100px;
   border-radius: 3px;
 
 }
+
+.show-idea{
+  .title {
+    h1, h4 {
+      float: left;
+    }
+
+    h4 {
+      padding: 10px 20px;
+    }
+  }
+}
+
+.label {
+  &.label-status-new {
+    background-color: #337ab7;
+  }
+
+  &.label-status-planned {
+    background-color: #30bb9b;
+  }
+
+  &.label-status-in_progress {
+    background-color: #ff8100;
+  }
+
+  &.label-status-done {
+    background-color: #069424;
+  }
+}
+
+

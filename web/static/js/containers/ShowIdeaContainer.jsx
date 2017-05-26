@@ -2,25 +2,26 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ShowIdea from '../components/ShowIdea';
-import { showIdea, addComment } from '../actions/ideas';
+import { fetchIdea, addComment } from '../actions/ideas';
 
-const ShowIdeaContainer = ({idea, showIdea, onAddComment, ideaId}) => {
+const ShowIdeaContainer = ({idea, fetchIdea, onAddComment, ideaId, currentUser}) => {
   if (!idea || idea.id != ideaId) {
-    showIdea(ideaId);
+    fetchIdea(ideaId);
     return null;
   } else {
-    return (<ShowIdea idea={idea} onAddComment={(body) => onAddComment(idea.id, body)}/>);
+    return (<ShowIdea idea={idea} currentUser={currentUser} onAddComment={(body) => onAddComment(idea.id, body)}/>);
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
   idea: state.currentIdea,
   ideaId: ownProps.match.params.id,
+  currentUser: state.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  showIdea: (ideaId) => {
-    dispatch(showIdea(ideaId));
+  fetchIdea: (ideaId) => {
+    dispatch(fetchIdea(ideaId));
   },
   onAddComment: (ideaId, body) => {
     dispatch(addComment(ideaId, body));

@@ -4,6 +4,7 @@ defmodule Icta.Idea do
   schema "ideas" do
     field :title, :string
     field :body, :string
+    field :status, :string
     belongs_to :user, Icta.User
     has_many :comments, Icta.Comment, on_delete: :delete_all
     has_many :votes, Icta.Vote, on_delete: :delete_all
@@ -16,8 +17,9 @@ defmodule Icta.Idea do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title, :body, :user_id])
+    |> cast(params, [:title, :body, :user_id, :status])
     |> validate_required([:title, :user_id])
+    |> validate_inclusion(:status, ["new", "planned", "in_progress", "done"])
   end
 
   def all_with_votes(user) do
@@ -39,8 +41,8 @@ defmodule Icta.Idea do
       inner_join: user in Icta.User, on: i.user_id == user.id,
       select: %{id: i.id, title: i.title, body: i.body, author: %{ name: user.name, id: user.id,
         image_url: user.image_url }, up: count(v_up.id, :distinct), down: count(v_down.id, :distinct),
-        my_vote: my_vote.vote, comments_count: count(comments.id, :distinct)},
-      group_by: [i.id, i.title, i.body, user.name, user.id, my_vote.vote]
+        my_vote: my_vote.vote, comments_count: count(comments.id, :distinct), status: i.status},
+      group_by: [i.id, i.title, i.body, i.status, user.name, user.id, my_vote.vote]
   end
 
 end

@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import IdeasListItem from './IdeasListItem';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'
 
 const IdeasList = ({ideas}) => (
   <div className="col-sm-12">

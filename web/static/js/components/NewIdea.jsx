@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import SimpleMDE from 'simplemde';
 import { Translate, I18n } from 'react-redux-i18n';
 
+import ReactMarkdown from 'react-markdown';
 class NewIdea extends React.Component {
 
   constructor(props) {

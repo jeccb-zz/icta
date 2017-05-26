@@ -1,5 +1,6 @@
-import { FETCH_IDEAS_REQUEST, FETCH_IDEAS_SUCCESS, FETCH_IDEAS_FAILURE,
-  ADD_IDEA_SUCCESS, VOTE_SUCCESS, DELETE_IDEA_SUCCESS, NEW_IDEA_RECEIVED, CHANGE_MY_VOTE } from '../actions/ideas';
+import { SHOW_IDEAS_REQUEST, SHOW_IDEAS_SUCCESS, SHOW_IDEAS_FAILURE,
+  ADD_IDEA_SUCCESS, VOTE_SUCCESS, DELETE_IDEA_SUCCESS, NEW_IDEA_RECEIVED,
+  CHANGE_MY_VOTE, EDIT_IDEA_RECEIVED } from '../actions/ideas';
 
 const sortIdeas = (ideas) => (ideas.sort((a, b) => ( (b.up - b.down) - (a.up - a.down))));
 
@@ -7,20 +8,26 @@ const replaceIdea = (ideas, newIdea, index) => (ideas.slice(0, index).concat([ne
 
 const ideas = (state = [], action) => {
   switch(action.type) {
-    case FETCH_IDEAS_REQUEST:
+    case SHOW_IDEAS_REQUEST:
       return sortIdeas(state)
-    case FETCH_IDEAS_SUCCESS:
+    case SHOW_IDEAS_SUCCESS:
       return sortIdeas([].concat(action.ideas));
-    case FETCH_IDEAS_FAILURE:
+    case SHOW_IDEAS_FAILURE:
       console.error("Error retrieving ideas")
-      return state;
-    case ADD_IDEA_SUCCESS:
       return state;
     case NEW_IDEA_RECEIVED:
       return sortIdeas([
         ...state,
         action.idea,
       ]);
+    case EDIT_IDEA_RECEIVED:
+      const editedIndex = state.map(i => i.id).indexOf(action.idea.id);
+      const editedIdea = { ...state[editedIndex], title: action.idea.title, body: action.idea.body, status: action.idea.status }
+
+      return sortIdeas(
+        replaceIdea(state, editedIdea, editedIndex)
+      );
+
     case CHANGE_MY_VOTE:
       const idx = state.map(i => i.id).indexOf(action.ideaId);
       const dupIdea = { ...state[idx], my_vote: action.myVote }

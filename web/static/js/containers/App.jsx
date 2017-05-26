@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { fetchIdeas, getUser } from '../actions/ideas';
+import { showIdeas, getUser } from '../actions/ideas';
 import { connect } from 'react-redux';
 import { createBrowserHistory } from 'history';
 
@@ -9,6 +9,7 @@ import Notifications from 'react-notification-system-redux';
 import IdeasListContainer from './IdeasListContainer';
 import NewIdeaContainer from './NewIdeaContainer';
 import ShowIdeaContainer from './ShowIdeaContainer';
+import EditIdeaContainer from './EditIdeaContainer';
 import Header from '../components/Header';
 
 const history = createBrowserHistory();
@@ -34,6 +35,7 @@ class App extends Component {
                 <Route exact path="/" component={IdeasListContainer} />
                 <Route path="/ideas/new" component={NewIdeaContainer} />
                 <Route path="/ideas/show/:id" component={ShowIdeaContainer} />
+                <Route path="/ideas/edit/:id" component={EditIdeaContainer} />
               </main>
             </div>
           </div>
@@ -49,7 +51,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getIdeas: () => {
-    dispatch(fetchIdeas());
+    dispatch(showIdeas());
   },
   getUser: () => {
     dispatch(getUser());
