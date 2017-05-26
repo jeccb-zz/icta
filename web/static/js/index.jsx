@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 
 import App from './containers/App';
 import rootReducer from './reducers/index';
+import { loadTranslations, setLocale, syncTranslationWithStore } from 'react-redux-i18n';
+import translationsObject from './i18n/i18n';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -14,6 +16,9 @@ const store = createStore(rootReducer, composeEnhancers(
   applyMiddleware(thunkMiddleware)
 ));
 
+syncTranslationWithStore(store)
+store.dispatch(loadTranslations(translationsObject));
+store.dispatch(setLocale('pt-BR'));
 
 render(
   <Provider store={store}>

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Translate, I18n } from 'react-redux-i18n';
 
 const Comment = ({body, author, createdAt}) => (
   <li className="list-group-item">
@@ -8,7 +9,7 @@ const Comment = ({body, author, createdAt}) => (
       </div>
       <div className="media-body">
         <p>{body}</p>
-        <p>By <strong>{author.name}</strong> at <strong>{createdAt}</strong></p>
+        <p><Translate value="idea.comments.by" name={author.name} date={I18n.l(createdAt, { dateFormat: 'datetime'})} dangerousHTML /></p>
       </div>
     </div>
   </li>

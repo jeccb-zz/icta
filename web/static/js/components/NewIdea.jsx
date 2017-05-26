@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SimpleMDE from 'simplemde';
+import { Translate, I18n } from 'react-redux-i18n';
 
 class NewIdea extends React.Component {
 
@@ -29,14 +30,14 @@ class NewIdea extends React.Component {
       <div className="col-sm-12">
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
-            <label htmlFor="title">Title</label>
-            <input ref={node => { this.title = node }} type="text" className="form-control" id="title" placeholder="Title" />
+            <label htmlFor="title"><Translate value='idea.title' /></label>
+            <input ref={node => { this.title = node }} type="text" className="form-control" id="title" placeholder={I18n.t('idea.title')} />
           </div>
           <div className="form-group">
-            <label htmlFor="body">Body</label>
+            <label htmlFor="body"><Translate value='idea.body' /></label>
             <textarea ref={node => { this.body = node }}  id="body" rows="4"></textarea>
           </div>
-          <button type="submit" className="btn btn-primary pull-right">Add Idea</button>
+          <button type="submit" className="btn btn-primary pull-right"><Translate value='idea.new' /></button>
         </form>
       </div>
     )

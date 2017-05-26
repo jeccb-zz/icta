@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import ReactMarkdown from 'react-markdown';
 import Comment from './Comment';
 import NewComment from './NewComment';
+import { Translate, I18n } from 'react-redux-i18n';
 
 const ShowIdea = ({idea, onAddComment}) => (
     <div className="col-sm-12">
@@ -17,7 +18,7 @@ const ShowIdea = ({idea, onAddComment}) => (
       <br />
       <div className="panel panel-default">
         <div className="panel-heading">
-          <h4>Comments</h4>
+          <h4><Translate value='idea.comments.title' /></h4>
         </div>
         <div className="panel-body">
           <NewComment onAddComment={onAddComment} />

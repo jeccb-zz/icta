@@ -1,5 +1,7 @@
 # Next Version
 
+- I18n
+
 # 1.0.1
 
 - Fix problem preventing new users to be created
