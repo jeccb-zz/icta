@@ -1,6 +1,7 @@
 # Next Version
 
 - I18n
+- Feedback when creating idea
 
 # 1.0.1
 

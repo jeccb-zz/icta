@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createBrowserHistory } from 'history';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Notifications from 'react-notification-system-redux';
 
 import IdeasListContainer from './IdeasListContainer';
 import NewIdeaContainer from './NewIdeaContainer';
@@ -20,10 +21,13 @@ class App extends Component {
   }
 
   render() {
+    const {notifications} = this.props;
+
     return (
       <div>
         <Router history={history}>
           <div>
+            <Notifications notifications={notifications} />
             <Header />
             <div className="container-fluid">
               <main role="main">
@@ -39,6 +43,10 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  notifications: state.notifications,
+});
+
 const mapDispatchToProps = dispatch => ({
   getIdeas: () => {
     dispatch(fetchIdeas());
@@ -48,4 +56,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,4 +1,6 @@
 import { configureChannel } from '../channel';
+import Notifications from 'react-notification-system-redux';
+import { I18n } from 'react-redux-i18n';
 
 let socket = configureChannel();
 let channel = socket.channel('icta', {});
@@ -187,6 +189,12 @@ export const addIdea = (title, body, history) => (
     channel.push('idea:new', payload)
       .receive('ok', response => {
         dispatch(addIdeaSuccess(response));
+        console.log("dispatching success");
+        dispatch(Notifications.success({
+          title: I18n.t('notifications.new_idea_success.title'),
+          message: I18n.t('notifications.new_idea_success.message'),
+        }));
+
         history.push('/');
       })
       .receive('error', error => {

@@ -14,5 +14,11 @@ export default {
     body: 'Conteúdo',
     new: 'Criar ideia',
   },
+  notifications: {
+    new_idea_success: {
+      title: 'Ideia criada!',
+      message: 'Ideia criada com sucesso.',
+    },
+  },
   datetime: 'DD/MM/YYYY [as] HH:mm',
 }
