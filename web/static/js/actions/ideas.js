@@ -248,7 +248,7 @@ export const editIdea = (ideaId, attributes, history) => (
           message: I18n.t('notifications.edit_idea_success.message'),
         }));
 
-        history.push('/');
+        history.push(`/ideas/show/${ideaId}`);
       })
 
       .receive('error', error => {

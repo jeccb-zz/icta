@@ -1,5 +1,8 @@
 # Next Version
 
+- Fix show page not realoading info
+- Redirect to show page on confirm edit
+
 # 2.0.1
 
 - Fix owner change feature
