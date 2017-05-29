@@ -1,5 +1,8 @@
 # Next Version
 
+# 2.1.0
+
+- Filter by status
 - Fix show page not realoading info
 - Redirect to show page on confirm edit
 
