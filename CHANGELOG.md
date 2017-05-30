@@ -1,5 +1,9 @@
 # Next Version
 
+# 2.1.1
+
+- Fix text filter
+
 # 2.1.0
 
 - Filter by status
