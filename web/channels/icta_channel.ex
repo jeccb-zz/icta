@@ -39,7 +39,8 @@ defmodule Icta.IdeaChannel do
              |> Repo.insert
 
     case result do
-      {:ok, idea} -> broadcast! socket, "idea:new", %{
+      {:ok, idea} -> broadcast! socket, "idea:new",
+        %{
           id: idea.id,
           title: idea.title,
           body: idea.body,
@@ -48,9 +49,12 @@ defmodule Icta.IdeaChannel do
             name: socket.assigns[:current_user].name,
             image_url: socket.assigns[:current_user].image_url
           },
+          owner: %{ id: nil, name: nil, image_url: nil },
           up: 0,
           down: 0,
-          comments_count: 0
+          comments_count: 0,
+          status: "new",
+          my_vote: nil
         }
         {:reply, :ok, socket }
       {:error, error} ->
