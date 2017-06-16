@@ -11,6 +11,10 @@ $navbar-height: 100px;
 }
 
 .list-group-item {
+  .list-item-thumbs {
+    max-width: 140px;
+  }
+
   .thumbs-group {
     max-width: 140px;
     float: left;
@@ -18,16 +22,11 @@ $navbar-height: 100px;
 
   .thumbs {
     float: left;
-    margin: 13px 11px;
-
-    &:last-of-type {
-      margin-right: 30px;
-    }
+    margin: 0px 14px;
   }
 
   .status-badge {
     text-align: center;
-    padding-top: 15px;
 
   }
 
@@ -225,6 +224,11 @@ $navbar-height: 100px;
 .filters-status {
   line-height: 28px;
   font-size: 16px;
+
+  .filter {
+    float: left;
+    margin: 0 7px 10px 7px;
+  }
 }
 
 .label {

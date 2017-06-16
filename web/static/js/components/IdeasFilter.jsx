@@ -3,7 +3,7 @@ import { Translate, I18n } from 'react-redux-i18n';
 import { connect } from 'react-redux';
 
 const IdeasFilter = ({filter, onChange, onClickStatus}) => (
-  <div>
+  <div className="row">
     <div className="col-xs-12 col-md-7">
       <div className="form-group">
         <label htmlFor="filter-text"><Translate value="filter" /></label>
@@ -17,9 +17,9 @@ const IdeasFilter = ({filter, onChange, onClickStatus}) => (
             <label htmlFor="filter-text"><Translate value="status" /></label>
           </div>
         </div>
-        <div className="row text-center filters-status">
+        <div className="filters-status">
           { [ 'new', 'planned', 'in_progress', 'done' ].map( (status) => (
-            <div className="col-xs-3" key={status}>
+            <div className="filter" key={status}>
               <span className={`label ${filter.status.includes(status) ? `label-status-${status}` : 'label-default'}`} onClick={onClickStatus(status)}>
                 <Translate value={`idea.statuses.${status}`} />
               </span>
