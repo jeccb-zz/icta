@@ -1,5 +1,9 @@
 # Next Version
 
+# 2.2.1
+
+- Add favicon
+
 # 2.2.0
 
 - Fix ideas not beeing shown after their creation
