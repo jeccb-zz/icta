@@ -11,7 +11,11 @@ function join(dest) { return path.resolve(__dirname, dest); }
 function web(dest) { return join("web/static/" + dest); }
 
 var plugins = [
-  new ExtractTextPlugin('css/app.css')
+  new ExtractTextPlugin('css/app.css'),
+  new webpack.ProvidePlugin({
+    $: "jquery",
+    jQuery: "jquery"
+  })
 ];
 
 // This is necessary to get the sass @import's working

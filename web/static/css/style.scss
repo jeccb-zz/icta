@@ -103,16 +103,68 @@ $navbar-height: 100px;
   border-color: #4378bd;
 }
 
+.navbar-header .profileImage {
+  display: none;
+}
+
+.navbar-nav > li {
+  padding: 0 15px;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    min-height: 50px;
+
+    li {
+      padding: 10px 15px;
+    }
+  }
+
+  .navbar-nav {
+    margin: 0px -15px;
+  }
+
+
+  .navbar-brand {
+    padding: 35px 15px;
+    height: 50px
+  }
+
+  button.navbar-toggle {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  button.navbar-toggle {
+    border: none !important;
+    color: #ffffff;
+    background-color: #1a4f96 !important;
+    float: left;
+    margin-left: 20px;
+    margin-right: 0;
+
+    &.collapsed {
+      background-color: #4c7dbd !important;
+    }
+  }
+
+  .navbar-header .profileImage {
+    display: block !important;
+    float: right;
+    margin: 13px !important;
+  }
+
+  .nav.navbar-right.profile-container {
+    display: none;
+  }
+}
+
 .navbar-brand {
   background-image: url('../images/ictawhitelower.png');
   background-size: 65%;
   background-repeat: no-repeat;
   background-position: center;
   width: 160px;
-}
-
-.navbar-nav > li {
-  padding: 0 15px;
 }
 
 .navbar-nav > li:hover {
@@ -136,6 +188,10 @@ $navbar-height: 100px;
   margin: 25px 0;
   width: 50px;
   height: 50px;
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+  border-color: #6ba5f1;
 }
 
 .profileImage {

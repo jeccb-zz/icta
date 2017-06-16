@@ -10,6 +10,8 @@ import rootReducer from './reducers/index';
 import { loadTranslations, setLocale, syncTranslationWithStore } from 'react-redux-i18n';
 import translationsObject from './i18n/i18n';
 
+import 'bootstrap-sass';
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(rootReducer, composeEnhancers(
