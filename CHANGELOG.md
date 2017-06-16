@@ -1,5 +1,10 @@
 # Next Version
 
+# 2.2.0
+
+- Fix ideas not beeing shown after their creation
+- Add some support to mobile screens
+
 # 2.1.1
 
 - Fix text filter
