@@ -8,13 +8,13 @@ import { Link } from 'react-router-dom';
 const ShowIdea = ({idea, onAddComment, currentUser}) => (
   <div className="show-idea">
     <div className="row">
-      <div className="col-xs-9">
+      <div className="col-xs-6">
         { idea.owner.id ? <p className="text-right"> <strong><Translate value="idea.owner" />:</strong>&nbsp;
           <img className="small-profile-image" src={idea.owner.image_url} />
           &nbsp; <strong>{idea.owner.name}</strong>
         </p> : '' }
       </div>
-      <div className="col-xs-3">
+      <div className="col-xs-6">
         <p className="text-right">
           <strong><Translate value="idea.author" />:</strong>&nbsp;
           <img className="small-profile-image" src={idea.author.image_url} />
@@ -22,28 +22,29 @@ const ShowIdea = ({idea, onAddComment, currentUser}) => (
         </p>
       </div>
     </div>
-    <div className="row title">
-      <div className="col-xs-12">
-        <div className="well well-sm">
-          <div className="row">
-            <div className="col-xs-10">
-              <h1> {idea.title}</h1>
-              <h4>
-                <span className={`label label-status-${idea.status}`}>
-                  <Translate value={`idea.statuses.${idea.status}`} dangerousHTML />
-                </span>
-              </h4>
-            </div>
-            <div className="col-xs-2 text-right">
-              { idea.author.id == currentUser.id || idea.owner.id == currentUser.id ?
-                  <Link className="btn btn-primary" to={`/ideas/edit/${idea.id}`}><i className="fa fa-pencil"></i> Editar</Link>
-                  : ''
-              }
-            </div>
-          </div>
+    <div className="well well-sm">
+      <div className="row title">
+        <div className="col-xs-6">
+          <h4>
+            <span className={`label label-status-${idea.status}`}>
+              <Translate value={`idea.statuses.${idea.status}`} dangerousHTML />
+            </span>
+          </h4>
+        </div>
+        <div className="col-xs-6 text-right">
+          { idea.author.id == currentUser.id || idea.owner.id == currentUser.id ?
+              <Link className="btn btn-primary" to={`/ideas/edit/${idea.id}`}><i className="fa fa-pencil"></i> Editar</Link>
+              : ''
+          }
+        </div>
+        <div className="col-xs-12">
           <hr />
+          <h1> {idea.title}</h1>
+        </div>
+        <div className="col-xs-12">
           <div className="row">
             <div className="col-xs-12">
+              <hr />
               <ReactMarkdown source={idea.body} />
             </div>
           </div>

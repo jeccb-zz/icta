@@ -18,6 +18,7 @@ $navbar-height: 100px;
   .thumbs-group {
     max-width: 140px;
     float: left;
+    padding-top: 15px;
   }
 
   .thumbs {
@@ -231,7 +232,7 @@ $navbar-height: 100px;
   }
 }
 
-.label {
+.label, .status-row {
   &.label-status-new {
     background-color: #337ab7;
   }
@@ -249,4 +250,28 @@ $navbar-height: 100px;
   }
 }
 
+.list-group-item  {
+  &.status-new {
+    border-left: 10px solid #337ab7;
+  }
 
+  &.status-planned {
+    border-left: 10px solid#30bb9b;
+  }
+
+  &.status-in_progress {
+    border-left: 10px solid#ff8100;
+  }
+
+  &.status-done {
+    border-left: 10px solid #069424;
+  }
+
+  .author-field {
+    text-align: right;
+
+    img {
+      margin-left: 10px;
+    }
+  }
+}
