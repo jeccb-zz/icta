@@ -1,5 +1,9 @@
 # Next Version
 
+# 2.2.2
+
+- Better mobile layout for every page
+
 # 2.2.1
 
 - Add favicon
