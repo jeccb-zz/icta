@@ -99,6 +99,29 @@ defmodule Icta.IdeaChannel do
 
   end
 
+  def handle_in("vote:remove", params, socket) do
+    result =
+      case Repo.one(from vote in Vote,
+                    preload: [:user, :idea],
+                    where: vote.user_id == ^socket.assigns[:current_user].id and
+                           vote.idea_id == ^params["idea_id"]) do
+        nil -> nil
+        vote -> Repo.delete(vote)
+      end
+
+    case result do
+      {:ok, vote} ->
+        broadcast! socket, "vote:new", Idea.one_with_votes(vote.idea_id, socket.assigns[:current_user])
+        {:reply, :ok, socket}
+      {:error, error} ->
+        IO.puts("ERROR! #{inspect error}")
+        {:reply, {:error, error }, socket }
+    end
+
+  end
+
+
+
   def handle_in("user:get", _, socket) do
     {:reply, {:ok, %{ user: %{
       name: socket.assigns[:current_user].name,

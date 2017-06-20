@@ -21,6 +21,10 @@ export const VOTE_REQUEST = 'VOTE_REQUEST';
 export const VOTE_SUCCESS = 'VOTE_SUCCESS';
 export const VOTE_FAILURE = 'VOTE_FAILURE';
 
+export const VOTE_REMOVE_REQUEST = 'VOTE_REMOVE_REQUEST';
+export const VOTE_REMOVE_SUCCESS = 'VOTE_REMOVE_SUCCESS';
+export const VOTE_REMOVE_FAILURE = 'VOTE_REMOVE_FAILURE';
+
 export const FETCH_IDEA_SUCCESS = 'FETCH_IDEA_SUCCESS';
 export const FETCH_IDEA_REQUEST = 'FETCH_IDEA_REQUEST';
 export const FETCH_IDEA_FAILURE = 'FETCH_IDEA_FAILURE';
@@ -52,6 +56,10 @@ const userInfoFailure = (error) => ({ type: USER_INFO_FAILURE, error });
 const voteRequest = () => ({ type: VOTE_REQUEST });
 const voteSuccess = (idea) => ({ type: VOTE_SUCCESS, idea });
 const voteFailure = (error) => ({ type: VOTE_FAILURE, error });
+
+const voteRemoveRequest = () => ({ type: VOTE_REMOVE_REQUEST });
+const voteRemoveSuccess = (idea) => ({ type: VOTE_REMOVE_SUCCESS, idea });
+const voteRemoveFailure = (error) => ({ type: VOTE_REMOVE_FAILURE, error });
 
 const showIdeasRequest = () => ({ type: SHOW_IDEAS_REQUEST });
 const showIdeasSuccess = ideas => ({ type: SHOW_IDEAS_SUCCESS, ideas });
@@ -126,6 +134,20 @@ export const deleteIdea = (ideaId) => (
   }
 );
 
+export const removeVote = (ideaId) => (
+  dispatch => {
+    dispatch(voteRemoveRequest());
+    const payload = { idea_id: ideaId }
+
+    channel.push('vote:remove', payload)
+      .receive('ok', response => {
+        dispatch(changeMyVote(ideaId, null));
+      })
+      .receive('error', error => {
+        dispatch(addIdeaFailure(title, error));
+      });
+  }
+)
 export const vote = (ideaId, vote) => (
   dispatch => {
     dispatch(voteRequest());

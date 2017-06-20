@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
-import { vote, deleteIdea, fetchIdea } from '../actions/ideas';
+import { vote, removeVote, deleteIdea, fetchIdea } from '../actions/ideas';
 import { Translate } from 'react-redux-i18n';
 
-const IdeasListItem = withRouter(({idea, deleteIdea, voteUp, voteDown, ideaClick, history, userId}) => (
+const IdeasListItem = withRouter(({idea, deleteIdea, voteUp, voteDown, removeVote, ideaClick, history, userId}) => (
   <li className={`list-group-item status-${idea.status}`}>
     <div className="row">
       <div className="col-xs-12" onClick={() => {ideaClick(idea, history)}}>
@@ -36,13 +36,13 @@ const IdeasListItem = withRouter(({idea, deleteIdea, voteUp, voteDown, ideaClick
           <div className="col-xs-12">
             <div className="thumbs-group text-center" >
               <div className="thumbs">
-                <a onClick={() => {voteUp(idea.id)}}>
+                <a onClick={() => {idea.my_vote === true ? removeVote(idea.id) : voteUp(idea.id)}}>
                   <i className={`fa fa-thumbs-up fa-2x ${idea.my_vote === true ? 'active' : ''}`}></i>
                 </a><br />
                 <span className="vote-count">{idea.up}</span><br />
               </div>
               <div className="thumbs">
-                <a onClick={() => {voteDown(idea.id)}}>
+                <a onClick={() => {idea.my_vote === false ? removeVote(idea.id) : voteDown(idea.id)}}>
                   <i className={`fa fa-thumbs-down fa-2x ${idea.my_vote === false ? 'active' : ''}`}></i>
                 </a><br />
                 <span className="vote-count">{idea.down}</span><br />
@@ -69,6 +69,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   voteUp: (ideaId) => { dispatch(vote(ideaId, true)); },
   voteDown: (ideaId) => { dispatch(vote(ideaId, false)); },
+  removeVote: (ideaId) => { dispatch(removeVote(ideaId)); },
   deleteIdea: (ideaId) => { dispatch(deleteIdea(ideaId)); },
   ideaClick: (idea, history) => {
     history.push(`/ideas/show/${idea.id}`);
@@ -78,6 +79,7 @@ const mapDispatchToProps = dispatch => ({
 IdeasListItem.propTypes = {
   voteUp: PropTypes.func.isRequired,
   voteDown: PropTypes.func.isRequired,
+  removeVote: PropTypes.func.isRequired,
   idea: PropTypes.shape({
     title: PropTypes.string.isRequired,
     author: PropTypes.shape({

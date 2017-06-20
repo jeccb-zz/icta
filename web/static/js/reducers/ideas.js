@@ -1,6 +1,6 @@
 import { SHOW_IDEAS_REQUEST, SHOW_IDEAS_SUCCESS, SHOW_IDEAS_FAILURE,
   ADD_IDEA_SUCCESS, VOTE_SUCCESS, DELETE_IDEA_SUCCESS, NEW_IDEA_RECEIVED,
-  CHANGE_MY_VOTE, EDIT_IDEA_RECEIVED } from '../actions/ideas';
+  CHANGE_MY_VOTE, EDIT_IDEA_RECEIVED, VOTE_REMOVE_SUCCESS } from '../actions/ideas';
 
 const sortIdeas = (ideas) => (ideas.sort((a, b) => ( (b.up - b.down) - (a.up - a.down))));
 
@@ -45,6 +45,13 @@ const ideas = (state = [], action) => {
 
       return sortIdeas(
         replaceIdea(state, newIdea, index)
+      );
+    case VOTE_REMOVE_SUCCESS:
+      const indexToRemove = state.map(i => i.id).indexOf(action.idea.id);
+      const newIdeaRemoved = { ...state[indexToRemove], up: action.idea.up, down: action.idea.down }
+
+      return sortIdeas(
+        replaceIdea(state, newIdeaRemoved, indexToRemove)
       );
     case DELETE_IDEA_SUCCESS:
       return state.filter((i) => i.id != action.ideaId);
