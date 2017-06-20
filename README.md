@@ -51,6 +51,10 @@ you may also set `ICTA_GOOGLE_ALLOWED_DOMAIN` if you are using your company goog
 
 run `mix tests` :)
 
+## SASS Lint
+
+run `sass-lint -vq` 
+
 ## Production
 
 ### Docker
