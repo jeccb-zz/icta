@@ -5,12 +5,12 @@ import { vote, removeVote, deleteIdea, fetchIdea } from '../actions/ideas';
 import { Translate } from 'react-redux-i18n';
 
 const IdeasListItem = withRouter(({idea, deleteIdea, voteUp, voteDown, removeVote, ideaClick, history, userId}) => (
-  <li className={`list-group-item status-${idea.status}`}>
+  <li className={`list-group-item status-${idea.status.replace('_','-')}`}>
     <div className="row">
       <div className="col-xs-12" onClick={() => {ideaClick(idea, history)}}>
         <div className="row">
           <div className="col-xs-3">
-            <span className={`label label-status-${idea.status}`}><Translate value={`idea.statuses.${idea.status}`} dangerousHTML /></span>
+            <span className={`label label-status-${idea.status.replace('_','-')}`}><Translate value={`idea.statuses.${idea.status}`} dangerousHTML /></span>
           </div>
           <div className="col-xs-9 author-field">
             &nbsp; {idea.author.name}

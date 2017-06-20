@@ -18,7 +18,7 @@ const Header = ({userName, userImage}) => (
         </button>
         <Link className="navbar-brand" to="/"></Link>
 
-        <img className="profileImage" src={userImage} />
+        <img className="profile-image" src={userImage} />
       </div>
 
       <div className="collapse navbar-collapse navbar-left" id="header-collapse">
@@ -30,7 +30,7 @@ const Header = ({userName, userImage}) => (
 
       <div className="pull-right hidden-xs">
         <p className="navbar-text"><Translate value="header.welcome" name={userName}/></p>
-        <img className="profileImage" src={userImage} />
+        <img className="profile-image" src={userImage} />
       </div>
     </div>
   </nav>

@@ -28,7 +28,6 @@ $navbar-height: 100px;
 
   .status-badge {
     text-align: center;
-
   }
 
   .idea-info {
@@ -42,10 +41,10 @@ $navbar-height: 100px;
   .fa-thumbs-up, .fa-thumbs-down {
     color: #d3d3d3;
     cursor: pointer;
+  }
 
-    &.active {
-      color: #4378bd;
-    }
+  .fa-thumbs-up.active, .fa-thumbs-down.active {
+    color: #4378bd;
   }
 
   h4, .author {
@@ -60,10 +59,10 @@ $navbar-height: 100px;
       transition: color 0.5s ease;
       color: #d3d3d3;
       cursor: pointer;
-    }
 
-    i:hover {
-      color: black;
+      &:hover {
+        color: #000;
+      }
     }
   }
 
@@ -74,7 +73,7 @@ $navbar-height: 100px;
     cursor: pointer;
 
     &:hover {
-      color: black;
+      color: #000;
     }
 
     span {
@@ -90,11 +89,9 @@ $navbar-height: 100px;
   }
 }
 
-.panel {
-  .panel-heading {
-    h1, h2, h3, h4 {
-      margin: 0;
-    }
+.panel .panel-heading {
+  h1, h2, h3, h4 {
+    margin: 0;
   }
 }
 
@@ -103,7 +100,7 @@ $navbar-height: 100px;
   border-color: #4378bd;
   border-radius: 0;
 
-  .navbar-header .profileImage {
+  .navbar-header .profile-image {
     display: none;
   }
 
@@ -126,10 +123,10 @@ $navbar-height: 100px;
 
     .navbar-brand {
       padding: 35px 15px;
-      height: 50px
+      height: 50px;
     }
 
-    .navbar-header .profileImage {
+    .navbar-header .profile-image {
       display: block !important;
       float: right;
       margin: 13px !important;
@@ -138,15 +135,11 @@ $navbar-height: 100px;
     .nav.navbar-right.profile-container {
       display: none;
     }
-
   }
 
   button.navbar-toggle {
     margin-top: 15px;
     margin-bottom: 15px;
-  }
-
-  button.navbar-toggle {
     border: none !important;
     color: #ffffff;
     background-color: #1a4f96 !important;
@@ -161,7 +154,7 @@ $navbar-height: 100px;
 }
 
 .navbar-brand {
-  background-image: url('../images/ictawhitelower.png');
+  background-image: url("../images/ictawhitelower.png");
   background-size: 65%;
   background-repeat: no-repeat;
   background-position: center;
@@ -169,33 +162,31 @@ $navbar-height: 100px;
 }
 
 .navbar-nav > li:hover {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#999999+0,3c6dad+95,3c6dad+95,3c6dad+97,1d5caa+97,1d5caa+100&0+0,1+100 */
-  background: -moz-linear-gradient(top, rgba(153,153,153,0) 0%, rgba(60,109,173,0.95) 95%, rgba(29,92,170,0.97) 95%, rgba(29,92,170,1) 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(153,153,153,0) 0%,rgba(60,109,173,0.95) 95%,rgba(29,92,170,0.97) 95%,rgba(29,92,170,1) 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(153,153,153,0) 0%,rgba(60,109,173,0.95) 95%,rgba(29,92,170,0.97) 95%,rgba(29,92,170,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', endColorstr='#1d5caa',GradientType=0 ); /* IE6-9 */
+  background-color: #3C6DAE;
 }
 
-.navbar-inverse .navbar-nav > li > a {
-  color: #ffffff;
-  font-size: 14pt;
+.navbar-inverse {
+  .navbar-nav > li > a {
+    color: #ffffff;
+    font-size: 14pt;
+  }
+
+  .navbar-text {
+    color: #ffffff;
+  }
+
+  .profile-image {
+    margin: 25px 0;
+    width: 50px;
+    height: 50px;
+  }
+
+  .navbar-collapse, .navbar-form {
+    border-color: #6ba5f1;
+  }
 }
 
-.navbar-inverse .navbar-text {
-  color: #ffffff;
-}
-
-.navbar-inverse .profileImage {
-  margin: 25px 0;
-  width: 50px;
-  height: 50px;
-}
-
-.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-  border-color: #6ba5f1;
-}
-
-.profileImage {
+.profile-image {
   border: 2px solid white;
   border-radius: 7px;
 }
@@ -208,18 +199,16 @@ $navbar-height: 100px;
   width: 20px;
   height: 20px;
   border-radius: 3px;
-
 }
 
-.show-idea{
-  .title {
-    h1, h4 {
-      float: left;
-    }
+.show-idea .title {
+  h1 {
+    float: left;
+  }
 
-    h4 {
-      padding: 10px 20px;
-    }
+  h4 {
+    float: left;
+    padding: 10px 20px;
   }
 }
 
@@ -229,39 +218,37 @@ $navbar-height: 100px;
 
   .filter {
     float: left;
-    margin: 0 7px 10px 7px;
+    margin: 0 7px 10px;
   }
 }
 
-.label, .status-row {
-  &.label-status-new {
-    background-color: #337ab7;
-  }
-
-  &.label-status-planned {
-    background-color: #30bb9b;
-  }
-
-  &.label-status-in_progress {
-    background-color: #ff8100;
-  }
-
-  &.label-status-done {
-    background-color: #069424;
-  }
+.label.label-status-new, .status-row.label-status-new {
+  background-color: #337ab7;
 }
 
-.list-group-item  {
+.label.label-status-planned, .status-row.label-status-planned {
+  background-color: #30bb9b;
+}
+
+.label.label-status-in-progress, .status-row.label-status-in-progress {
+  background-color: #ff8100;
+}
+
+.label.label-status-done, .status-row.label-status-done {
+  background-color: #069424;
+}
+
+.list-group-item {
   &.status-new {
     border-left: 10px solid #337ab7;
   }
 
   &.status-planned {
-    border-left: 10px solid#30bb9b;
+    border-left: 10px solid #30bb9b;
   }
 
-  &.status-in_progress {
-    border-left: 10px solid#ff8100;
+  &.status-in-progress {
+    border-left: 10px solid #ff8100;
   }
 
   &.status-done {

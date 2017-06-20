@@ -5,7 +5,7 @@ const Comment = ({body, author, createdAt}) => (
   <li className="list-group-item">
     <div className="media">
       <div className="media-left">
-        <img className="profileImage" src={author.image_url} />
+        <img className="profile-image" src={author.image_url} />
       </div>
       <div className="media-body">
         <p>{body}</p>

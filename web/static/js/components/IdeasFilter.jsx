@@ -20,7 +20,7 @@ const IdeasFilter = ({filter, onChange, onClickStatus}) => (
         <div className="filters-status">
           { [ 'new', 'planned', 'in_progress', 'done' ].map( (status) => (
             <div className="filter" key={status}>
-              <span className={`label ${filter.status.includes(status) ? `label-status-${status}` : 'label-default'}`} onClick={onClickStatus(status)}>
+              <span className={`label ${filter.status.includes(status) ? `label-status-${status.replace('_','-')}` : 'label-default'}`} onClick={onClickStatus(status)}>
                 <Translate value={`idea.statuses.${status}`} />
               </span>
             </div>
