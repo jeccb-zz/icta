@@ -1,6 +1,7 @@
 # Next Version
 
 - Cursor pointer on status filter
+- Fix huge fetch loop on EditIdea
 
 # 2.2.3
 

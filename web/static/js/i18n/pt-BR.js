@@ -21,6 +21,7 @@ export default {
     new: 'Criar ideia',
     author: 'Autor',
     owner: 'Dono',
+    save: 'Salvar'
   },
   notifications: {
     new_idea_success: {

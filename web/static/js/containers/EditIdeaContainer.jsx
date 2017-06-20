@@ -1,22 +1,32 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import EditIdea from '../components/EditIdea';
 import { fetchIdea, editIdea, getAllUsers } from '../actions/ideas';
 
-const EditIdeaContainer = ({idea, onEdit, ideaId, fetchIdea, history, allUsers, getAllUsers}) => {
-  if (!idea || idea.id != ideaId) {
-    fetchIdea(ideaId);
-    return null;
-  } else {
-    return (
-      <EditIdea
-        idea={idea}
-        allUsers={allUsers}
-        getAllUsers={getAllUsers}
-        onEditIdea={(attributes) => onEdit(idea.id, history, attributes)}
-      />
-    );
+class EditIdeaContainer extends Component {
+  componentWillMount() {
+    const { fetchIdea, ideaId, idea } = this.props;
+    if (!idea || idea.id != ideaId) {
+      fetchIdea(ideaId);
+    }
+  }
+
+  render () {
+    const {idea, onEdit, ideaId, fetchIdea, history, allUsers, getAllUsers} = this.props;
+
+    if (!idea || idea.id != ideaId) {
+      return null;
+    } else {
+      return (
+        <EditIdea
+          idea={idea}
+          allUsers={allUsers}
+          getAllUsers={getAllUsers}
+          onEditIdea={(attributes) => onEdit(idea.id, history, attributes)}
+        />
+      );
+    }
   }
 }
 
