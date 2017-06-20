@@ -101,14 +101,15 @@ $navbar-height: 100px;
 .navbar-inverse {
   background-color: #4378bd;
   border-color: #4378bd;
-}
+  border-radius: 0;
 
-.navbar-header .profileImage {
-  display: none;
-}
+  .navbar-header .profileImage {
+    display: none;
+  }
 
-.navbar-nav > li {
-  padding: 0 15px;
+  .navbar-nav > li {
+    padding: 0 15px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -118,16 +119,26 @@ $navbar-height: 100px;
     li {
       padding: 10px 15px;
     }
-  }
 
-  .navbar-nav {
-    margin: 0px -15px;
-  }
+    .navbar-nav {
+      margin: 0px -15px;
+    }
 
+    .navbar-brand {
+      padding: 35px 15px;
+      height: 50px
+    }
 
-  .navbar-brand {
-    padding: 35px 15px;
-    height: 50px
+    .navbar-header .profileImage {
+      display: block !important;
+      float: right;
+      margin: 13px !important;
+    }
+
+    .nav.navbar-right.profile-container {
+      display: none;
+    }
+
   }
 
   button.navbar-toggle {
@@ -146,16 +157,6 @@ $navbar-height: 100px;
     &.collapsed {
       background-color: #4c7dbd !important;
     }
-  }
-
-  .navbar-header .profileImage {
-    display: block !important;
-    float: right;
-    margin: 13px !important;
-  }
-
-  .nav.navbar-right.profile-container {
-    display: none;
   }
 }
 

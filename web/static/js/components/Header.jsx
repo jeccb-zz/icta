@@ -28,10 +28,10 @@ const Header = ({userName, userImage}) => (
         </ul>
       </div>
 
-      <ul className="nav navbar-nav navbar-right profile-container">
-        <li><p className="navbar-text"><Translate value="header.welcome" name={userName}/></p></li>
-        <li><img className="profileImage" src={userImage} /></li>
-      </ul>
+      <div className="pull-right hidden-xs">
+        <p className="navbar-text"><Translate value="header.welcome" name={userName}/></p>
+        <img className="profileImage" src={userImage} />
+      </div>
     </div>
   </nav>
 )
