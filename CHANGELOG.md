@@ -1,5 +1,7 @@
 # Next Version
 
+- Cursor pointer on status filter
+
 # 2.2.3
 
 - Correctly implementing favicon (I guess)
