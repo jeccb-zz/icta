@@ -21,11 +21,17 @@ export default {
     new: 'Create idea',
     author: 'Author',
     owner: 'Owner',
+    status: 'Status',
+    save: 'Save',
   },
   notifications: {
     new_idea_success: {
       title: 'Idea created!',
       message: 'Idea created successfully.',
+    },
+    delete_idea_success: {
+      title: 'Idea deleted!',
+      message: 'Idea deleted successfully.',
     },
     edit_idea_success: {
       title: 'Idea updated!',
@@ -34,4 +40,7 @@ export default {
   },
   datetime: 'MM/DD/YYYY, h:mm',
   filter: 'Filter',
+  back: 'Back',
+  edit: 'Edit',
+  delete: 'Delete',
 }
