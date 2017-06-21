@@ -38,6 +38,7 @@ export default {
       message: 'Idea updated successfully.',
     },
   },
+  confirm_message: "Você tem certeza?",
   datetime: 'MM/DD/YYYY, h:mm',
   filter: 'Filter',
   back: 'Back',

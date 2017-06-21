@@ -6,7 +6,7 @@ import { Translate, I18n } from 'react-redux-i18n';
 import { Link } from 'react-router-dom';
 
 const confirmDelete = (onDeleteIdea) => {
-  if (confirm("Deseja realmente excluir essa idéia?")) {
+  if (confirm(I18n.t('confirm_message'))) {
     onDeleteIdea();
   }
 };
