@@ -5,49 +5,56 @@ import NewComment from './NewComment';
 import { Translate, I18n } from 'react-redux-i18n';
 import { Link } from 'react-router-dom';
 
-const ShowIdea = ({idea, onAddComment, currentUser}) => (
+const confirmDelete = (onDeleteIdea) => {
+  if (confirm("Deseja realmente excluir essa idéia?")) {
+    onDeleteIdea();
+  }
+};
+
+const ShowIdea = ({idea, onAddComment, onDeleteIdea, currentUser}) => (
   <div className="show-idea">
     <div className="row">
-      <div className="col-xs-6">
-        { idea.owner.id ? <p className="text-right"> <strong><Translate value="idea.owner" />:</strong>&nbsp;
-          <img className="small-profile-image" src={idea.owner.image_url} />
-          &nbsp; <strong>{idea.owner.name}</strong>
-        </p> : '' }
+      <div className="col-xs-4">
+        <p>
+          <Link className="btn btn-sm btn-primary" to="/">
+            <i className="fa fa-chevron-left"></i> &nbsp;
+            <Translate value="back" />
+          </Link>
+        </p>
       </div>
-      <div className="col-xs-6">
-        <p className="text-right">
-          <strong><Translate value="idea.author" />:</strong>&nbsp;
-          <img className="small-profile-image" src={idea.author.image_url} />
-          &nbsp; <strong>{idea.author.name}</strong>
+      <div className="col-xs-8 text-right">
+        <p>
+          { idea.author.id == currentUser.id || idea.owner.id == currentUser.id ?
+            <Link className="btn btn-sm btn-primary" to={`/ideas/edit/${idea.id}`}><i className="fa fa-pencil"></i> &nbsp;<Translate value="edit" /></Link>
+            : ''
+          }
+          &nbsp; { idea.author.id == currentUser.id ? <button onClick={() => {confirmDelete(onDeleteIdea)}} className="btn btn-sm btn-danger"><i className="fa fa-trash"></i> &nbsp;<Translate value="delete" /></button> : '' }
         </p>
       </div>
     </div>
-    <div className="well well-sm">
-      <div className="row title">
-        <div className="col-xs-6">
-          <h4>
-            <span className={`label label-status-${idea.status}`}>
+    <div className={`well well-sm status-${idea.status.replace('_','-')}`}>
+      <div className="row">
+        <div className="col-md-2">
+          { idea.owner.id ? <p> <strong><Translate value="idea.owner" />:</strong><br />
+            <img className="profile-image small" src={idea.owner.image_url} />
+            &nbsp; <strong>{idea.owner.name}</strong>
+          </p> : '' }
+          <p>
+            <strong><Translate value="idea.author" />:</strong><br />
+            <img className="profile-image small" src={idea.author.image_url} />
+            &nbsp; <strong>{idea.author.name}</strong>
+          </p>
+          <p>
+            <strong><Translate value="idea.status" />: &nbsp;</strong><br />
+            <span className={`label status-${idea.status.replace('_','-')}`}>
               <Translate value={`idea.statuses.${idea.status}`} dangerousHTML />
             </span>
-          </h4>
+          </p>
         </div>
-        <div className="col-xs-6 text-right">
-          { idea.author.id == currentUser.id || idea.owner.id == currentUser.id ?
-              <Link className="btn btn-primary" to={`/ideas/edit/${idea.id}`}><i className="fa fa-pencil"></i> Editar</Link>
-              : ''
-          }
-        </div>
-        <div className="col-xs-12">
+        <div className="col-md-10">
+          <h1>{idea.title}</h1>
           <hr />
-          <h1> {idea.title}</h1>
-        </div>
-        <div className="col-xs-12">
-          <div className="row">
-            <div className="col-xs-12">
-              <hr />
-              <ReactMarkdown source={idea.body} />
-            </div>
-          </div>
+          <ReactMarkdown source={idea.body} />
         </div>
       </div>
     </div>
