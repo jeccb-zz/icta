@@ -1,269 +1,167 @@
 $bootstrap-sass-asset-helper: true;
 
-$navbar-height: 100px;
+$navbar-height: 90px;
 
 @import "bootstrap-sass/assets/stylesheets/_bootstrap";
 @import "simplemde/src/css/simplemde";
 @import "codemirror";
 
-.breadcrumb {
-  padding: 8px 15px 8px 0;
-}
-
-.list-group-item {
-  .list-item-thumbs {
-    max-width: 140px;
-  }
-
-  .thumbs-group {
-    max-width: 140px;
-    float: left;
-    padding-top: 15px;
-  }
-
-  .thumbs {
-    float: left;
-    margin: 0px 14px;
-  }
-
-  .status-badge {
-    text-align: center;
-  }
-
-  .idea-info {
-    float: left;
-  }
-
-  .vote-count {
-    color: #d7d7d7;
-  }
-
-  .fa-thumbs-up, .fa-thumbs-down {
-    color: #d3d3d3;
-    cursor: pointer;
-  }
-
-  .fa-thumbs-up.active, .fa-thumbs-down.active {
-    color: #4378bd;
-  }
-
-  h4, .author {
-    cursor: pointer;
-  }
-
-  .idea-actions {
-    line-height: 75px;
-    float: right;
-
-    i {
-      transition: color 0.5s ease;
-      color: #d3d3d3;
-      cursor: pointer;
-
-      &:hover {
-        color: #000;
-      }
-    }
-  }
-
-  .idea-comments-count {
-    line-height: 65px;
-    transition: color 0.5s ease;
-    color: #d3d3d3;
-    cursor: pointer;
-
-    &:hover {
-      color: #000;
-    }
-
-    span {
-      font-size: 25px;
-      padding-left: 10px;
-    }
-  }
-}
-
-.well {
-  h1, h2, h3, h4 {
-    margin: 0;
-  }
-}
-
-.panel .panel-heading {
-  h1, h2, h3, h4 {
-    margin: 0;
-  }
-}
-
+// Navbar
 .navbar-inverse {
   background-color: #4378bd;
   border-color: #4378bd;
   border-radius: 0;
 
-  .navbar-header .profile-image {
-    display: none;
-  }
-
-  .navbar-nav > li {
-    padding: 0 15px;
-  }
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    min-height: 50px;
-
-    li {
-      padding: 10px 15px;
-    }
-
-    .navbar-nav {
-      margin: 0px -15px;
-    }
-
-    .navbar-brand {
-      padding: 35px 15px;
-      height: 50px;
-    }
-
-    .navbar-header .profile-image {
-      display: block !important;
-      float: right;
-      margin: 13px !important;
-    }
-
-    .nav.navbar-right.profile-container {
-      display: none;
-    }
-  }
-
-  button.navbar-toggle {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    border: none !important;
-    color: #ffffff;
-    background-color: #1a4f96 !important;
-    float: left;
-    margin-left: 20px;
-    margin-right: 0;
-
-    &.collapsed {
-      background-color: #4c7dbd !important;
-    }
-  }
-}
-
-.navbar-brand {
-  background-image: url("../images/ictawhitelower.png");
-  background-size: 65%;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 160px;
-}
-
-.navbar-nav > li:hover {
-  background-color: #3C6DAE;
-}
-
-.navbar-inverse {
-  .navbar-nav > li > a {
-    color: #ffffff;
-    font-size: 14pt;
-  }
-
-  .navbar-text {
-    color: #ffffff;
+  .navbar-brand {
+    background-image: url("../images/ictawhitelower.png");
+    background-size: 65%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 160px;
+    height: 88px
   }
 
   .profile-image {
-    margin: 25px 0;
-    width: 50px;
+    margin-right: 15px;
+    margin-top: 20px;
+  }
+
+  .navbar-text {
+    color: #fff;
+  }
+
+  .navbar-toggle {
+    float: left;
     height: 50px;
+    width: 50px;
+    margin-top: 20px;
+    margin-bottom: 0;
+    margin-right: 0;
+    margin-left: 15px;
+    color: #ffffff;
+    border-color: #ccc;
+
+    .icon-bar {
+      width: 28px;
+      height: 4px;
+    }
+
+    &:hover, &:focus, &.collapsed {
+      background-color: #4c7dbd;
+    }
   }
 
-  .navbar-collapse, .navbar-form {
-    border-color: #6ba5f1;
+  .navbar-nav {
+    > li > a {
+      color: #fff;
+
+      &:hover {
+        background-color: #3D6FAF;
+      }
+    }
+  }
+
+  .navbar-collapse {
+    border-color: #1a4f96;
   }
 }
 
-.profile-image {
-  border: 2px solid white;
-  border-radius: 7px;
-}
-
-.comment-user-image {
-  margin-right: 10px;
-}
-
-.small-profile-image {
-  width: 20px;
-  height: 20px;
-  border-radius: 3px;
-}
-
-.show-idea .title {
-  h1 {
-    float: left;
-  }
-
-  h4 {
-    float: left;
-    padding: 10px 20px;
-  }
-}
-
+// Label/Status
 .filters-status {
+  cursor: pointer;
   line-height: 28px;
   font-size: 16px;
 
   .filter {
     float: left;
-    margin: 0 7px 10px;
+    margin-right: 5px;
   }
 }
 
-.label.label-status-new, .status-row.label-status-new {
-  background-color: #337ab7;
-}
+.label {
+  border-left: none;
 
-.label.label-status-planned, .status-row.label-status-planned {
-  background-color: #30bb9b;
-}
-
-.label.label-status-in-progress, .status-row.label-status-in-progress {
-  background-color: #ff8100;
-}
-
-.label.label-status-done, .status-row.label-status-done {
-  background-color: #069424;
-}
-
-.list-group-item {
   &.status-new {
-    border-left: 10px solid #337ab7;
+    background-color: #337ab7;
   }
 
   &.status-planned {
-    border-left: 10px solid #30bb9b;
+    background-color: #30bb9b;
   }
 
   &.status-in-progress {
-    border-left: 10px solid #ff8100;
+    background-color: #ff8100;
   }
 
   &.status-done {
-    border-left: 10px solid #069424;
+    background-color: #069424;
+  }
+}
+
+.well, .list-group-item {
+  &.status-new {
+    border-left: 8px solid #337ab7;
   }
 
-  .author-field {
-    text-align: right;
+  &.status-planned {
+    border-left: 8px solid #30bb9b;
+  }
 
-    img {
-      margin-left: 10px;
+  &.status-in-progress {
+    border-left: 8px solid #ff8100;
+  }
+
+  &.status-done {
+    border-left: 8px solid #069424;
+  }
+}
+
+// Index list
+.list-group {
+  .list-group-item {
+    h4 {
+      color: #333;
+    }
+
+    .actions {
+      font-size: 25px;
+      color: #d3d3d3;
+
+      div.item {
+        float: left;
+        transition: color 0.5s ease;
+        padding-right: 15px;
+
+        a {
+          color: #d3d3d3;
+        }
+
+        span {
+          padding-left: 5px;
+        }
+        .active { color: #4378bd; }
+      }
     }
   }
 }
 
-.filters-status {
-  cursor: pointer;
+.panel {
+  .panel-heading {
+    h1, h2, h3, h4 {
+      margin: 0;
+    }
+  }
+}
+
+.profile-image {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #fff;
+  border-radius: 7px;
+
+  &.small {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+  }
 }
