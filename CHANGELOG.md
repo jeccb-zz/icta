@@ -1,5 +1,9 @@
 # Next Version
 
+# 2.4.0
+
+- SASS refactoring, style changes on list and show idea
+
 # 2.3.0
 
 - Cursor pointer on status filter
