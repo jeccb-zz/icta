@@ -1,0 +1,55 @@
+# Linter Options
+options:
+  # Don't merge default rules
+  merge-default-rules: false
+
+# File Options
+files:
+  include: 'web/static/css/**/*.s+(a|c)ss'
+
+# Rule Configuration
+rules:
+  empty-line-between-blocks: 1
+  extends-before-declarations: 2
+  extends-before-mixins: 2
+  no-debug: 1
+  no-ids: 1
+  no-warn: 1
+  shorthand-values: 1
+  space-before-brace: 2
+
+  class-name-format:
+    - 1
+    -
+      convention: hyphenatedlowercase
+
+  hex-notation:
+    - 2
+    -
+      style: downcase
+
+
+  indentation:
+    - 2
+    -
+      size: 2
+
+  mixins-before-declarations:
+    - 2
+    -
+      exclude:
+        - breakpoint
+        - mq
+
+  no-duplicate-properties:
+    - 1
+    -
+      exclude:
+        - src
+  property-sort-order:
+    - 1
+    -
+      order:
+        - display
+        - content
+      ignore-custom-properties: true

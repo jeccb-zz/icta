@@ -4,34 +4,32 @@ import { Link } from 'react-router-dom'
 import { Translate } from 'react-redux-i18n';
 
 const Header = ({userName, userImage}) => (
-  <nav className="navbar navbar-inverse" role="navigation">
+  <nav className="navbar navbar-inverse">
     <div className="container-fluid">
       <div className="navbar-header">
-        <button
-          type="button"
-          className="navbar-toggle collapsed"
-          data-toggle="collapse"
-          data-target="#header-collapse"
-          aria-expanded="false"
-          aria-controls="header-collapse">
-          <i className="fa fa-bars fa-2x"></i>
+        <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span className="sr-only">Toggle navigation</span>
+          <span className="icon-bar"></span>
+          <span className="icon-bar"></span>
+          <span className="icon-bar"></span>
         </button>
         <Link className="navbar-brand" to="/"></Link>
-
-        <img className="profileImage" src={userImage} />
+        <div className="pull-right">
+          <img className="profile-image visible-xs" src={userImage} />
+        </div>
       </div>
-
-      <div className="collapse navbar-collapse navbar-left" id="header-collapse">
+      <div id="navbar" className="navbar-collapse collapse">
         <ul className="nav navbar-nav">
           <li><Link to="/"><Translate value="header.list" /></Link></li>
           <li><Link to="/ideas/new"><Translate value="header.new" /></Link></li>
         </ul>
+        <ul className="nav navbar-nav navbar-right hidden-xs">
+          <li>
+            <p className="navbar-text"><Translate value="header.welcome" name={userName}/></p>
+            <img className="profile-image" src={userImage} />
+          </li>
+        </ul>
       </div>
-
-      <ul className="nav navbar-nav navbar-right profile-container">
-        <li><p className="navbar-text"><Translate value="header.welcome" name={userName}/></p></li>
-        <li><img className="profileImage" src={userImage} /></li>
-      </ul>
     </div>
   </nav>
 )

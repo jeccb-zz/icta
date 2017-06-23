@@ -49,7 +49,11 @@ you may also set `ICTA_GOOGLE_ALLOWED_DOMAIN` if you are using your company goog
 
 ### Tests
 
-run `mix tests` :)
+run `mix test` :)
+
+## SASS Lint
+
+run `sass-lint -vq` 
 
 ## Production
 

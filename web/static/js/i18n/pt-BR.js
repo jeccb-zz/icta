@@ -21,18 +21,27 @@ export default {
     new: 'Criar ideia',
     author: 'Autor',
     owner: 'Dono',
-    save: 'Salvar'
+    status: 'Status',
+    save: 'Salvar',
   },
   notifications: {
     new_idea_success: {
       title: 'Ideia criada!',
       message: 'Ideia criada com sucesso.',
     },
+    delete_idea_success: {
+      title: 'Ideia removida!',
+      message: 'Ideia removida com sucesso.',
+    },
     edit_idea_success: {
       title: 'Ideia alterada!',
       message: 'Ideia alterada com sucesso.',
     },
   },
+  confirm_message: "Você tem certeza?",
   datetime: 'DD/MM/YYYY [as] HH:mm',
   filter: 'Filtro',
+  back: 'Voltar',
+  edit: 'Editar',
+  delete: 'Excluir',
 }

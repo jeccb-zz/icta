@@ -1,92 +1,147 @@
 $bootstrap-sass-asset-helper: true;
 
-$navbar-height: 100px;
+$navbar-height: 90px;
 
 @import "bootstrap-sass/assets/stylesheets/_bootstrap";
 @import "simplemde/src/css/simplemde";
 @import "codemirror";
 
-.breadcrumb {
-  padding: 8px 15px 8px 0;
+// Navbar
+.navbar-inverse {
+  background-color: #4378bd;
+  border-color: #4378bd;
+  border-radius: 0;
+
+  .navbar-brand {
+    background-image: url("../images/ictawhitelower.png");
+    background-size: 65%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 160px;
+    height: 88px
+  }
+
+  .profile-image {
+    margin-right: 15px;
+    margin-top: 20px;
+  }
+
+  .navbar-text {
+    color: #fff;
+  }
+
+  .navbar-toggle {
+    float: left;
+    height: 50px;
+    width: 50px;
+    margin-top: 20px;
+    margin-bottom: 0;
+    margin-right: 0;
+    margin-left: 15px;
+    color: #ffffff;
+    border-color: #ccc;
+
+    .icon-bar {
+      width: 28px;
+      height: 4px;
+    }
+
+    &:hover, &:focus, &.collapsed {
+      background-color: #4c7dbd;
+    }
+  }
+
+  .navbar-nav {
+    > li > a {
+      color: #fff;
+
+      &:hover {
+        background-color: #3D6FAF;
+      }
+    }
+  }
+
+  .navbar-collapse {
+    border-color: #1a4f96;
+  }
 }
 
-.list-group-item {
-  .list-item-thumbs {
-    max-width: 140px;
-  }
+// Label/Status
+.filters-status {
+  cursor: pointer;
+  line-height: 28px;
+  font-size: 16px;
 
-  .thumbs-group {
-    max-width: 140px;
+  .filter {
     float: left;
-    padding-top: 15px;
+    margin-right: 5px;
+  }
+}
+
+.label {
+  border-left: none;
+
+  &.status-new {
+    background-color: #337ab7;
   }
 
-  .thumbs {
-    float: left;
-    margin: 0px 14px;
+  &.status-planned {
+    background-color: #30bb9b;
   }
 
-  .status-badge {
-    text-align: center;
-
+  &.status-in-progress {
+    background-color: #ff8100;
   }
 
-  .idea-info {
-    float: left;
+  &.status-done {
+    background-color: #069424;
+  }
+}
+
+.well, .list-group-item {
+  &.status-new {
+    border-left: 8px solid #337ab7;
   }
 
-  .vote-count {
-    color: #d7d7d7;
+  &.status-planned {
+    border-left: 8px solid #30bb9b;
   }
 
-  .fa-thumbs-up, .fa-thumbs-down {
-    color: #d3d3d3;
-    cursor: pointer;
-
-    &.active {
-      color: #4378bd;
-    }
+  &.status-in-progress {
+    border-left: 8px solid #ff8100;
   }
 
-  h4, .author {
-    cursor: pointer;
+  &.status-done {
+    border-left: 8px solid #069424;
   }
+}
 
-  .idea-actions {
-    line-height: 75px;
-    float: right;
-
-    i {
-      transition: color 0.5s ease;
-      color: #d3d3d3;
-      cursor: pointer;
-    }
-
-    i:hover {
-      color: black;
-    }
-  }
-
-  .idea-comments-count {
-    line-height: 65px;
-    transition: color 0.5s ease;
-    color: #d3d3d3;
-    cursor: pointer;
-
-    &:hover {
-      color: black;
+// Index list
+.list-group {
+  .list-group-item {
+    h4 {
+      color: #333;
     }
 
-    span {
+    .actions {
       font-size: 25px;
-      padding-left: 10px;
-    }
-  }
-}
+      color: #d3d3d3;
 
-.well {
-  h1, h2, h3, h4 {
-    margin: 0;
+      div.item {
+        float: left;
+        transition: color 0.5s ease;
+        padding-right: 15px;
+
+        a {
+          color: #d3d3d3;
+        }
+
+        span {
+          padding-left: 5px;
+        }
+        .active { color: #4378bd; }
+      }
+    }
   }
 }
 
@@ -98,184 +153,15 @@ $navbar-height: 100px;
   }
 }
 
-.navbar-inverse {
-  background-color: #4378bd;
-  border-color: #4378bd;
-}
-
-.navbar-header .profileImage {
-  display: none;
-}
-
-.navbar-nav > li {
-  padding: 0 15px;
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    min-height: 50px;
-
-    li {
-      padding: 10px 15px;
-    }
-  }
-
-  .navbar-nav {
-    margin: 0px -15px;
-  }
-
-
-  .navbar-brand {
-    padding: 35px 15px;
-    height: 50px
-  }
-
-  button.navbar-toggle {
-    margin-top: 15px;
-    margin-bottom: 15px;
-  }
-
-  button.navbar-toggle {
-    border: none !important;
-    color: #ffffff;
-    background-color: #1a4f96 !important;
-    float: left;
-    margin-left: 20px;
-    margin-right: 0;
-
-    &.collapsed {
-      background-color: #4c7dbd !important;
-    }
-  }
-
-  .navbar-header .profileImage {
-    display: block !important;
-    float: right;
-    margin: 13px !important;
-  }
-
-  .nav.navbar-right.profile-container {
-    display: none;
-  }
-}
-
-.navbar-brand {
-  background-image: url('../images/ictawhitelower.png');
-  background-size: 65%;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 160px;
-}
-
-.navbar-nav > li:hover {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#999999+0,3c6dad+95,3c6dad+95,3c6dad+97,1d5caa+97,1d5caa+100&0+0,1+100 */
-  background: -moz-linear-gradient(top, rgba(153,153,153,0) 0%, rgba(60,109,173,0.95) 95%, rgba(29,92,170,0.97) 95%, rgba(29,92,170,1) 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(153,153,153,0) 0%,rgba(60,109,173,0.95) 95%,rgba(29,92,170,0.97) 95%,rgba(29,92,170,1) 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(153,153,153,0) 0%,rgba(60,109,173,0.95) 95%,rgba(29,92,170,0.97) 95%,rgba(29,92,170,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00999999', endColorstr='#1d5caa',GradientType=0 ); /* IE6-9 */
-}
-
-.navbar-inverse .navbar-nav > li > a {
-  color: #ffffff;
-  font-size: 14pt;
-}
-
-.navbar-inverse .navbar-text {
-  color: #ffffff;
-}
-
-.navbar-inverse .profileImage {
-  margin: 25px 0;
+.profile-image {
   width: 50px;
   height: 50px;
-}
-
-.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-  border-color: #6ba5f1;
-}
-
-.profileImage {
-  border: 2px solid white;
+  border: 2px solid #fff;
   border-radius: 7px;
-}
 
-.comment-user-image {
-  margin-right: 10px;
-}
-
-.small-profile-image {
-  width: 20px;
-  height: 20px;
-  border-radius: 3px;
-
-}
-
-.show-idea{
-  .title {
-    h1, h4 {
-      float: left;
-    }
-
-    h4 {
-      padding: 10px 20px;
-    }
+  &.small {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
   }
-}
-
-.filters-status {
-  line-height: 28px;
-  font-size: 16px;
-
-  .filter {
-    float: left;
-    margin: 0 7px 10px 7px;
-  }
-}
-
-.label, .status-row {
-  &.label-status-new {
-    background-color: #337ab7;
-  }
-
-  &.label-status-planned {
-    background-color: #30bb9b;
-  }
-
-  &.label-status-in_progress {
-    background-color: #ff8100;
-  }
-
-  &.label-status-done {
-    background-color: #069424;
-  }
-}
-
-.list-group-item  {
-  &.status-new {
-    border-left: 10px solid #337ab7;
-  }
-
-  &.status-planned {
-    border-left: 10px solid#30bb9b;
-  }
-
-  &.status-in_progress {
-    border-left: 10px solid#ff8100;
-  }
-
-  &.status-done {
-    border-left: 10px solid #069424;
-  }
-
-  .author-field {
-    text-align: right;
-
-    img {
-      margin-left: 10px;
-    }
-  }
-}
-
-.filters-status {
-  cursor: pointer;
 }

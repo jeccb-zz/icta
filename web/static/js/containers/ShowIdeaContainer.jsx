@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ShowIdea from '../components/ShowIdea';
-import { fetchIdea, addComment } from '../actions/ideas';
+import { fetchIdea, addComment, deleteIdea } from '../actions/ideas';
 
 class ShowIdeaContainer extends Component {
   componentWillMount() {
@@ -11,12 +11,19 @@ class ShowIdeaContainer extends Component {
   }
 
   render () {
-    const {idea, onAddComment, currentUser} = this.props;
+    const {idea, history, onAddComment, onDelete, currentUser} = this.props;
 
     if (idea === null || idea.loading) {
       return null
     } else {
-      return (<ShowIdea idea={idea} currentUser={currentUser} onAddComment={(body) => onAddComment(idea.id, body)}/>);
+      return (
+        <ShowIdea
+          idea={idea}
+          currentUser={currentUser}
+          onAddComment={(body) => onAddComment(idea.id, body)}
+          onDeleteIdea={() => onDelete(idea.id, history)}
+        />
+      );
     }
   }
 }
@@ -33,6 +40,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onAddComment: (ideaId, body) => {
     dispatch(addComment(ideaId, body));
+  },
+  onDelete: (ideaId, history) => {
+    dispatch(deleteIdea(ideaId, history));
   },
 });
 

@@ -118,7 +118,7 @@ export const getUser = () => (
   }
 );
 
-export const deleteIdea = (ideaId) => (
+export const deleteIdea = (ideaId, history) => (
   dispatch => {
     dispatch(deleteIdeaRequest());
 
@@ -127,6 +127,12 @@ export const deleteIdea = (ideaId) => (
     channel.push('idea:delete', payload)
       .receive('ok', response => {
         dispatch(deleteIdeaSuccess(ideaId));
+        dispatch(Notifications.success({
+          title: I18n.t('notifications.delete_idea_success.title'),
+          message: I18n.t('notifications.delete_idea_success.message'),
+        }));
+
+        history.push('/');
       })
       .receive('error', error => {
         dispatch(deleteIdeaFailure(error));
