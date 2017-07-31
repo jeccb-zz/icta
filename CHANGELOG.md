@@ -1,6 +1,7 @@
 # Next Version
 
 - Add kind to user
+- Add idea status "Under review"
 
 # 2.4.0
 

@@ -48,4 +48,12 @@ defmodule Icta.IdeaTest do
     assert idea_return.up == 5
     assert idea_return.down == 2
   end
+
+  test "the idea should be under_review by default" do
+    user = insert(:user)
+    insert(:idea, %{user: user})
+
+    idea = Repo.one(from i in Idea)
+    assert idea.status == "under_review"
+  end
 end
