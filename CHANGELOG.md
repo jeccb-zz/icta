@@ -1,5 +1,7 @@
 # Next Version
 
+- Add kind to user
+
 # 2.4.0
 
 - SASS refactoring, style changes on list and show idea

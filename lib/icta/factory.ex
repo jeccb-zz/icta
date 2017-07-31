@@ -5,6 +5,7 @@ defmodule Icta.Factory do
     %Icta.User{
       uid: sequence(:email, &"uid-#{&1}"),
       name: "John Doe",
+      kind: "user"
     }
   end
 

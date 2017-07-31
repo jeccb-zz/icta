@@ -5,6 +5,7 @@ defmodule Icta.User do
     field :uid, :string
     field :name, :string
     field :image_url, :string
+    field :kind, :string
     has_many :votes, Icta.Vote
     has_many :ideas, Icta.Idea
     has_many :comments, Icta.Comment
@@ -17,8 +18,9 @@ defmodule Icta.User do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:uid, :name, :image_url])
+    |> cast(params, [:uid, :name, :image_url, :kind])
     |> validate_required([:uid, :name])
+    |> validate_inclusion(:kind, ["user", "admin"])
   end
 
   def changeset_from_google(struct, body) do
