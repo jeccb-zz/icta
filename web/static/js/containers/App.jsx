@@ -12,6 +12,7 @@ import QuarantineIdeasListContainer from './QuarantineIdeasListContainer';
 import NewIdeaContainer from './NewIdeaContainer';
 import ShowIdeaContainer from './ShowIdeaContainer';
 import EditIdeaContainer from './EditIdeaContainer';
+import UserListContainer from './UserListContainer';
 import Header from '../components/Header';
 
 const history = createBrowserHistory();
@@ -39,6 +40,7 @@ class App extends Component {
                 <Route path="/ideas/new" component={NewIdeaContainer} />
                 <Route path="/ideas/show/:id" component={ShowIdeaContainer} />
                 <Route path="/ideas/edit/:id" component={EditIdeaContainer} />
+                <Route path="/users" component={UserListContainer} />
               </main>
             </div>
           </div>

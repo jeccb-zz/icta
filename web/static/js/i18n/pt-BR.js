@@ -3,6 +3,7 @@ export default {
     list: 'Lista',
     new: 'Nova ideia',
     quarantine: 'Quarentena',
+    users: 'Usuários',
     welcome: 'Bem vindo %{name}',
   },
   idea: {

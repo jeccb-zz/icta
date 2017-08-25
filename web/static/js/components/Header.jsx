@@ -23,6 +23,7 @@ const Header = ({userName, userImage}) => (
           <li><Link to="/"><Translate value="header.list" /></Link></li>
           <li><Link to="/quarantine"><Translate value="header.quarantine" /></Link></li>
           <li><Link to="/ideas/new"><Translate value="header.new" /></Link></li>
+          <li><Link to="/users"><Translate value="header.users" /></Link></li>
         </ul>
         <ul className="nav navbar-nav navbar-right hidden-xs">
           <li>
