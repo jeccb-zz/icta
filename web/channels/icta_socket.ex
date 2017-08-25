@@ -4,8 +4,6 @@ defmodule Icta.IctaSocket do
   alias Icta.Repo
   alias Icta.User
 
-  @max_age 2 * 7 * 24 * 60 * 60
-
   ## Channels
   # channel "room:*", Icta.RoomChannel
 
@@ -15,7 +13,7 @@ defmodule Icta.IctaSocket do
   transport :websocket, Phoenix.Transports.WebSocket
 
   def connect(%{"token" => token}, socket) do
-    case Phoenix.Token.verify(socket, "user socket", token, max_age: @max_age) do
+    case Phoenix.Token.verify(socket, "user socket", token, max_age: nil) do
       {:ok, user_id} ->
         user = Repo.get!(User, user_id)
         IO.puts inspect user
