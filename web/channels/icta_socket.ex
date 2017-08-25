@@ -7,7 +7,8 @@ defmodule Icta.IctaSocket do
   ## Channels
   # channel "room:*", Icta.RoomChannel
 
-  channel "icta", Icta.IdeaChannel
+  channel "idea", Icta.IdeaChannel
+  channel "user", Icta.UserChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

@@ -3,7 +3,14 @@ import Notifications from 'react-notification-system-redux';
 import { I18n } from 'react-redux-i18n';
 
 let socket = configureChannel();
-let channel = socket.channel('icta', {});
+let channel = socket.channel('idea', {});
+channel.join()
+  .receive('ok', messages => {
+    console.log("Channel joined!")
+  })
+  .receive('error', reason => {
+    console.error("Channel not joined :(", reason)
+  });
 
 export const SHOW_IDEAS_REQUEST = 'SHOW_IDEAS_REQUEST';
 export const SHOW_IDEAS_SUCCESS = 'SHOW_IDEAS_SUCCESS';
@@ -90,19 +97,8 @@ const editIdeaReceived = idea => ({ type: EDIT_IDEA_RECEIVED, idea });
 
 const changeMyVote = (ideaId, myVote) => ({ type: CHANGE_MY_VOTE, ideaId, myVote });
 
-const allUsersReceived = (users) => ({ type: ALL_USERS_RECEIVED, users });
-
 export const changeFilterText = (filter) => ({ type: CHANGE_FILTER_TEXT, filter });
 export const changeFilterStatus = (status) => ({ type: CHANGE_FILTER_STATUS, status});
-
-export const getAllUsers = () => (
-  dispatch => {
-    channel.push('user:get_all', {})
-      .receive('ok', response => {
-        dispatch(allUsersReceived(response.users));
-      })
-  }
-);
 
 export const getUser = () => (
   dispatch => {
@@ -124,7 +120,7 @@ export const deleteIdea = (ideaId, history) => (
 
     const payload = { idea_id: ideaId };
 
-    channel.push('idea:delete', payload)
+    channel.push('delete', payload)
       .receive('ok', response => {
         dispatch(deleteIdeaSuccess(ideaId));
         dispatch(Notifications.success({
@@ -176,7 +172,7 @@ export const addComment = (ideaId, body) => (
 
     const payload = { idea_id: ideaId, body: body };
 
-    channel.push('idea:comment:new', payload)
+    channel.push('comment:new', payload)
       .receive('ok', response => {
         dispatch(addCommentSuccess());
         dispatch(fetchIdea(ideaId));
@@ -193,7 +189,7 @@ export const fetchIdea = (ideaId) => (
 
     const payload = { idea_id: ideaId }
 
-    channel.push('idea:get', payload)
+    channel.push('get', payload)
       .receive('ok', response => {
 
         const comments = [ ...response.comments ]
@@ -210,15 +206,7 @@ export const showIdeas = () => (
   dispatch => {
     dispatch(showIdeasRequest());
 
-    channel.join()
-      .receive('ok', messages => {
-        console.log("Channel joined!")
-      })
-      .receive('error', reason => {
-        console.error("Channel not joined :(", reason)
-      });
-
-    channel.push('idea:get_all', null)
+    channel.push('get_all', null)
       .receive('ok', messages => {
         dispatch(showIdeasSuccess(messages.ideas));
       })
@@ -226,11 +214,11 @@ export const showIdeas = () => (
         dispatch(showIdeasFailure(reason));
       });
 
-    channel.on('idea:new', msg => {
+    channel.on('new', msg => {
       dispatch(newIdeaReceived(msg));
     });
 
-    channel.on('idea:edit', msg => {
+    channel.on('edit', msg => {
       dispatch(editIdeaReceived(msg));
     });
 
@@ -246,7 +234,7 @@ export const addIdea = (title, body, history) => (
 
     const payload = { title:title, body: body }
 
-    channel.push('idea:new', payload)
+    channel.push('new', payload)
       .receive('ok', response => {
         dispatch(addIdeaSuccess(response));
         console.log("dispatching success");
@@ -269,7 +257,7 @@ export const editIdea = (ideaId, attributes, history) => (
 
     const payload = { idea_id: ideaId, attributes }
 
-    channel.push('idea:edit', payload)
+    channel.push('edit', payload)
       .receive('ok', response => {
         dispatch(editIdeaSuccess());
 

@@ -7,22 +7,22 @@ defmodule Icta.IdeaChannel do
   alias Icta.Vote
   alias Icta.User
 
-  def join("icta", _params, socket) do
+  def join("idea", _params, socket) do
     {:ok, %{ }, socket }
   end
 
-  def handle_in("idea:get_all", _, socket) do
+  def handle_in("get_all", _, socket) do
     {:reply, {:ok, %{ ideas: Idea.all_with_votes(socket.assigns[:current_user]) }}, socket }
   end
 
-  def handle_in("idea:get", params, socket) do
+  def handle_in("get", params, socket) do
     {:reply, {:ok, %{
       idea: Idea.one_with_votes(params["idea_id"], socket.assigns[:current_user]) ,
       comments: Comment.all_comments_for_idea(params["idea_id"])
     }}, socket }
   end
 
-  def handle_in("idea:delete", params, socket) do
+  def handle_in("delete", params, socket) do
     idea = Repo.get_by!(Idea, %{
                    user_id: socket.assigns[:current_user].id,
                    id: params["idea_id"] })
@@ -32,38 +32,20 @@ defmodule Icta.IdeaChannel do
     end
   end
 
-  def handle_in("idea:new", params, socket) do
+  def handle_in("new", params, socket) do
     result = socket.assigns[:current_user]
              |> build_assoc(:ideas)
              |> Idea.changeset(params)
              |> Repo.insert
 
     case result do
-      {:ok, idea} -> broadcast! socket, "idea:new",
-        %{
-          id: idea.id,
-          title: idea.title,
-          body: idea.body,
-          author: %{
-            id: socket.assigns[:current_user].id,
-            name: socket.assigns[:current_user].name,
-            image_url: socket.assigns[:current_user].image_url
-          },
-          owner: %{ id: nil, name: nil, image_url: nil },
-          up: 0,
-          down: 0,
-          comments_count: 0,
-          status: "new",
-          my_vote: nil
-        }
-        {:reply, :ok, socket }
       {:error, error} ->
         IO.puts("ERROR! #{inspect error}")
         {:reply, {:error, error }, socket }
     end
   end
 
-  def handle_in("idea:comment:new", params, socket) do
+  def handle_in("comment:new", params, socket) do
     result = socket.assigns[:current_user]
              |> build_assoc(:comments)
              |> Comment.changeset(params)
@@ -137,14 +119,14 @@ defmodule Icta.IdeaChannel do
     {:reply, { :ok, %{ users: users } }, socket }
   end
 
-  def handle_in("idea:edit", params, socket) do
+  def handle_in("edit", params, socket) do
     idea = Repo.one(from idea in Idea,
                     where: (idea.id == ^params["idea_id"]) and (idea.user_id == ^socket.assigns[:current_user].id or
                             idea.owner_id == ^socket.assigns[:current_user].id))
     idea = Idea.changeset(idea, params["attributes"])
     case Repo.update(idea) do
       {:ok, _} ->
-        broadcast! socket, "idea:edit", Idea.one_with_votes(params["idea_id"], socket.assigns[:current_user])
+        broadcast! socket, "edit", Idea.one_with_votes(params["idea_id"], socket.assigns[:current_user])
         {:reply, :ok, socket }
       {:error, error} -> {:reply, {:error, error}, socket }
     end

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { showIdeas, getUser } from '../actions/ideas';
 import { connect } from 'react-redux';
 import { createBrowserHistory } from 'history';
+import { joinMainChannel } from '../channel';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Notifications from 'react-notification-system-redux';

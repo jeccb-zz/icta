@@ -48,7 +48,7 @@ class EditIdea extends React.Component {
 
   render() {
     const idea = this.props.idea;
-    const allUsers = this.props.allUsers;
+    const users = this.props.users;
 
     return (
       <div className="col-sm-12">
@@ -65,10 +65,10 @@ class EditIdea extends React.Component {
           </div>
           <div className="form-group">
             <label htmlFor="owner"><Translate value='idea.owner' /></label>
-            { allUsers === 'loading' ? 'Loading' :
+            { users === 'loading' ? 'Loading' :
                 <select defaultValue={idea.owner.id} onChange={this.handleFieldChange('owner_id')} className="form-control">
                   <option key="" value="">Nenhum</option>
-                  { allUsers.map((u) => (<option key={u.id} value={u.id}> {u.name}</option>)) }
+                  { users.map((u) => (<option key={u.id} value={u.id}> {u.name}</option>)) }
                 </select>
             }
           </div>

@@ -2,7 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import EditIdea from '../components/EditIdea';
-import { fetchIdea, editIdea, getAllUsers } from '../actions/ideas';
+import { fetchIdea, editIdea } from '../actions/ideas';
+import { getAllUsers } from '../actions/users';
 
 class EditIdeaContainer extends Component {
   componentWillMount() {
@@ -13,7 +14,7 @@ class EditIdeaContainer extends Component {
   }
 
   render () {
-    const {idea, onEdit, ideaId, fetchIdea, history, allUsers, getAllUsers} = this.props;
+    const {idea, onEdit, ideaId, fetchIdea, history, users, getAllUsers} = this.props;
 
     if (!idea || idea.id != ideaId) {
       return null;
@@ -21,7 +22,7 @@ class EditIdeaContainer extends Component {
       return (
         <EditIdea
           idea={idea}
-          allUsers={allUsers}
+          users={users}
           getAllUsers={getAllUsers}
           onEditIdea={(attributes) => onEdit(idea.id, history, attributes)}
         />
@@ -33,7 +34,7 @@ class EditIdeaContainer extends Component {
 const mapStateToProps = (state, ownProps) => ({
   idea: state.currentIdea,
   ideaId: ownProps.match.params.id,
-  allUsers: state.allUsers,
+  users: state.users,
 });
 
 const mapDispatchToProps = (dispatch) => ({
