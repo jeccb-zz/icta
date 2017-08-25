@@ -1,6 +1,6 @@
 import { CHANGE_FILTER } from '../actions/ideas';
 
-const filter = (state = { text: '', status: ['new', 'planned', 'in_progress', 'done'] }, action) => {
+const ideaFilter = (state = { text: '', status: ['new', 'planned', 'in_progress', 'done'] }, action) => {
   switch (action.type) {
     case 'CHANGE_FILTER_TEXT':
       return { ...state, text: action.filter };
@@ -17,4 +17,4 @@ const filter = (state = { text: '', status: ['new', 'planned', 'in_progress', 'd
   }
 }
 
-export default filter;
+export default ideaFilter;

@@ -96,6 +96,14 @@ $navbar-height: 90px;
   &.status-done {
     background-color: #069424;
   }
+
+  &.status-under-review {
+    background-color: #777777;
+  }
+
+  &.status-denied {
+    background-color: #d30000;
+  }
 }
 
 .well, .list-group-item {
@@ -113,6 +121,14 @@ $navbar-height: 90px;
 
   &.status-done {
     border-left: 8px solid #069424;
+  }
+
+  &.status-under-review {
+    border-left: 8px solid #777777;
+  }
+
+  &.status-denied {
+    border-left: 8px solid #d30000;
   }
 }
 

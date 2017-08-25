@@ -21,6 +21,7 @@ const Header = ({userName, userImage}) => (
       <div id="navbar" className="navbar-collapse collapse">
         <ul className="nav navbar-nav">
           <li><Link to="/"><Translate value="header.list" /></Link></li>
+          <li><Link to="/quarantine"><Translate value="header.quarantine" /></Link></li>
           <li><Link to="/ideas/new"><Translate value="header.new" /></Link></li>
         </ul>
         <ul className="nav navbar-nav navbar-right hidden-xs">

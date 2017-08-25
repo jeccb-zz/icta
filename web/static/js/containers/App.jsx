@@ -7,7 +7,8 @@ import { joinMainChannel } from '../channel';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Notifications from 'react-notification-system-redux';
 
-import IdeasListContainer from './IdeasListContainer';
+import ApprovedIdeasListContainer from './ApprovedIdeasListContainer';
+import QuarantineIdeasListContainer from './QuarantineIdeasListContainer';
 import NewIdeaContainer from './NewIdeaContainer';
 import ShowIdeaContainer from './ShowIdeaContainer';
 import EditIdeaContainer from './EditIdeaContainer';
@@ -33,7 +34,8 @@ class App extends Component {
             <Header />
             <div className="container-fluid">
               <main role="main">
-                <Route exact path="/" component={IdeasListContainer} />
+                <Route exact path="/" component={ApprovedIdeasListContainer} />
+                <Route path="/quarantine" component={QuarantineIdeasListContainer} />
                 <Route path="/ideas/new" component={NewIdeaContainer} />
                 <Route path="/ideas/show/:id" component={ShowIdeaContainer} />
                 <Route path="/ideas/edit/:id" component={EditIdeaContainer} />

@@ -2,6 +2,7 @@ export default {
   header: {
     list: 'List',
     new: 'New idea',
+    quarantine: 'Quarantine',
     welcome: 'Welcome %{name}',
   },
   idea: {
@@ -15,6 +16,8 @@ export default {
       planned: 'Planned',
       in_progress: 'In progress',
       done: 'Finished',
+      under_review: 'Under review',
+      denied: 'Denied'
     },
     title: 'Title',
     body: 'Body',

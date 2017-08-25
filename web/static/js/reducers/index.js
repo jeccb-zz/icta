@@ -3,7 +3,7 @@ import ideas from './ideas'
 import newIdea from './newIdea'
 import currentIdea from './currentIdea'
 import user from './user'
-import filter from './filter'
+import ideaFilter from './ideaFilter'
 import users from './users'
 import { loadTranslations, setLocale, syncTranslationWithStore, i18nReducer } from 'react-redux-i18n';
 import {reducer as notifications} from 'react-notification-system-redux';
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   newIdea,
   currentIdea,
   user,
-  filter,
+  ideaFilter,
   notifications,
   users,
   i18n: i18nReducer,

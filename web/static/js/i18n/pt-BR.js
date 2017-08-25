@@ -2,6 +2,7 @@ export default {
   header: {
     list: 'Lista',
     new: 'Nova ideia',
+    quarantine: 'Quarentena',
     welcome: 'Bem vindo %{name}',
   },
   idea: {
@@ -15,6 +16,8 @@ export default {
       planned: 'Planejada',
       in_progress: 'Em progresso',
       done: 'Finalizada',
+      under_review: 'Em revisão',
+      denied: 'Recusada'
     },
     title: 'Título',
     body: 'Conteúdo',
