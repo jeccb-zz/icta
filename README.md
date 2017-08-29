@@ -82,6 +82,7 @@ icta:
     ICTA_DATABASE_PASSWORD: icta_password
     ICTA_DATABASE_NAME: icta
     ICTA_DATABASE_HOST: your_database_host_without_port
+    ICTA_TERMS_URL: https://<url_for_your_terms_and_conditions_file>
 
   ports:
     - 80:4000

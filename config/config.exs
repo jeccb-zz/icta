@@ -14,7 +14,9 @@ config :icta,
     api_key: System.get_env("ICTA_GOOGLE_API_KEY"),
     redirect_uri: (System.get_env("ICTA_GOOGLE_REDIRECT_URI") || "http://localhost:4000/auth/google/callback"),
     allowed_domain: System.get_env("ICTA_GOOGLE_ALLOWED_DOMAIN")
-  }
+  },
+  terms_and_conditions_url: System.get_env("ICTA_TERMS_URL")
+
 
 # Configures the endpoint
 config :icta, Icta.Endpoint,

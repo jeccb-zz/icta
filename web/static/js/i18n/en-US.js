@@ -33,6 +33,7 @@ export default {
       approve: 'Yes',
       deny: 'No',
     },
+    terms: 'I declare that I\'ve read and accept the <a href="%{url}" target="_blank">terms and contitions</a> for submiting an idea.'
   },
   notifications: {
     new_idea_success: {

@@ -33,6 +33,7 @@ export default {
       approve: 'Sim',
       deny: 'Não',
     },
+    terms: 'Declaro que lí e aceito os <a href="%{url}" target="_blank">termos e condições</a> para envio de uma idéia.'
   },
   notifications: {
     new_idea_success: {

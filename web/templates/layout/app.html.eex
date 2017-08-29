@@ -16,7 +16,10 @@
 
   <body>
     <%= render @view_module, @view_template, assigns %>
-    <script>window.userToken = "<%= assigns[:user_token] %>"</script>
+    <script>
+      window.userToken = "<%= assigns[:user_token] %>"
+      window.termsUrl = "<%=  Application.get_env(:icta, :terms_and_conditions_url) %>"
+    </script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
