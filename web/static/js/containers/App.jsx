@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { showIdeas } from '../actions/ideas';
 import { getUser } from '../actions/users';
 import { connect } from 'react-redux';
 import { createBrowserHistory } from 'history';
@@ -8,6 +9,7 @@ import Notifications from 'react-notification-system-redux';
 
 import ApprovedIdeasListContainer from './ApprovedIdeasListContainer';
 import QuarantineIdeasListContainer from './QuarantineIdeasListContainer';
+import MyIdeasListContainer from './MyIdeasListContainer';
 import NewIdeaContainer from './NewIdeaContainer';
 import ShowIdeaContainer from './ShowIdeaContainer';
 import EditIdeaContainer from './EditIdeaContainer';
@@ -36,6 +38,7 @@ class App extends Component {
               <main role="main">
                 <Route exact path="/" component={ApprovedIdeasListContainer} />
                 <Route path="/quarantine" component={QuarantineIdeasListContainer} />
+                <Route path="/my_ideas" component={MyIdeasListContainer} />
                 <Route path="/ideas/new" component={NewIdeaContainer} />
                 <Route path="/ideas/show/:id" component={ShowIdeaContainer} />
                 <Route path="/ideas/edit/:id" component={EditIdeaContainer} />

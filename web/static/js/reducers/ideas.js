@@ -1,8 +1,18 @@
 import { SHOW_IDEAS_REQUEST, SHOW_IDEAS_SUCCESS, SHOW_IDEAS_FAILURE,
   ADD_IDEA_SUCCESS, VOTE_SUCCESS, DELETE_IDEA_SUCCESS, NEW_IDEA_RECEIVED,
-  CHANGE_MY_VOTE, EDIT_IDEA_RECEIVED, VOTE_REMOVE_SUCCESS } from '../actions/ideas';
+  CHANGE_MY_VOTE, EDIT_IDEA_RECEIVED, VOTE_REMOVE_SUCCESS, DENY_IDEA_SUCCESS } from '../actions/ideas';
 
-const sortIdeas = (ideas) => (ideas.sort((a, b) => ( (b.up - b.down) - (a.up - a.down))));
+const uniqueById = ideas => {
+	var ids = {};
+	return ideas.filter((idea) => {
+		if (ids[idea.id]) {
+			return false;
+		}
+		ids[idea.id] = true;
+		return true;
+	})
+}
+const sortIdeas = ideas => uniqueById(ideas.sort((a, b) => ( (b.up - b.down) - (a.up - a.down))));
 
 const replaceIdea = (ideas, newIdea, index) => (ideas.slice(0, index).concat([newIdea]).concat(ideas.slice(index+1)));
 
@@ -16,8 +26,9 @@ const ideas = (state = [], action) => {
       console.error("Error retrieving ideas")
       return state;
     case NEW_IDEA_RECEIVED:
+    case ADD_IDEA_SUCCESS:
       return sortIdeas([
-        ...state,
+        ...state.filter((i) => i.id !== action.idea.id),
         action.idea,
       ]);
     case EDIT_IDEA_RECEIVED:
@@ -53,6 +64,7 @@ const ideas = (state = [], action) => {
       return sortIdeas(
         replaceIdea(state, newIdeaRemoved, indexToRemove)
       );
+    case DENY_IDEA_SUCCESS:
     case DELETE_IDEA_SUCCESS:
       return state.filter((i) => i.id != action.ideaId);
     default:

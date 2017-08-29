@@ -33,6 +33,21 @@ defmodule Icta.Idea do
     idea
   end
 
+  def approve(idea_id, user) do
+    curate("new", idea_id, user)
+  end
+
+  def deny(idea_id, user) do
+    curate("denied", idea_id, user)
+  end
+
+  defp curate(status, idea_id, user) do
+    idea = Icta.Repo.get!(Icta.Idea, idea_id)
+
+    changeset = Icta.Idea.changeset(idea, %{ status: status })
+    Icta.Repo.update(changeset)
+  end
+
   defp vote_count_query(user) do
     query = from i in Icta.Idea,
       left_join: v_up in Icta.Vote, on: i.id == v_up.idea_id and v_up.vote == true,
@@ -48,8 +63,10 @@ defmodule Icta.Idea do
       group_by: [i.id, i.title, i.body, i.status, user.name, user.id, owner.id, my_vote.vote]
 
     query = if user.kind == "user" do
-      from i in query, where: ( i.status != "under_review" or i.status != "denied" ) or i.user_id == ^user.id
-    end
+        from i in query, where: ( i.status != "under_review" and i.status != "denied" ) or i.user_id == ^user.id
+      else
+        query
+      end
 
     query
   end

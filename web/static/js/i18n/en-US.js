@@ -5,6 +5,7 @@ export default {
     quarantine: 'Quarantine',
     users: 'Users',
     welcome: 'Welcome %{name}',
+    my_ideas: 'My ideas',
   },
   idea: {
     comments: {
@@ -27,6 +28,11 @@ export default {
     owner: 'Owner',
     status: 'Status',
     save: 'Save',
+    quarantine: {
+      approved: 'Approved',
+      approve: 'Yes',
+      deny: 'No',
+    },
   },
   notifications: {
     new_idea_success: {
@@ -40,6 +46,18 @@ export default {
     edit_idea_success: {
       title: 'Idea updated!',
       message: 'Idea updated successfully.',
+    },
+    quarantine_approve_idea_success: {
+      title: 'Idea approved!',
+      message: 'Idea approved successfully.',
+    },
+    quarantine_deny_idea_success: {
+      title: 'Idea denied!',
+      message: 'Idea denied successfully.',
+    },
+    user_kind_success: {
+      title: 'User updated',
+      message: 'User kind updated successfully.',
     },
   },
   confirm_message: "Você tem certeza?",

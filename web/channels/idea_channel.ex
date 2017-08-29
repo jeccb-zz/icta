@@ -7,6 +7,8 @@ defmodule Icta.IdeaChannel do
   alias Icta.Vote
   alias Icta.User
 
+  intercept ["quarantine:new", "quarantine:denied"]
+
   def join("idea", _params, socket) do
     {:ok, %{ }, socket }
   end
@@ -23,9 +25,7 @@ defmodule Icta.IdeaChannel do
   end
 
   def handle_in("delete", params, socket) do
-    idea = Repo.get_by!(Idea, %{
-                   user_id: socket.assigns[:current_user].id,
-                   id: params["idea_id"] })
+    idea = get_idea(params["idea_id"], socket.assigns[:current_user])
     case Repo.delete(idea) do
       {:ok, _}        -> {:reply, {:ok, %{}}, socket }
       {:error, error} -> {:reply, {:error, error}, socket }
@@ -33,14 +33,17 @@ defmodule Icta.IdeaChannel do
   end
 
   def handle_in("new", params, socket) do
-    result = socket.assigns[:current_user]
+    current_user = socket.assigns[:current_user]
+    result = current_user
              |> build_assoc(:ideas)
              |> Idea.changeset(params)
              |> Repo.insert
 
     case result do
+      {:ok, idea } ->
+				broadcast! socket, "quarantine:new", serialize_new_idea(idea, current_user)
+				{:reply, {:ok, serialize_new_idea(idea, current_user)}, socket }
       {:error, error} ->
-        IO.puts("ERROR! #{inspect error}")
         {:reply, {:error, error }, socket }
     end
   end
@@ -118,5 +121,42 @@ defmodule Icta.IdeaChannel do
         {:reply, :ok, socket }
       {:error, error} -> {:reply, {:error, error}, socket }
     end
+  end
+
+  def handle_out("quarantine:denied", msg, socket) do
+    if socket.assigns[:current_user].id == msg.author.id do
+      push socket, "quarantine:denied", msg
+    end
+    {:noreply, socket }
+  end
+
+  def handle_out("quarantine:new", msg, socket) do
+    if socket.assigns[:current_user].kind == "admin" do
+      push socket, "new", msg
+    end
+    {:noreply, socket}
+  end
+
+  defp get_idea(id, current_user) do
+    Repo.get_by!(Idea, %{
+                 user_id: current_user.id,
+                 id: id })
+  end
+
+  defp serialize_new_idea(idea, current_user) do
+    %{
+      id: idea.id,
+      title: idea.title,
+      body: idea.body,
+      status: "under_review",
+      author: %{
+        id: current_user.id,
+        name: current_user.name,
+        image_url: current_user.image_url
+      },
+    up: 0,
+    down: 0,
+    comments_count: 0
+  }
   end
 end

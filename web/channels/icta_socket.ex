@@ -8,6 +8,7 @@ defmodule Icta.IctaSocket do
   # channel "room:*", Icta.RoomChannel
 
   channel "idea", Icta.IdeaChannel
+  channel "quarantine", Icta.QuarantineChannel
   channel "user", Icta.UserChannel
 
   ## Transports

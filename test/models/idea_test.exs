@@ -56,4 +56,26 @@ defmodule Icta.IdeaTest do
     idea = Repo.one(from i in Idea)
     assert idea.status == "under_review"
   end
+
+  test "#approve should mark an quarantined idea as new" do
+    user = insert(:user)
+    idea = insert(:idea, %{user: user})
+
+    {:ok, _} = Idea.approve(idea.id, user)
+
+    idea = Repo.get!(Idea, idea.id)
+
+    assert idea.status == "new"
+  end
+
+  test "#deny should mark an quarantined idea as denied" do
+    user = insert(:user)
+    idea = insert(:idea, %{user: user})
+
+    {:ok, _} = Idea.deny(idea.id, user)
+
+    idea = Repo.get!(Idea, idea.id)
+
+    assert idea.status == "denied"
+  end
 end
