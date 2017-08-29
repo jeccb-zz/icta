@@ -1,16 +1,9 @@
-import { configureChannel } from '../channel';
 import Notifications from 'react-notification-system-redux';
 import { I18n } from 'react-redux-i18n';
+import { configureSocket, joinChannel } from '../channel';
 
-let socket = configureChannel();
-let channel = socket.channel('idea', {});
-channel.join()
-  .receive('ok', messages => {
-    console.log("Channel joined!")
-  })
-  .receive('error', reason => {
-    console.error("Channel not joined :(", reason)
-  });
+let socket = configureSocket();
+let channel = joinChannel(socket, 'idea');
 
 export const SHOW_IDEAS_REQUEST = 'SHOW_IDEAS_REQUEST';
 export const SHOW_IDEAS_SUCCESS = 'SHOW_IDEAS_SUCCESS';

@@ -17,7 +17,6 @@ defmodule Icta.IctaSocket do
     case Phoenix.Token.verify(socket, "user socket", token, max_age: nil) do
       {:ok, user_id} ->
         user = Repo.get!(User, user_id)
-        IO.puts inspect user
         {:ok, assign(socket, :current_user, user)}
       {:error, _reason} ->
         :error

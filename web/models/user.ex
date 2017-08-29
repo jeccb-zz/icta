@@ -30,4 +30,14 @@ defmodule Icta.User do
       image_url: body["image"]["url"]
     })
   end
+
+  def update_kind(user_id, kind) do
+    case Icta.Repo.get_by(Icta.User, id: user_id) do
+      nil ->
+        {:error, "not_found"}
+      user ->
+        changeset = Icta.User.changeset(user,  %{kind: kind})
+        Icta.Repo.update(changeset)
+    end
+  end
 end

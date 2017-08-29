@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { Translate } from 'react-redux-i18n';
 
-const Header = ({userName, userImage}) => (
+const Header = ({userName, userImage, isAdmin}) => (
   <nav className="navbar navbar-inverse">
     <div className="container-fluid">
       <div className="navbar-header">
@@ -21,9 +21,10 @@ const Header = ({userName, userImage}) => (
       <div id="navbar" className="navbar-collapse collapse">
         <ul className="nav navbar-nav">
           <li><Link to="/"><Translate value="header.list" /></Link></li>
-          <li><Link to="/quarantine"><Translate value="header.quarantine" /></Link></li>
+          { isAdmin ? <li><Link to="/quarantine"><Translate value="header.quarantine" /></Link></li> : '' }
+          <li><Link to="/my_ideas"><Translate value="header.my_ideas" /></Link></li>
           <li><Link to="/ideas/new"><Translate value="header.new" /></Link></li>
-          <li><Link to="/users"><Translate value="header.users" /></Link></li>
+          { isAdmin ? <li><Link to="/users"><Translate value="header.users" /></Link></li> : '' }
         </ul>
         <ul className="nav navbar-nav navbar-right hidden-xs">
           <li>
@@ -37,6 +38,7 @@ const Header = ({userName, userImage}) => (
 )
 
 const mapStateToProps = (state) => ({
+  isAdmin: state.user.kind === 'admin',
   userName: state.user.name,
   userImage: state.user.image_url,
 })

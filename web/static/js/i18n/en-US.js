@@ -48,4 +48,8 @@ export default {
   back: 'Back',
   edit: 'Edit',
   delete: 'Delete',
+  users: {
+    users: "Users",
+    is_admin: "Is admin ?",
+  }
 }

@@ -48,4 +48,8 @@ export default {
   back: 'Voltar',
   edit: 'Editar',
   delete: 'Excluir',
+  users: {
+    users: "Usuários",
+    is_admin: "Administrador ?",
+  }
 }

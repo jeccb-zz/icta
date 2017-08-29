@@ -23,7 +23,6 @@ defmodule Icta.AuthController do
     case result do
       {:ok, user} ->
         token = Phoenix.Token.sign(conn, "user socket", user.id)
-        IO.puts("Token: #{token}")
 
         conn
         |> put_session(:current_user, user)

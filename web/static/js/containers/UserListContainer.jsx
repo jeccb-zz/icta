@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import UsersList from '../components/UsersList';
 import { connect } from 'react-redux';
 import { changeFilterText } from '../actions/users';
-import { getAllUsers } from '../actions/users';
+import { getAllUsers, setUserKind } from '../actions/users';
 
 import UsersFilter from '../components/UsersFilter';
 
@@ -17,7 +17,7 @@ class UsersListContainer extends Component {
   }
 
   render () {
-    const {users, filter, onChangeFilterText} = this.props;
+    const {users, filter, onChangeFilterText, onChangeUser} = this.props;
 
     if ( users === 'loading' ) {
       return ( <div>Loading...</div> );
@@ -25,7 +25,7 @@ class UsersListContainer extends Component {
       return (
         <div>
           <UsersFilter filter={filter} onChange={onChangeFilterText}/>
-          <UsersList users={users}/>
+          <UsersList users={users} onChangeUser={onChangeUser}/>
         </div>
       );
     }
@@ -40,6 +40,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onChangeFilterText: (event) => {
     dispatch(changeFilterText(event.target.value));
+  },
+  onChangeUser: (user) => (event) => {
+    dispatch(setUserKind(user, event.target.checked ? "admin" : "user"));
   },
   getAllUsers: () => {
     dispatch(getAllUsers());
