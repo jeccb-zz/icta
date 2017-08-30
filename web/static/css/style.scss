@@ -105,6 +105,10 @@ $navbar-height: 90px;
   &.status-denied {
     background-color: #d30000;
   }
+
+  &.category {
+    background-color: #5f5f5f;
+  }
 }
 
 .well, .list-group-item {

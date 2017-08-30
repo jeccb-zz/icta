@@ -54,6 +54,7 @@ defmodule Icta.QuarantineChannel do
       title: idea.title,
       body: idea.body,
       status: idea.status,
+      category: idea.category,
       author: %{
         id: idea.user.id,
         name: idea.user.name,

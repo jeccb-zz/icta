@@ -8,8 +8,8 @@ const NewIdeaContainer = ({onAddIdea, loading, history}) => (
 );
 
 const mapDispatchToProps = dispatch => ({
-  onAddIdea: (history) => (title, body) => {
-    dispatch(addIdea(title, body, history));
+  onAddIdea: (history) => (title, body, category) => {
+    dispatch(addIdea(title, body, category, history));
   }
 });
 

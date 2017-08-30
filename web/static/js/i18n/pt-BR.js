@@ -21,6 +21,11 @@ export default {
       under_review: 'Em revisão',
       denied: 'Recusada'
     },
+    category: "Categoria",
+    categories: {
+      business: "Produto / Serviço",
+      company: "Melhoria interna",
+    },
     title: 'Título',
     body: 'Conteúdo',
     new: 'Criar ideia',

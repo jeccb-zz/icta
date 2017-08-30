@@ -8,23 +8,44 @@ class NewIdea extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { acceptedTerms: false }
+    this.state = { acceptedTerms: false, title: '', body: '', category: 'business' }
 
     this.onSubmit = this.onSubmit.bind(this);
     this.handleTermsChange = this.handleTermsChange.bind(this);
+    this.handleFieldChange = this.handleFieldChange.bind(this);
   }
 
   componentDidMount() {
-    var simplemde = new SimpleMDE({ forceSync: true });
+    const simplemde = new SimpleMDE({ forceSync: true });
+    this.simplemde = simplemde;
+
+    const onChangeArea = () => {
+      const state = this.state;
+      state.body = simplemde.value();
+      this.setState(state);
+    };
+
+    onChangeArea.bind(this);
+    simplemde.codemirror.on("change", onChangeArea);
   }
 
   onSubmit(e) {
+    const { title, body, category } = this.state;
+
     e.preventDefault();
-    if (!title.value.trim()){
+    if (!title.trim()){
       return;
     }
 
-    this.props.onAddIdea(title.value, body.value);
+    this.props.onAddIdea(title, body, category);
+  }
+
+  handleFieldChange(field) {
+    return (event) => {
+      const state = { ...this.state };
+      state[field] = event.target.value;
+      this.setState(state);
+    }
   }
 
   handleTermsChange(e) {
@@ -53,11 +74,24 @@ class NewIdea extends React.Component {
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label htmlFor="title"><Translate value='idea.title' /></label>
-            <input ref={node => { this.title = node }} type="text" className="form-control" id="title" placeholder={I18n.t('idea.title')} />
+            <input
+              type="text"
+              className="form-control"
+              id="title"
+              placeholder={I18n.t('idea.title')}
+              onChange={this.handleFieldChange('title')}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="category"><Translate value='idea.category' /></label>
+            <select onChange={this.handleFieldChange('category')} className="form-control">
+              <option value="business">{I18n.t('idea.categories.business')}</option>
+              <option value="company">{I18n.t('idea.categories.company')}</option>
+            </select>
           </div>
           <div className="form-group">
             <label htmlFor="body"><Translate value='idea.body' /></label>
-            <textarea ref={node => { this.body = node }}  id="body" rows="4"></textarea>
+            <textarea onChange={this.handleFieldChange('body')} id="body" rows="4" value={this.state.body}></textarea>
           </div>
           <div className="row">
             <div className="col-xs-12 col-lg-8">

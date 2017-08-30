@@ -45,6 +45,12 @@ const ShowQuarantineIdea = ({idea, currentUser, onAddComment, onApprove, onDeny}
                   <Translate value={`idea.statuses.${idea.status}`} dangerousHTML />
                 </span>
               </p>
+              <p>
+                <strong><Translate value="idea.category" />: &nbsp;</strong><br />
+                <span className="label category">
+                  <Translate value={`idea.categories.${idea.category}`} dangerousHTML />
+                </span>
+              </p>
               <p> <strong><Translate value="idea.quarantine.approved" />?</strong> </p>
             </div>
           </div>

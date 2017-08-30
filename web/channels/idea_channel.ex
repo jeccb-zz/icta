@@ -149,6 +149,7 @@ defmodule Icta.IdeaChannel do
       title: idea.title,
       body: idea.body,
       status: "under_review",
+      category: idea.category,
       author: %{
         id: current_user.id,
         name: current_user.name,

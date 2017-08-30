@@ -66,7 +66,7 @@ const showIdeasRequest = () => ({ type: SHOW_IDEAS_REQUEST });
 const showIdeasSuccess = ideas => ({ type: SHOW_IDEAS_SUCCESS, ideas });
 const showIdeasFailure = error => ({ type: SHOW_IDEAS_FAILURE, ideas });
 
-const addIdeaRequest = title => ({ type: ADD_IDEA_REQUEST, title, body });
+const addIdeaRequest = (title, body, category) => ({ type: ADD_IDEA_REQUEST, title, body, category });
 const addIdeaSuccess = idea => ({ type: ADD_IDEA_SUCCESS, idea });
 const addIdeaFailure = (title, error) => ({ type: ADD_IDEA_FAILURE, title, error });
 
@@ -206,11 +206,11 @@ export const showIdeas = () => (
   }
 );
 
-export const addIdea = (title, body, history) => (
+export const addIdea = (title, body, category, history) => (
   dispatch => {
-    dispatch(addIdeaRequest(title, body));
+    dispatch(addIdeaRequest(title, body, category));
 
-    const payload = { title:title, body: body }
+    const payload = { title, body, category }
 
     ideaChannel.push('new', payload)
       .receive('ok', response => {

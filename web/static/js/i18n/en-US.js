@@ -21,6 +21,11 @@ export default {
       under_review: 'Under review',
       denied: 'Denied'
     },
+    category: "Categoria",
+    categories: {
+      business: "Product / Service",
+      company: "Internal improvement",
+    },
     title: 'Title',
     body: 'Body',
     new: 'Create idea',

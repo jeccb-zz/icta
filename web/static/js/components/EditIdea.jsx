@@ -82,6 +82,13 @@ class EditIdea extends React.Component {
             </select>
           </div>
           <div className="form-group">
+            <label htmlFor="category"><Translate value='idea.category' /></label>
+            <select value={idea.category} onChange={this.handleFieldChange('category')} className="form-control">
+              <option value="business">{I18n.t('idea.categories.business')}</option>
+              <option value="company">{I18n.t('idea.categories.company')}</option>
+            </select>
+          </div>
+          <div className="form-group">
             <label htmlFor="body"><Translate value='idea.body' /></label>
             <textarea rows="4" value={idea.body} onChange={this.handleFieldChange('body')}></textarea>
           </div>

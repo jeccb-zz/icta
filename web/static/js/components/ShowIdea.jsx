@@ -50,6 +50,12 @@ const ShowIdea = ({idea, onAddComment, onDeleteIdea, currentUser}) => (
               <Translate value={`idea.statuses.${idea.status}`} dangerousHTML />
             </span>
           </p>
+          <p>
+            <strong><Translate value="idea.category" />: &nbsp;</strong><br />
+            <span className="label category">
+              <Translate value={`idea.categories.${idea.category}`} dangerousHTML />
+            </span>
+          </p>
         </div>
         <div className="col-md-10">
           <h1>{idea.title}</h1>
