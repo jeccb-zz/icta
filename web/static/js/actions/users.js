@@ -40,10 +40,6 @@ export const getAllUsers = () => {
       .receive('ok', response => {
         dispatch(allUsersReceived(response.users));
       })
-
-    userChannel.on('updated', msg => {
-      dispatch(userUpdateReceived(msg));
-    });
   }
 };
 
@@ -58,6 +54,10 @@ export const getUser = () => (
       .receive('error', error => {
         dispatch(userInfoFailure(error));
       });
+
+    userChannel.on('updated', msg => {
+      dispatch(userUpdateReceived(msg));
+    });
   }
 );
 

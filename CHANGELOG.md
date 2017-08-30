@@ -1,5 +1,9 @@
 # Next Version
 
+# 3.0.2
+
+- Fix menu not realoading for user that became and admin
+
 # 3.0.1
 
 - Render header links conditionally if the user is an admin
