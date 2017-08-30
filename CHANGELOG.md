@@ -1,5 +1,11 @@
 # Next Version
 
+# 3.0.0
+
+- Idea category
+- Terms and conditions
+- Idea quarantine
+- User management
 - Add kind to user
 - Add idea status "Under review"
 
