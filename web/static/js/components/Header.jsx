@@ -30,10 +30,10 @@ const Header = ({userName, userImage, isAdmin}) => (
       <div id="navbar" className="navbar-collapse collapse">
         <ul className="nav navbar-nav">
           <LinkWrapper to="/" value="header.list" />
-          <LinkWrapper to="/quarantine" value="header.quarantine" />
+          <LinkWrapper to="/quarantine" value="header.quarantine" renderCondition={isAdmin} />
           <LinkWrapper to="/my_ideas" value="header.my_ideas" />
           <LinkWrapper to="/ideas/new" value="header.new" />
-          <LinkWrapper to="/users" value="header.users" />
+          <LinkWrapper to="/users" value="header.users" renderCondition={isAdmin} />
         </ul>
         <ul className="nav navbar-nav navbar-right hidden-xs">
           <li>

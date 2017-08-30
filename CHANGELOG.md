@@ -1,5 +1,9 @@
 # Next Version
 
+# 3.0.1
+
+- Render header links conditionally if the user is an admin
+
 # 3.0.0
 
 - Idea category
