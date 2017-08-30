@@ -3,6 +3,15 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { Translate } from 'react-redux-i18n';
 
+const LinkWrapper = ({to, value, renderCondition}) => (
+  renderCondition === undefined || renderCondition ?
+    <li>
+      <Link to={to}>
+        <Translate value={value} />
+      </Link>
+    </li> : null
+);
+
 const Header = ({userName, userImage, isAdmin}) => (
   <nav className="navbar navbar-inverse">
     <div className="container-fluid">
@@ -20,11 +29,11 @@ const Header = ({userName, userImage, isAdmin}) => (
       </div>
       <div id="navbar" className="navbar-collapse collapse">
         <ul className="nav navbar-nav">
-          <li><Link to="/"><Translate value="header.list" /></Link></li>
-          { isAdmin ? <li><Link to="/quarantine"><Translate value="header.quarantine" /></Link></li> : '' }
-          <li><Link to="/my_ideas"><Translate value="header.my_ideas" /></Link></li>
-          <li><Link to="/ideas/new"><Translate value="header.new" /></Link></li>
-          { isAdmin ? <li><Link to="/users"><Translate value="header.users" /></Link></li> : '' }
+          <LinkWrapper to="/" value="header.list" />
+          <LinkWrapper to="/quarantine" value="header.quarantine" />
+          <LinkWrapper to="/my_ideas" value="header.my_ideas" />
+          <LinkWrapper to="/ideas/new" value="header.new" />
+          <LinkWrapper to="/users" value="header.users" />
         </ul>
         <ul className="nav navbar-nav navbar-right hidden-xs">
           <li>
@@ -35,12 +44,12 @@ const Header = ({userName, userImage, isAdmin}) => (
       </div>
     </div>
   </nav>
-)
+);
 
 const mapStateToProps = (state) => ({
   isAdmin: state.user.kind === 'admin',
   userName: state.user.name,
   userImage: state.user.image_url,
-})
+});
 
 export default connect(mapStateToProps)(Header);
