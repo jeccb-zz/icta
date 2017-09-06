@@ -1,11 +1,13 @@
-import React, { Component, PropTypes } from 'react';
-import { showIdeas } from '../actions/ideas';
-import { getUser } from '../actions/users';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createBrowserHistory } from 'history';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Router, Route } from 'react-router-dom';
 import Notifications from 'react-notification-system-redux';
+
+import { showIdeas } from '../actions/ideas';
+import { getUser as fetchUser } from '../actions/users';
 
 import ApprovedIdeasListContainer from './ApprovedIdeasListContainer';
 import QuarantineIdeasListContainer from './QuarantineIdeasListContainer';
@@ -20,13 +22,13 @@ const history = createBrowserHistory();
 
 class App extends Component {
   componentWillMount() {
-    let { getIdeas, getUser } = this.props;
+    const { getIdeas, getUser } = this.props;
     getIdeas();
     getUser();
   }
 
   render() {
-    const {notifications} = this.props;
+    const { notifications } = this.props;
 
     return (
       <div>
@@ -48,9 +50,15 @@ class App extends Component {
           </div>
         </Router>
       </div>
-    )
+    );
   }
 }
+
+App.propTypes = {
+  getIdeas: PropTypes.func.isRequired,
+  getUser: PropTypes.func.isRequired,
+  notifications: PropTypes.array.isRequired,
+};
 
 const mapStateToProps = state => ({
   notifications: state.notifications,
@@ -61,7 +69,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(showIdeas());
   },
   getUser: () => {
-    dispatch(getUser());
+    dispatch(fetchUser());
   },
 });
 

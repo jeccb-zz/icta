@@ -1,41 +1,58 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import ShowIdea from '../components/ShowIdea';
 import ShowQuarantineIdea from '../components/ShowQuarantineIdea';
 import { fetchIdea, addComment, deleteIdea, approveIdea, denyIdea } from '../actions/ideas';
 
 class ShowIdeaContainer extends Component {
   componentWillMount() {
-    const { fetchIdea, ideaId } = this.props;
-    fetchIdea(ideaId);
+    const { getIdea, ideaId } = this.props;
+    getIdea(ideaId);
   }
 
-  render () {
-    const {idea, history, onAddComment, onDelete, currentUser, onApprove, onDeny} = this.props;
+  render() {
+    const { idea, history, onAddComment, onDelete, currentUser, onApprove, onDeny } = this.props;
 
     if (idea === null || idea.loading) {
-      return null
-    } else {
-      return (
-        idea.status === 'under_review' ?
-        <ShowQuarantineIdea
-          idea={idea}
-          currentUser={currentUser}
-          onAddComment={(body) => onAddComment(idea.id, body)}
-          onApprove={() => onApprove(idea.id, history)}
-          onDeny={() => onDeny(idea.id, history)}
-        /> :
-        <ShowIdea
-          idea={idea}
-          currentUser={currentUser}
-          onAddComment={(body) => onAddComment(idea.id, body)}
-          onDeleteIdea={() => onDelete(idea.id, history)}
-        />
-      );
+      return null;
     }
+
+    return (
+      idea.status === 'under_review' ? <ShowQuarantineIdea
+        idea={idea}
+        currentUser={currentUser}
+        onAddComment={body => onAddComment(idea.id, body)}
+        onApprove={() => onApprove(idea.id, history)}
+        onDeny={() => onDeny(idea.id, history)}
+      /> : <ShowIdea
+        idea={idea}
+        currentUser={currentUser}
+        onAddComment={body => onAddComment(idea.id, body)}
+        onDeleteIdea={() => onDelete(idea.id, history)}
+      />
+    );
   }
 }
+
+ShowIdeaContainer.propTypes = {
+  ideaId: PropTypes.string.isRequired,
+  idea: PropTypes.shape({
+    id: PropTypes.number,
+    loading: PropTypes.bool,
+  }),
+  history: PropTypes.object.isRequired,
+  currentUser: PropTypes.object.isRequired,
+  getIdea: PropTypes.func.isRequired,
+  onAddComment: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onApprove: PropTypes.func.isRequired,
+  onDeny: PropTypes.func.isRequired,
+};
+
+ShowIdeaContainer.defaultProps = {
+  idea: null,
+};
 
 const mapStateToProps = (state, ownProps) => ({
   idea: state.currentIdea,
@@ -43,8 +60,8 @@ const mapStateToProps = (state, ownProps) => ({
   currentUser: state.user,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchIdea: (ideaId) => {
+const mapDispatchToProps = dispatch => ({
+  getIdea: (ideaId) => {
     dispatch(fetchIdea(ideaId));
   },
   onAddComment: (ideaId, body) => {

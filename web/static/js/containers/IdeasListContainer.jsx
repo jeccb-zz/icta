@@ -1,13 +1,20 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import IdeasList from '../components/IdeasList';
 import IdeasListItem from '../components/IdeasListItem';
-import { connect } from 'react-redux';
-import { changeFilterText, changeFilterStatus } from '../actions/ideas';
 
-import IdeasFilter from '../components/IdeasFilter';
-
-const IdeasListContainer = ({ideas}) => (
-  <IdeasList ideas={ideas.map((idea) => (<IdeasListItem key={idea.id} idea={idea} />))} />
+const IdeasListContainer = ({ ideas }) => (
+  <IdeasList ideas={ideas.map(idea => (<IdeasListItem key={idea.id} idea={idea} />))} />
 );
+
+IdeasListContainer.propTypes = {
+  ideas: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+  })),
+};
+
+IdeasListContainer.defaultProps = {
+  ideas: null,
+};
 
 export default IdeasListContainer;
