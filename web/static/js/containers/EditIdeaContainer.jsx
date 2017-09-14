@@ -34,7 +34,7 @@ class EditIdeaContainer extends Component {
 EditIdeaContainer.propTypes = {
   ideaId: PropTypes.string.isRequired,
   idea: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
   }),
   users: PropTypes.oneOfType([
     PropTypes.array,
