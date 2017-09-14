@@ -1,18 +1,13 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Translate, I18n } from 'react-redux-i18n';
-import { Link } from 'react-router-dom';
 
 import SimpleMDE from 'simplemde';
-import ReactMarkdown from 'react-markdown';
 
 class EditIdea extends React.Component {
-
   constructor(props) {
     super(props);
-    this.state = {
-      currentIdea: this.props.idea,
-    }
+    this.state = { currentIdea: this.props.idea };
 
     this.onSubmit = this.onSubmit.bind(this);
     this.handleFieldChange = this.handleFieldChange.bind(this);
@@ -25,25 +20,25 @@ class EditIdea extends React.Component {
 
     const onChangeArea = () => {
       const currentIdea = this.state.currentIdea;
-      currentIdea['body'] = simplemde.value();
-      this.setState({currentIdea: currentIdea});
+      currentIdea.body = simplemde.value();
+      this.setState({ currentIdea });
     };
 
     onChangeArea.bind(this);
-    simplemde.codemirror.on("change", onChangeArea);
+    simplemde.codemirror.on('change', onChangeArea);
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    this.props.onEditIdea(this.state.currentIdea);
   }
 
   handleFieldChange(field) {
     return (event) => {
       const currentIdea = this.state.currentIdea;
       currentIdea[field] = event.target.value;
-      this.setState({currentIdea: currentIdea});
-    }
-  }
-
-  onSubmit(e) {
-    e.preventDefault();
-    this.props.onEditIdea(this.state.currentIdea);
+      this.setState({ currentIdea });
+    };
   }
 
   render() {
@@ -54,7 +49,7 @@ class EditIdea extends React.Component {
       <div className="col-sm-12">
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
-            <label htmlFor="title"><Translate value='idea.title' /></label>
+            <label htmlFor="title"><Translate value="idea.title" /></label>
             <input
               value={idea.title}
               type="text"
@@ -64,16 +59,18 @@ class EditIdea extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="owner"><Translate value='idea.owner' /></label>
-            { users === 'loading' ? 'Loading' :
-                <select defaultValue={idea.owner.id} onChange={this.handleFieldChange('owner_id')} className="form-control">
-                  <option key="" value="">Nenhum</option>
-                  { users.map((u) => (<option key={u.id} value={u.id}> {u.name}</option>)) }
-                </select>
+            <label htmlFor="owner"><Translate value="idea.owner" /></label>
+            { users === 'loading' ?
+              'Loading'
+              :
+              <select defaultValue={idea.owner.id} onChange={this.handleFieldChange('owner_id')} className="form-control">
+                <option key="" value="">Nenhum</option>
+                { users.map(u => (<option key={u.id} value={u.id}> {u.name}</option>)) }
+              </select>
             }
           </div>
           <div className="form-group">
-            <label htmlFor="status"><Translate value='idea.status' /></label>
+            <label htmlFor="status"><Translate value="idea.status" /></label>
             <select value={idea.status} onChange={this.handleFieldChange('status')} className="form-control">
               <option value="new">{I18n.t('idea.statuses.new')}</option>
               <option value="planned">{I18n.t('idea.statuses.planned')}</option>
@@ -82,21 +79,44 @@ class EditIdea extends React.Component {
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="category"><Translate value='idea.category' /></label>
+            <label htmlFor="category"><Translate value="idea.category" /></label>
             <select value={idea.category} onChange={this.handleFieldChange('category')} className="form-control">
               <option value="business">{I18n.t('idea.categories.business')}</option>
               <option value="company">{I18n.t('idea.categories.company')}</option>
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="body"><Translate value='idea.body' /></label>
-            <textarea rows="4" value={idea.body} onChange={this.handleFieldChange('body')}></textarea>
+            <label htmlFor="body"><Translate value="idea.body" /></label>
+            <textarea rows="4" value={idea.body} onChange={this.handleFieldChange('body')} />
           </div>
-          <button type="submit" className="btn btn-primary pull-right"><Translate value='idea.save' /></button>
+          <button type="submit" className="btn btn-primary pull-right">
+            <Translate value="idea.save" />
+          </button>
         </form>
       </div>
-    )
+    );
   }
 }
+
+EditIdea.propTypes = {
+  idea: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+    owner: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    }),
+  }).isRequired,
+  users: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+    })),
+  ]).isRequired,
+  getAllUsers: PropTypes.func.isRequired,
+  onEditIdea: PropTypes.func.isRequired,
+};
 
 export default EditIdea;

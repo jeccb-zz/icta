@@ -1,8 +1,9 @@
-import UsersListItem from './UsersListItem';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Translate } from 'react-redux-i18n';
+import UsersListItem from './UsersListItem';
 
-const UsersList = ({users, onChangeUser}) => (
+const UsersList = ({ users, onChangeUser }) => (
   <div className="row">
     <div className="col-xs-12">
       <ul className="list-group">
@@ -16,10 +17,21 @@ const UsersList = ({users, onChangeUser}) => (
             </div>
           </div>
         </li>
-        { users.map((user) => (<UsersListItem key={user.id} user={user} onChangeUser={onChangeUser(user)}/>)) }
+        { users.map(user => (<UsersListItem
+          key={user.id}
+          user={user}
+          onChangeUser={onChangeUser(user)}
+        />)) }
       </ul>
     </div>
   </div>
 );
+
+UsersList.propTypes = {
+  users: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+  })).isRequired,
+  onChangeUser: PropTypes.func.isRequired,
+};
 
 export default UsersList;

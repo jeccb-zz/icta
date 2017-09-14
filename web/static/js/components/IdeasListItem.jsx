@@ -1,23 +1,25 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom'
-import { vote, removeVote, fetchIdea } from '../actions/ideas';
+import { withRouter } from 'react-router-dom';
 import { Translate } from 'react-redux-i18n';
 
-const IdeasListItem = withRouter(({idea, voteUp, voteDown, removeVote, ideaClick, history, userId}) => (
-  <li className={`list-group-item status-${idea.status.replace('_','-')}`}>
+import { vote, removeVote } from '../actions/ideas';
+
+const IdeasListItem = withRouter(({ idea, clickUp, clickDown, ideaClick, history }) => (
+  <li className={`list-group-item status-${idea.status.replace('_', '-')}`}>
     <div className="row">
       <div className="col-xs-8">
-        <img className="profile-image small" src={idea.author.image_url} />
+        <img className="profile-image small" alt="profile" src={idea.author.image_url} />
         &nbsp; {idea.author.name}
       </div>
-      <div className="col-xs-4" onClick={() => {ideaClick(idea, history)}}>
-        <span className={`label status-${idea.status.replace('_','-')} pull-right`}>
+      <div className="col-xs-4" onClick={(e) => { ideaClick(e, idea, history); }}>
+        <span className={`label status-${idea.status.replace('_', '-')} pull-right`}>
           <Translate value={`idea.statuses.${idea.status}`} dangerousHTML />
         </span>
       </div>
-      <div className="col-xs-12" onClick={() => {ideaClick(idea, history)}}>
-        <a href="javascript:void(0);" onClick={() => {ideaClick(idea, history)}}>
+      <div className="col-xs-12" onClick={(e) => { ideaClick(e, idea, history); }}>
+        <a onClick={(e) => { ideaClick(e, idea, history); }}>
           <h4 className="title">{idea.title}</h4>
         </a>
       </div>
@@ -25,21 +27,21 @@ const IdeasListItem = withRouter(({idea, voteUp, voteDown, removeVote, ideaClick
     <div className="row actions">
       <div className="col-xs-8">
         <div className="item">
-          <a href="javascript:void(0);" onClick={() => {idea.my_vote === true ? removeVote(idea.id) : voteUp(idea.id)}}>
-            <i className={`fa fa-thumbs-up ${idea.my_vote === true ? 'active' : ''}`}></i>
+          <a onClick={(e) => { clickUp(e, idea); }} >
+            <i className={`fa fa-thumbs-up ${idea.my_vote === true ? 'active' : ''}`} />
           </a>
           <span>{idea.up}</span>
         </div>
         <div className="item">
-          <a href="javascript:void(0);" onClick={() => {idea.my_vote === false ? removeVote(idea.id) : voteDown(idea.id)}}>
-            <i className={`fa fa-thumbs-down ${idea.my_vote === false ? 'active' : ''}`}></i>
+          <a onClick={(e) => { clickDown(e, idea); }} >
+            <i className={`fa fa-thumbs-down ${idea.my_vote === false ? 'active' : ''}`} />
           </a>
           <span>{idea.down}</span>
         </div>
       </div>
       <div className="col-xs-4 item text-right">
-        <a href="javascript:void(0);" onClick={() => {ideaClick(idea, history)}}>
-          <i className="fa fa-comments-o"></i>
+        <a onClick={(e) => { ideaClick(e, idea, history); }}>
+          <i className="fa fa-comments-o" />
         </a>
         <span>{idea.comments_count}</span>
       </div>
@@ -47,31 +49,35 @@ const IdeasListItem = withRouter(({idea, voteUp, voteDown, removeVote, ideaClick
   </li>
 ));
 
-const mapStateToProps = state => ({
-  userId: state.user.id,
-});
+const clickVote = (e, dispatch, currentVote, newVote, ideaId) => {
+  e.preventDefault();
+  if (currentVote === newVote) {
+    dispatch(removeVote(ideaId));
+  } else {
+    dispatch(vote(ideaId, newVote));
+  }
+};
 
 const mapDispatchToProps = dispatch => ({
-  voteUp: (ideaId) => { dispatch(vote(ideaId, true)); },
-  voteDown: (ideaId) => { dispatch(vote(ideaId, false)); },
-  removeVote: (ideaId) => { dispatch(removeVote(ideaId)); },
-  ideaClick: (idea, history) => {
+  clickUp: (e, idea) => { clickVote(e, dispatch, idea.my_vote, true, idea.id); },
+  clickDown: (e, idea) => { clickVote(e, dispatch, idea.my_vote, false, idea.id); },
+  ideaClick: (e, idea, history) => {
     history.push(`/ideas/show/${idea.id}`);
+    e.preventDefault();
   },
 });
 
 IdeasListItem.propTypes = {
-  voteUp: PropTypes.func.isRequired,
-  voteDown: PropTypes.func.isRequired,
-  removeVote: PropTypes.func.isRequired,
+  clickUp: PropTypes.func.isRequired,
+  clickDown: PropTypes.func.isRequired,
   idea: PropTypes.shape({
     title: PropTypes.string.isRequired,
     author: PropTypes.shape({
       name: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired,
     }).isRequired,
-    id: PropTypes.number.isRequired
-  }).isRequired
+    id: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(IdeasListItem);
+export default connect(null, mapDispatchToProps)(IdeasListItem);

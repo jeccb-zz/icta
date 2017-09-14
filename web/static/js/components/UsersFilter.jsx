@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Translate, I18n } from 'react-redux-i18n';
-import { connect } from 'react-redux';
 
-const UsersFilter = ({filter, onChange}) => (
+const UsersFilter = ({ filter, onChange }) => (
   <div className="panel panel-default">
     <div className="panel-body">
       <div className="row">
@@ -15,6 +15,13 @@ const UsersFilter = ({filter, onChange}) => (
       </div>
     </div>
   </div>
-)
+);
+
+UsersFilter.propTypes = {
+  filter: PropTypes.shape({
+    text: PropTypes.string.isRequired,
+  }).isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default UsersFilter;

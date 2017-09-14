@@ -1,14 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import SimpleMDE from 'simplemde';
 import { Translate, I18n } from 'react-redux-i18n';
 
-import ReactMarkdown from 'react-markdown';
-
 class NewIdea extends React.Component {
-
   constructor(props) {
     super(props);
-    this.state = { acceptedTerms: false, title: '', body: '', category: 'business' }
+    this.state = { acceptedTerms: false, title: '', body: '', category: 'business' };
 
     this.onSubmit = this.onSubmit.bind(this);
     this.handleTermsChange = this.handleTermsChange.bind(this);
@@ -26,14 +24,14 @@ class NewIdea extends React.Component {
     };
 
     onChangeArea.bind(this);
-    simplemde.codemirror.on("change", onChangeArea);
+    simplemde.codemirror.on('change', onChangeArea);
   }
 
   onSubmit(e) {
     const { title, body, category } = this.state;
 
     e.preventDefault();
-    if (!title.trim()){
+    if (!title.trim()) {
       return;
     }
 
@@ -45,7 +43,7 @@ class NewIdea extends React.Component {
       const state = { ...this.state };
       state[field] = event.target.value;
       this.setState(state);
-    }
+    };
   }
 
   handleTermsChange(e) {
@@ -58,9 +56,10 @@ class NewIdea extends React.Component {
   render() {
     const termsUrl = window.termsUrl;
 
-    const TermsCheck = ({handleTermsChange, termsUrl, acceptedTerms}) => (
-      <label>
+    const TermsCheck = ({ handleTermsChange, acceptedTerms }) => (
+      <label htmlFor="chk-terms">
         <input
+          name="chk-terms"
           type="checkbox"
           onChange={handleTermsChange}
           checked={acceptedTerms}
@@ -73,7 +72,7 @@ class NewIdea extends React.Component {
       <div className="col-sm-12">
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
-            <label htmlFor="title"><Translate value='idea.title' /></label>
+            <label htmlFor="title"><Translate value="idea.title" /></label>
             <input
               type="text"
               className="form-control"
@@ -83,34 +82,36 @@ class NewIdea extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="category"><Translate value='idea.category' /></label>
+            <label htmlFor="category"><Translate value="idea.category" /></label>
             <select onChange={this.handleFieldChange('category')} className="form-control">
               <option value="business">{I18n.t('idea.categories.business')}</option>
               <option value="company">{I18n.t('idea.categories.company')}</option>
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="body"><Translate value='idea.body' /></label>
-            <textarea onChange={this.handleFieldChange('body')} id="body" rows="4" value={this.state.body}></textarea>
+            <label htmlFor="body"><Translate value="idea.body" /></label>
+            <textarea onChange={this.handleFieldChange('body')} id="body" rows="4" value={this.state.body} />
           </div>
           <div className="row">
             <div className="col-xs-12 col-lg-8">
-              {termsUrl !== "" ?
-                  <TermsCheck
-                    handleTermsChange={this.handleTermsChange}
-                    termsUrl={this.termsUrl}
-                    acceptedTerms={this.state.acceptedTerms}
-                  /> : ''}
+              {termsUrl !== '' ?
+                <TermsCheck
+                  handleTermsChange={this.handleTermsChange}
+                  acceptedTerms={this.state.acceptedTerms}
+                /> : ''}
             </div>
             <div className="col-xs-12 col-lg-3 pull-right">
-              <button type="submit" className="btn btn-primary pull-right" disabled={termsUrl !== '' && !this.state.acceptedTerms} ><Translate value='idea.new' /></button>
+              <button type="submit" className="btn btn-primary pull-right" disabled={termsUrl !== '' && !this.state.acceptedTerms} ><Translate value="idea.new" /></button>
             </div>
           </div>
         </form>
       </div>
-    )
+    );
   }
 }
 
+NewIdea.propTypes = {
+  onAddIdea: PropTypes.func.isRequired,
+};
 
 export default NewIdea;
