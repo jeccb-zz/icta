@@ -27,7 +27,8 @@ defmodule Icta.User do
     changeset(struct, %{
       uid: body["id"],
       name: Enum.join([body["name"]["givenName"], body["name"]["familyName"]], " "),
-      image_url: body["image"]["url"]
+      image_url: body["image"]["url"],
+      kind: "user"
     })
   end
 
