@@ -1,5 +1,9 @@
 # Next Version
 
+# 3.0.3
+
+- Linting all the things
+
 # 3.0.2
 
 - Fix menu not realoading for user that became and admin
