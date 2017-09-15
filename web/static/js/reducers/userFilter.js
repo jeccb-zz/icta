@@ -7,6 +7,6 @@ const userFilter = (state = { text: '' }, action) => {
     default:
       return state;
   }
-}
+};
 
 export default userFilter;
