@@ -2,10 +2,6 @@ import Notifications from 'react-notification-system-redux';
 import { I18n } from 'react-redux-i18n';
 import { configureSocket, joinChannel } from '../channel';
 
-let socket = configureSocket();
-let ideaChannel = joinChannel(socket, 'idea');
-let quarantineChannel = joinChannel(socket, 'quarantine');
-
 export const SHOW_IDEAS_REQUEST = 'SHOW_IDEAS_REQUEST';
 export const SHOW_IDEAS_SUCCESS = 'SHOW_IDEAS_SUCCESS';
 export const SHOW_IDEAS_FAILURE = 'SHOW_IDEAS_FAILURE';
@@ -55,165 +51,170 @@ export const DENY_IDEA_REQUEST = 'DENY_IDEA_REQUEST';
 export const DENY_IDEA_FAILURE = 'DENY_IDEA_FAILURE';
 
 const voteRequest = () => ({ type: VOTE_REQUEST });
-const voteSuccess = (idea) => ({ type: VOTE_SUCCESS, idea });
-const voteFailure = (error) => ({ type: VOTE_FAILURE, error });
+const voteSuccess = idea => ({ type: VOTE_SUCCESS, idea });
 
 const voteRemoveRequest = () => ({ type: VOTE_REMOVE_REQUEST });
-const voteRemoveSuccess = (idea) => ({ type: VOTE_REMOVE_SUCCESS, idea });
-const voteRemoveFailure = (error) => ({ type: VOTE_REMOVE_FAILURE, error });
 
 const showIdeasRequest = () => ({ type: SHOW_IDEAS_REQUEST });
 const showIdeasSuccess = ideas => ({ type: SHOW_IDEAS_SUCCESS, ideas });
-const showIdeasFailure = error => ({ type: SHOW_IDEAS_FAILURE, ideas });
+const showIdeasFailure = error => ({ type: SHOW_IDEAS_FAILURE, error });
 
-const addIdeaRequest = (title, body, category) => ({ type: ADD_IDEA_REQUEST, title, body, category });
+const addIdeaRequest = (title, body, category) => ({
+  type: ADD_IDEA_REQUEST,
+  title,
+  body,
+  category,
+});
+
 const addIdeaSuccess = idea => ({ type: ADD_IDEA_SUCCESS, idea });
 const addIdeaFailure = (title, error) => ({ type: ADD_IDEA_FAILURE, title, error });
 
 const editIdeaRequest = () => ({ type: EDIT_IDEA_REQUEST });
 const editIdeaSuccess = () => ({ type: EDIT_IDEA_SUCCESS });
-const editIdeaFailure = (error) => ({ type: EDIT_IDEA_FAILURE, error });
+const editIdeaFailure = error => ({ type: EDIT_IDEA_FAILURE, error });
 
 const fetchIdeaRequest = () => ({ type: FETCH_IDEA_REQUEST });
-const fetchIdeaSuccess = (idea) => ({ type: FETCH_IDEA_SUCCESS, idea });
-const fetchIdeaFailure = (error) => ({ type: FETCH_IDEA_FAILURE, error });
+const fetchIdeaSuccess = idea => ({ type: FETCH_IDEA_SUCCESS, idea });
+const fetchIdeaFailure = error => ({ type: FETCH_IDEA_FAILURE, error });
 
 const addCommentRequest = () => ({ type: ADD_COMMENT_REQUEST });
 const addCommentSuccess = () => ({ type: ADD_COMMENT_SUCCESS });
-const addCommentFailure = (error) => ({ type: ADD_COMMENT_FAILURE, error });
+const addCommentFailure = error => ({ type: ADD_COMMENT_FAILURE, error });
 
 const deleteIdeaRequest = () => ({ type: DELETE_IDEA_REQUEST });
-const deleteIdeaSuccess = (ideaId) => ({ type: DELETE_IDEA_SUCCESS, ideaId });
-const deleteIdeaFailure = (error) => ({ type: DELETE_IDEA_FAILURE, error });
+const deleteIdeaSuccess = ideaId => ({ type: DELETE_IDEA_SUCCESS, ideaId });
+const deleteIdeaFailure = error => ({ type: DELETE_IDEA_FAILURE, error });
 
-const approveIdeaRequest = () => ({ type: APPROVE_IDEA_REQUEST });
-const approveIdeaSuccess = (ideaId) => ({ type: APPROVE_IDEA_SUCCESS, ideaId });
-const approveIdeaFailure = (error) => ({ type: APPROVE_IDEA_FAILURE, error });
+const approveIdeaSuccess = ideaId => ({ type: APPROVE_IDEA_SUCCESS, ideaId });
+const approveIdeaFailure = error => ({ type: APPROVE_IDEA_FAILURE, error });
 
-const denyIdeaRequest = () => ({ type: DENY_IDEA_REQUEST });
-const denyIdeaSuccess = (ideaId) => ({ type: DENY_IDEA_SUCCESS, ideaId });
-const denyIdeaFailure = (error) => ({ type: DENY_IDEA_FAILURE, error });
+const denyIdeaSuccess = ideaId => ({ type: DENY_IDEA_SUCCESS, ideaId });
+const denyIdeaFailure = error => ({ type: DENY_IDEA_FAILURE, error });
 
 const newIdeaReceived = idea => ({ type: NEW_IDEA_RECEIVED, idea });
 const editIdeaReceived = idea => ({ type: EDIT_IDEA_RECEIVED, idea });
 
 const changeMyVote = (ideaId, myVote) => ({ type: CHANGE_MY_VOTE, ideaId, myVote });
 
-export const changeFilterText = (filter) => ({ type: CHANGE_FILTER_TEXT, filter });
-export const changeFilterStatus = (status) => ({ type: CHANGE_FILTER_STATUS, status});
+export const changeFilterText = filter => ({ type: CHANGE_FILTER_TEXT, filter });
+export const changeFilterStatus = status => ({ type: CHANGE_FILTER_STATUS, status });
 
-export const removeVote = (ideaId) => (
-  dispatch => {
+const socket = configureSocket();
+const ideaChannel = joinChannel(socket, 'idea');
+const quarantineChannel = joinChannel(socket, 'quarantine');
+
+export const removeVote = ideaId => (
+  (dispatch) => {
     dispatch(voteRemoveRequest());
-    const payload = { idea_id: ideaId }
+    const payload = { idea_id: ideaId };
 
     ideaChannel.push('vote:remove', payload)
-      .receive('ok', response => {
+      .receive('ok', () => {
         dispatch(changeMyVote(ideaId, null));
       })
-      .receive('error', error => {
-        dispatch(addIdeaFailure(title, error));
+      .receive('error', (error) => {
+        dispatch(addIdeaFailure(null, error));
       });
   }
-)
-export const vote = (ideaId, vote) => (
-  dispatch => {
+);
+
+export const vote = (ideaId, voteValue) => (
+  (dispatch) => {
     dispatch(voteRequest());
 
-    const payload = { idea_id: ideaId, vote }
+    const payload = { idea_id: ideaId, vote: voteValue };
 
     ideaChannel.push('vote:new', payload)
-      .receive('ok', response => {
-        dispatch(changeMyVote(ideaId, vote));
+      .receive('ok', () => {
+        dispatch(changeMyVote(ideaId, voteValue));
       })
-      .receive('error', error => {
-        dispatch(addIdeaFailure(title, error));
+      .receive('error', (error) => {
+        dispatch(addIdeaFailure(null, error));
       });
   }
 );
 
-export const addComment = (ideaId, body) => (
-  dispatch => {
-    dispatch(addCommentRequest());
-
-    const payload = { idea_id: ideaId, body: body };
-
-    ideaChannel.push('comment:new', payload)
-      .receive('ok', response => {
-        dispatch(addCommentSuccess());
-        dispatch(fetchIdea(ideaId));
-      })
-      .receive('error', error => {
-        dispatch(addCommentFailure(error));
-      })
-  }
-);
-
-export const fetchIdea = (ideaId) => (
-  dispatch => {
+export const fetchIdea = ideaId => (
+  (dispatch) => {
     dispatch(fetchIdeaRequest());
 
-    const payload = { idea_id: ideaId }
+    const payload = { idea_id: ideaId };
 
     ideaChannel.push('get', payload)
-      .receive('ok', response => {
-
-        const comments = [ ...response.comments ]
+      .receive('ok', (response) => {
+        const comments = [...response.comments];
         const idea = { ...response.idea, comments };
         dispatch(fetchIdeaSuccess(idea));
       })
-      .receive('error', error => {
+      .receive('error', (error) => {
         dispatch(fetchIdeaFailure(error));
       });
   }
 );
 
+export const addComment = (ideaId, body) => (
+  (dispatch) => {
+    dispatch(addCommentRequest());
+
+    const payload = { idea_id: ideaId, body };
+
+    ideaChannel.push('comment:new', payload)
+      .receive('ok', () => {
+        dispatch(addCommentSuccess());
+        dispatch(fetchIdea(ideaId));
+      })
+      .receive('error', (error) => {
+        dispatch(addCommentFailure(error));
+      });
+  }
+);
+
 export const showIdeas = () => (
-  dispatch => {
+  (dispatch) => {
     dispatch(showIdeasRequest());
 
     ideaChannel.push('get_all', null)
-      .receive('ok', messages => {
+      .receive('ok', (messages) => {
         dispatch(showIdeasSuccess(messages.ideas));
       })
-      .receive('error', reason => {
+      .receive('error', (reason) => {
         dispatch(showIdeasFailure(reason));
       });
 
-    ideaChannel.on('new', msg => {
+    ideaChannel.on('new', (msg) => {
       dispatch(newIdeaReceived(msg));
     });
 
-    ideaChannel.on('edit', msg => {
+    ideaChannel.on('edit', (msg) => {
       dispatch(editIdeaReceived(msg));
     });
 
-    ideaChannel.on('vote:new', msg => {
+    ideaChannel.on('vote:new', (msg) => {
       dispatch(voteSuccess(msg));
     });
 
-    quarantineChannel.on('new', msg => {
+    quarantineChannel.on('new', (msg) => {
       dispatch(newIdeaReceived(msg));
     });
 
-    ideaChannel.on('quarantine:approved', msg => {
+    ideaChannel.on('quarantine:approved', (msg) => {
       dispatch(newIdeaReceived(msg));
     });
 
-    ideaChannel.on('quarantine:denied', msg => {
+    ideaChannel.on('quarantine:denied', (msg) => {
       dispatch(newIdeaReceived(msg));
     });
   }
 );
 
 export const addIdea = (title, body, category, history) => (
-  dispatch => {
+  (dispatch) => {
     dispatch(addIdeaRequest(title, body, category));
 
-    const payload = { title, body, category }
+    const payload = { title, body, category };
 
     ideaChannel.push('new', payload)
-      .receive('ok', response => {
+      .receive('ok', (response) => {
         dispatch(addIdeaSuccess(response));
 
         dispatch(Notifications.success({
@@ -223,20 +224,20 @@ export const addIdea = (title, body, category, history) => (
 
         history.push('/');
       })
-      .receive('error', error => {
+      .receive('error', (error) => {
         dispatch(addIdeaFailure(title, error));
       });
   }
 );
 
 export const editIdea = (ideaId, attributes, history) => (
-  dispatch => {
+  (dispatch) => {
     dispatch(editIdeaRequest());
 
-    const payload = { idea_id: ideaId, attributes }
+    const payload = { idea_id: ideaId, attributes };
 
     ideaChannel.push('edit', payload)
-      .receive('ok', response => {
+      .receive('ok', () => {
         dispatch(editIdeaSuccess());
 
         dispatch(Notifications.success({
@@ -247,36 +248,38 @@ export const editIdea = (ideaId, attributes, history) => (
         history.push(`/ideas/show/${ideaId}`);
       })
 
-      .receive('error', error => {
+      .receive('error', (error) => {
         dispatch(editIdeaFailure(error));
       });
   }
 );
 
-const simpleIdeaAction = (action, onSuccess, onError) => simpleAction(ideaChannel, action, onSuccess, onError);
-const simpleQuarantineAction = (action, onSuccess, onError) => simpleAction(quarantineChannel, action, onSuccess, onError);
-
 const simpleAction = (channel, action, onSuccess, onError) => (ideaId, history) => (
-  dispatch => {
+  (dispatch) => {
     dispatch(deleteIdeaRequest());
 
     const payload = { idea_id: ideaId };
 
     channel.push(action, payload)
-      .receive('ok', response => {
+      .receive('ok', () => {
         dispatch(onSuccess(ideaId));
         dispatch(Notifications.success({
-          title: I18n.t(`notifications.${action}_idea_success.title`.replace(':','_')),
-          message: I18n.t(`notifications.${action}_idea_success.message`.replace(':','_')),
+          title: I18n.t(`notifications.${action}_idea_success.title`.replace(':', '_')),
+          message: I18n.t(`notifications.${action}_idea_success.message`.replace(':', '_')),
         }));
 
         history.push('/');
       })
-      .receive('error', error => {
+      .receive('error', (error) => {
         dispatch(onError(error));
       });
   }
 );
+
+const simpleIdeaAction = (action, onSuccess, onError) =>
+  simpleAction(ideaChannel, action, onSuccess, onError);
+const simpleQuarantineAction = (action, onSuccess, onError) =>
+  simpleAction(quarantineChannel, action, onSuccess, onError);
 
 export const approveIdea = simpleQuarantineAction('quarantine:approve', approveIdeaSuccess, approveIdeaFailure);
 export const denyIdea = simpleQuarantineAction('quarantine:deny', denyIdeaSuccess, denyIdeaFailure);
