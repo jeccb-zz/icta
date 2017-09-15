@@ -31,5 +31,6 @@ module.exports = {
   "rules": {
     "react/no-unused-prop-types": ["error", { "skipShapeProps": true }],
     "react/forbid-prop-types": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
   },
 }
