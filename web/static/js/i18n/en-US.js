@@ -19,12 +19,12 @@ export default {
       in_progress: 'In progress',
       done: 'Finished',
       under_review: 'Under review',
-      denied: 'Denied'
+      denied: 'Denied',
     },
-    category: "Categoria",
+    category: 'Categoria',
     categories: {
-      business: "Product / Service",
-      company: "Internal improvement",
+      business: 'Product / Service',
+      company: 'Internal improvement',
     },
     title: 'Title',
     body: 'Body',
@@ -38,7 +38,7 @@ export default {
       approve: 'Yes',
       deny: 'No',
     },
-    terms: 'I declare that I\'ve read and accept the <a href="%{url}" target="_blank">terms and contitions</a> for submiting an idea.'
+    terms: 'I declare that I\'ve read and accept the <a href="%{url}" target="_blank">terms and contitions</a> for submiting an idea.',
   },
   notifications: {
     new_idea_success: {
@@ -66,14 +66,14 @@ export default {
       message: 'User kind updated successfully.',
     },
   },
-  confirm_message: "Você tem certeza?",
+  confirm_message: 'Você tem certeza?',
   datetime: 'MM/DD/YYYY, h:mm',
   filter: 'Filter',
   back: 'Back',
   edit: 'Edit',
   delete: 'Delete',
   users: {
-    users: "Users",
-    is_admin: "Is admin ?",
-  }
-}
+    users: 'Users',
+    is_admin: 'Is admin ?',
+  },
+};

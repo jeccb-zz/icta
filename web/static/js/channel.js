@@ -1,34 +1,29 @@
 import { Socket } from 'phoenix';
 
 export const configureSocket = () => {
-  let socket = new Socket('/socket', {
-    params: {token: window.userToken},
-    logger: (kind, msg, data) => { console.log(`${kind}: ${msg}`, data); }
+  const socket = new Socket('/socket', {
+    params: { token: window.userToken },
+    logger: (kind, msg, data) => { console.log(`${kind}: ${msg}`, data); }, // eslint-disable-line no-console
   });
 
   socket.connect();
 
   return socket;
-}
+};
 
 export const joinChannel = (socket, channelName, onSuccess, onError) => {
-  let channel = socket.channel(channelName, {});
+  const channel = socket.channel(channelName, {});
   channel.join()
-    .receive('ok', messages => {
-
-      if (typeof(onSuccess)==='undefined') {
-        console.log("Channel joined!")
-      } else {
-        onSuccess();
+    .receive('ok', (message) => {
+      if (typeof onSuccess !== 'undefined') {
+        onSuccess(message);
       }
     })
-    .receive('error', reason => {
-      if (typeof(onError)==='undefined') {
-        console.error("Channel not joined :(", reason)
-      } else {
-        onError();
+    .receive('error', (reason) => {
+      if (typeof onError !== 'undefined') {
+        onError(reason);
       }
     });
 
   return channel;
-}
+};

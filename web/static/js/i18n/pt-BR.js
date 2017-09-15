@@ -19,12 +19,12 @@ export default {
       in_progress: 'Em progresso',
       done: 'Finalizada',
       under_review: 'Em revisão',
-      denied: 'Recusada'
+      denied: 'Recusada',
     },
-    category: "Categoria",
+    category: 'Categoria',
     categories: {
-      business: "Produto / Serviço",
-      company: "Melhoria interna",
+      business: 'Produto / Serviço',
+      company: 'Melhoria interna',
     },
     title: 'Título',
     body: 'Conteúdo',
@@ -38,7 +38,7 @@ export default {
       approve: 'Sim',
       deny: 'Não',
     },
-    terms: 'Declaro que lí e aceito os <a href="%{url}" target="_blank">termos e condições</a> para envio de uma idéia.'
+    terms: 'Declaro que lí e aceito os <a href="%{url}" target="_blank">termos e condições</a> para envio de uma idéia.',
   },
   notifications: {
     new_idea_success: {
@@ -66,14 +66,14 @@ export default {
       message: 'Tipo do usuário atualizado com sucesso.',
     },
   },
-  confirm_message: "Você tem certeza?",
+  confirm_message: 'Você tem certeza?',
   datetime: 'DD/MM/YYYY [as] HH:mm',
   filter: 'Filtro',
   back: 'Voltar',
   edit: 'Editar',
   delete: 'Excluir',
   users: {
-    users: "Usuários",
-    is_admin: "Administrador ?",
-  }
-}
+    users: 'Usuários',
+    is_admin: 'Administrador ?',
+  },
+};
