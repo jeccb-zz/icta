@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import IdeasListContainer from './IdeasListContainer';
+import IdeasList from '../components/IdeasList';
+import IdeasListItem from '../components/IdeasListItem';
 import IdeasFilter from '../components/IdeasFilter';
 import { changeFilterStatus, changeFilterText } from '../actions/ideas';
 
@@ -24,7 +25,7 @@ const ApprovedIdeasListContainer = ({ ideas, filter, onChangeFilterText, onChang
       onClickStatus={onChangeFilterStatus}
       statuses={['new', 'planned', 'in_progress', 'done']}
     />
-    <IdeasListContainer ideas={ideas} />
+    <IdeasList ideas={ideas.map(idea => (<IdeasListItem key={idea.id} idea={idea} />))} />
   </div>
 );
 

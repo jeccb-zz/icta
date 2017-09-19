@@ -3,6 +3,7 @@
 - Use a better color for under revision ideas
 - Fix bug causing users to always be set to kind 'user' on login
 - Allow user to filter quarantined ideas, and show under_revision ideas
+- Show a message when no ideas are found given the filter criteria
 
 # 3.0.3
 

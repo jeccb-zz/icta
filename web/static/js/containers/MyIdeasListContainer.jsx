@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import IdeasListContainer from './IdeasListContainer';
+import IdeasList from '../components/IdeasList';
+import IdeasListItem from '../components/IdeasListItem';
 
 const MyIdeasListContainer = ({ ideas }) => (
   <div>
-    <IdeasListContainer ideas={ideas} />
+    <IdeasList ideas={ideas.map(idea => (<IdeasListItem key={idea.id} idea={idea} />))} />
   </div>
 );
 

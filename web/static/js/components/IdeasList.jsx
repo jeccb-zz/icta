@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const IdeasList = ({ ideas }) => (
+import IdeasListEmpty from './IdeasListEmpty';
+
+const IdeasListNotEmpty = ({ ideas }) => (
   <div className="row">
     <div className="col-xs-12">
       <ul className="list-group">
@@ -9,6 +11,10 @@ const IdeasList = ({ ideas }) => (
       </ul>
     </div>
   </div>
+);
+
+const IdeasList = ({ ideas }) => (
+  ideas.length === 0 ? <IdeasListEmpty /> : <IdeasListNotEmpty ideas={ideas} />
 );
 
 IdeasList.propTypes = {

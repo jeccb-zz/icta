@@ -7,6 +7,9 @@ export default {
     welcome: 'Welcome %{name}',
     my_ideas: 'My ideas',
   },
+  ideas: {
+    empty: 'No idea found.',
+  },
   idea: {
     comments: {
       by: 'By <strong>%{name}</strong> at %{date}',
