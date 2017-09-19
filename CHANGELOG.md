@@ -1,5 +1,8 @@
 # Next Version
 
+- Use a better color for under revision ideas
+- Fix bug causing users to always be set to kind 'user' on login
+
 # 3.0.3
 
 - Linting all the things
