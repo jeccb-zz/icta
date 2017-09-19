@@ -22,6 +22,7 @@ const ApprovedIdeasListContainer = ({ ideas, filter, onChangeFilterText, onChang
       filter={filter}
       onChange={onChangeFilterText}
       onClickStatus={onChangeFilterStatus}
+      statuses={['new', 'planned', 'in_progress', 'done']}
     />
     <IdeasListContainer ideas={ideas} />
   </div>

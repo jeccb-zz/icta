@@ -40,6 +40,9 @@ export const CHANGE_MY_VOTE = 'CHANGE_MY_VOTE';
 export const CHANGE_FILTER_TEXT = 'CHANGE_FILTER_TEXT';
 export const CHANGE_FILTER_STATUS = 'CHANGE_FILTER_STATUS';
 
+export const CHANGE_QUARANTINE_FILTER_TEXT = 'CHANGE_QUARANTINE_FILTER_TEXT';
+export const CHANGE_QUARANTINE_FILTER_STATUS = 'CHANGE_QUARANTINE_FILTER_STATUS';
+
 export const ALL_USERS_RECEIVED = 'ALL_USERS_RECEIVED';
 
 export const APPROVE_IDEA_SUCCESS = 'APPROVE_IDEA_SUCCESS';
@@ -95,6 +98,9 @@ const newIdeaReceived = idea => ({ type: NEW_IDEA_RECEIVED, idea });
 const editIdeaReceived = idea => ({ type: EDIT_IDEA_RECEIVED, idea });
 
 const changeMyVote = (ideaId, myVote) => ({ type: CHANGE_MY_VOTE, ideaId, myVote });
+
+export const changeQuarantineFilterText = filter => ({ type: CHANGE_QUARANTINE_FILTER_TEXT, filter });
+export const changeQuarantineFilterStatus = status => ({ type: CHANGE_QUARANTINE_FILTER_STATUS, status });
 
 export const changeFilterText = filter => ({ type: CHANGE_FILTER_TEXT, filter });
 export const changeFilterStatus = status => ({ type: CHANGE_FILTER_STATUS, status });

@@ -6,6 +6,7 @@ import newIdea from './newIdea';
 import currentIdea from './currentIdea';
 import user from './user';
 import ideaFilter from './ideaFilter';
+import quarantineIdeaFilter from './quarantineIdeaFilter';
 import userFilter from './userFilter';
 import users from './users';
 
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   currentIdea,
   user,
   ideaFilter,
+  quarantineIdeaFilter,
   userFilter,
   notifications,
   users,

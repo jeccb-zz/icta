@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Translate, I18n } from 'react-redux-i18n';
 
-const IdeasFilter = ({ filter, onChange, onClickStatus }) => (
+const IdeasFilter = ({ filter, onChange, onClickStatus, statuses }) => (
   <div className="panel panel-default">
     <div className="panel-body">
       <div className="row">
@@ -20,7 +20,7 @@ const IdeasFilter = ({ filter, onChange, onClickStatus }) => (
               </div>
             </div>
             <div className="filters-status">
-              {['new', 'planned', 'in_progress', 'done'].map(status => (
+              {statuses.map(status => (
                 <div className="filter" key={status}>
                   <span className={`label ${filter.status.includes(status) ? `status-${status.replace('_', '-')}` : 'label-default'}`} onClick={onClickStatus(status)}>
                     <Translate value={`idea.statuses.${status}`} />
