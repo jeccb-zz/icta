@@ -99,8 +99,15 @@ const editIdeaReceived = idea => ({ type: EDIT_IDEA_RECEIVED, idea });
 
 const changeMyVote = (ideaId, myVote) => ({ type: CHANGE_MY_VOTE, ideaId, myVote });
 
-export const changeQuarantineFilterText = filter => ({ type: CHANGE_QUARANTINE_FILTER_TEXT, filter });
-export const changeQuarantineFilterStatus = status => ({ type: CHANGE_QUARANTINE_FILTER_STATUS, status });
+export const changeQuarantineFilterText = filter => ({
+  type: CHANGE_QUARANTINE_FILTER_TEXT,
+  filter,
+});
+
+export const changeQuarantineFilterStatus = status => ({
+  type: CHANGE_QUARANTINE_FILTER_STATUS,
+  status,
+});
 
 export const changeFilterText = filter => ({ type: CHANGE_FILTER_TEXT, filter });
 export const changeFilterStatus = status => ({ type: CHANGE_FILTER_STATUS, status });

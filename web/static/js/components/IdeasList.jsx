@@ -21,6 +21,10 @@ IdeasList.propTypes = {
   ideas: PropTypes.array,
 };
 
+IdeasListNotEmpty.propTypes = {
+  ideas: PropTypes.array.isRequired,
+};
+
 IdeasList.defaultProps = {
   ideas: [],
 };

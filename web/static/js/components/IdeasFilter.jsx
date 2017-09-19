@@ -42,6 +42,7 @@ IdeasFilter.propTypes = {
   }).isRequired,
   onChange: PropTypes.func.isRequired,
   onClickStatus: PropTypes.func.isRequired,
+  statuses: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default IdeasFilter;
