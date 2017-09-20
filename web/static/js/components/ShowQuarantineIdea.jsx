@@ -1,13 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
-import { Translate } from 'react-redux-i18n';
+import { Translate, I18n } from 'react-redux-i18n';
 import { Link } from 'react-router-dom';
 
 import Comment from './Comment';
 import NewComment from './NewComment';
 
-const ShowQuarantineIdea = ({ idea, currentUser, onAddComment, onApprove, onDeny }) => (
+const confirmDelete = (onDeleteIdea) => {
+  // TODO: Y U CONFIRM?
+  if (confirm(I18n.t('confirm_message'))) { // eslint-disable-line no-alert
+    onDeleteIdea();
+  }
+};
+
+const canEditIdea = (idea, currentUser) => (
+  currentUser.kind === 'admin' || (
+    idea.status === 'under_review' && (
+      idea.author.id === currentUser.id || idea.owner.id === currentUser.id
+    )
+  )
+);
+
+const canDeleteIdea = (idea, currentUser) => (
+  idea.author.id === currentUser.id && idea.status === 'under_review'
+);
+
+const ShowQuarantineIdea = ({ idea, currentUser, onAddComment, onApprove, onDeny, onDeleteIdea }) => ( // eslint-disable-line max-len
   <div className="show-idea">
     <div className="row">
       <div className="col-xs-4">
@@ -20,12 +39,18 @@ const ShowQuarantineIdea = ({ idea, currentUser, onAddComment, onApprove, onDeny
       </div>
       <div className="col-xs-8 text-right">
         <p>
-          { idea.author.id === currentUser.id || idea.owner.id === currentUser.id ?
+          { canEditIdea(idea, currentUser) ?
             <Link className="btn btn-sm btn-primary" to={`/ideas/edit/${idea.id}`}>
               <i className="fa fa-pencil" /> &nbsp;<Translate value="edit" />
             </Link>
             : ''
           }
+          &nbsp; { canDeleteIdea(idea, currentUser) ? <button
+            onClick={() => { confirmDelete(onDeleteIdea); }}
+            className="btn btn-sm btn-danger"
+          >
+            <i className="fa fa-trash" /> &nbsp;<Translate value="delete" />
+          </button> : '' }
         </p>
       </div>
     </div>
@@ -55,23 +80,28 @@ const ShowQuarantineIdea = ({ idea, currentUser, onAddComment, onApprove, onDeny
                   <Translate value={`idea.categories.${idea.category}`} dangerousHTML />
                 </span>
               </p>
-              <p> <strong><Translate value="idea.quarantine.approved" />?</strong> </p>
+              { currentUser.kind === 'admin' ?
+                <p> <strong><Translate value="idea.quarantine.approved" />?</strong> </p> : ''
+              }
             </div>
           </div>
-          <div className="row">
-            <div className="col-lg-4 col-md-5 col-xs-2">
-              <button className="btn btn-sm btn-success" onClick={onApprove}>
-                <i className="fa fa-check-circle" /> &nbsp;
-                <Translate value="idea.quarantine.approve" />
-              </button>
+          { currentUser.kind === 'admin' ?
+            <div className="row">
+              <div className="col-lg-4 col-md-5 col-xs-2">
+                <button className="btn btn-sm btn-success" onClick={onApprove}>
+                  <i className="fa fa-check-circle" /> &nbsp;
+                  <Translate value="idea.quarantine.approve" />
+                </button>
+              </div>
+              <div className="col-md-5 col-xs-2">
+                <button className="btn btn-sm btn-danger" onClick={onDeny}>
+                  <i className="fa fa-times-circle" /> &nbsp;
+                  <Translate value="idea.quarantine.deny" />
+                </button>
+              </div>
             </div>
-            <div className="col-md-5 col-xs-2">
-              <button className="btn btn-sm btn-danger" onClick={onDeny}>
-                <i className="fa fa-times-circle" /> &nbsp;
-                <Translate value="idea.quarantine.deny" />
-              </button>
-            </div>
-          </div>
+            : ''
+          }
         </div>
         <div className="col-md-10">
           <h1>{idea.title}</h1>
@@ -133,6 +163,7 @@ ShowQuarantineIdea.propTypes = {
   onAddComment: PropTypes.func.isRequired,
   onApprove: PropTypes.func.isRequired,
   onDeny: PropTypes.func.isRequired,
+  onDeleteIdea: PropTypes.func.isRequired,
 };
 
 export default ShowQuarantineIdea;

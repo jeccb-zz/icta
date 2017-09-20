@@ -25,6 +25,7 @@ class ShowIdeaContainer extends Component {
         onAddComment={body => onAddComment(idea.id, body)}
         onApprove={() => onApprove(idea.id, history)}
         onDeny={() => onDeny(idea.id, history)}
+        onDeleteIdea={() => onDelete(idea.id, history)}
       /> : <ShowIdea
         idea={idea}
         currentUser={currentUser}

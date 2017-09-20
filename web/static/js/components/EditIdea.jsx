@@ -44,6 +44,7 @@ class EditIdea extends React.Component {
   render() {
     const idea = this.props.idea;
     const users = this.props.users;
+    const currentUser = this.props.currentUser;
 
     return (
       <div className="col-sm-12">
@@ -69,15 +70,17 @@ class EditIdea extends React.Component {
               </select>
             }
           </div>
-          <div className="form-group">
-            <label htmlFor="status"><Translate value="idea.status" /></label>
-            <select value={idea.status} onChange={this.handleFieldChange('status')} className="form-control">
-              <option value="new">{I18n.t('idea.statuses.new')}</option>
-              <option value="planned">{I18n.t('idea.statuses.planned')}</option>
-              <option value="in_progress">{I18n.t('idea.statuses.in_progress')}</option>
-              <option value="done">{I18n.t('idea.statuses.done')}</option>
-            </select>
-          </div>
+          { currentUser.kind === 'admin' ?
+            <div className="form-group">
+              <label htmlFor="status"><Translate value="idea.status" /></label>
+              <select value={idea.status} onChange={this.handleFieldChange('status')} className="form-control">
+                <option value="new">{I18n.t('idea.statuses.new')}</option>
+                <option value="planned">{I18n.t('idea.statuses.planned')}</option>
+                <option value="in_progress">{I18n.t('idea.statuses.in_progress')}</option>
+                <option value="done">{I18n.t('idea.statuses.done')}</option>
+              </select>
+            </div> : ''
+          }
           <div className="form-group">
             <label htmlFor="category"><Translate value="idea.category" /></label>
             <select value={idea.category} onChange={this.handleFieldChange('category')} className="form-control">
@@ -117,6 +120,9 @@ EditIdea.propTypes = {
   ]).isRequired,
   getAllUsers: PropTypes.func.isRequired,
   onEditIdea: PropTypes.func.isRequired,
+  currentUser: PropTypes.shape({
+    kind: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default EditIdea;

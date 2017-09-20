@@ -14,6 +14,18 @@ const confirmDelete = (onDeleteIdea) => {
   }
 };
 
+const canEditIdea = (idea, currentUser) => (
+  currentUser.kind === 'admin' || (
+    idea.status === 'under_review' && (
+      idea.author.id === currentUser.id || idea.owner.id === currentUser.id
+    )
+  )
+);
+
+const canDeleteIdea = (idea, currentUser) => (
+  idea.author.id === currentUser.id && idea.status === 'under_review'
+);
+
 const ShowIdea = ({ idea, onAddComment, onDeleteIdea, currentUser }) => (
   <div className="show-idea">
     <div className="row">
@@ -27,13 +39,13 @@ const ShowIdea = ({ idea, onAddComment, onDeleteIdea, currentUser }) => (
       </div>
       <div className="col-xs-8 text-right">
         <p>
-          { idea.author.id === currentUser.id || idea.owner.id === currentUser.id ?
+          { canEditIdea(idea, currentUser) ?
             <Link className="btn btn-sm btn-primary" to={`/ideas/edit/${idea.id}`}>
               <i className="fa fa-pencil" /> &nbsp;<Translate value="edit" />
             </Link>
             : ''
           }
-          &nbsp; { idea.author.id === currentUser.id ? <button
+          &nbsp; { canDeleteIdea(idea, currentUser) ? <button
             onClick={() => { confirmDelete(onDeleteIdea); }}
             className="btn btn-sm btn-danger"
           >

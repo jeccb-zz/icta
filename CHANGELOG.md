@@ -1,5 +1,6 @@
 # Next Version
 
+- Allow admins to change idea info anytime
 - Use a better color for under revision ideas
 - Fix bug causing users to always be set to kind 'user' on login
 - Allow user to filter quarantined ideas, and show under_revision ideas

@@ -14,7 +14,7 @@ class EditIdeaContainer extends Component {
   }
 
   render() {
-    const { idea, onEdit, ideaId, history, users, getAllUsers } = this.props;
+    const { idea, onEdit, ideaId, history, users, getAllUsers, currentUser } = this.props;
 
     if (!idea || Number(idea.id) !== Number(ideaId)) {
       return null;
@@ -25,6 +25,7 @@ class EditIdeaContainer extends Component {
         idea={idea}
         users={users}
         getAllUsers={getAllUsers}
+        currentUser={currentUser}
         onEditIdea={attributes => onEdit(idea.id, history, attributes)}
       />
     );
@@ -44,6 +45,9 @@ EditIdeaContainer.propTypes = {
   getIdea: PropTypes.func.isRequired,
   getAllUsers: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
+  currentUser: PropTypes.shape({
+    kind: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 EditIdeaContainer.defaultProps = {
@@ -54,6 +58,7 @@ const mapStateToProps = (state, ownProps) => ({
   idea: state.currentIdea,
   ideaId: ownProps.match.params.id,
   users: state.users,
+  currentUser: state.user,
 });
 
 const mapDispatchToProps = dispatch => ({
